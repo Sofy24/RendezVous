@@ -15,7 +15,7 @@
     <EditText
         android:id="@+id/username"
         android:layout_width="0dp"
-        android:layout_height="30dp"
+        android:layout_height="48dp"
         android:layout_marginTop="96dp"
         android:background="@drawable/border_radius_shifter"
         android:hint="@string/prompt_email"
@@ -26,12 +26,13 @@
 
 
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        android:autofillHints="" />
 
     <EditText
         android:id="@+id/password"
         android:layout_width="0dp"
-        android:layout_height="30dp"
+        android:layout_height="48dp"
         android:layout_marginTop="8dp"
         android:background="@drawable/border_radius_shifter"
         android:hint="@string/prompt_password"
@@ -40,10 +41,12 @@
         android:inputType="textPassword"
         android:selectAllOnFocus="true"
         android:textAlignment="center"
-        app:layout_constraintEnd_toEndOf="parent"
+        android:textColorHint="#757575"
 
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/username" />
+        app:layout_constraintTop_toBottomOf="@+id/username"
+        android:autofillHints="" />
 
     <Button
         android:id="@+id/login"

@@ -1,0 +1,22 @@
+[
+    {
+        "merged": "C:\\Users\\Sofia\\AndroidStudioProjects\\RendezVous\\app\\build\\intermediates\\incremental\\mergeDebugResources\\stripped.dir\\layout\\fab_add.xml",
+        "source": "C:\\Users\\Sofia\\AndroidStudioProjects\\RendezVous\\app\\src\\main\\res\\layout\\fab_add.xml"
+    },
+    {
+        "merged": "C:\\Users\\Sofia\\AndroidStudioProjects\\RendezVous\\app\\build\\intermediates\\incremental\\mergeDebugResources\\stripped.dir\\layout\\activity_login.xml",
+        "source": "C:\\Users\\Sofia\\AndroidStudioProjects\\RendezVous\\app\\src\\main\\res\\layout\\activity_login.xml"
+    },
+    {
+        "merged": "C:\\Users\\Sofia\\AndroidStudioProjects\\RendezVous\\app\\build\\intermediates\\incremental\\mergeDebugResources\\stripped.dir\\layout\\add_take_out.xml",
+        "source": "C:\\Users\\Sofia\\AndroidStudioProjects\\RendezVous\\app\\src\\main\\res\\layout\\add_take_out.xml"
+    },
+    {
+        "merged": "C:\\Users\\Sofia\\AndroidStudioProjects\\RendezVous\\app\\build\\intermediates\\incremental\\mergeDebugResources\\stripped.dir\\layout\\topbar.xml",
+        "source": "C:\\Users\\Sofia\\AndroidStudioProjects\\RendezVous\\app\\src\\main\\res\\layout\\topbar.xml"
+    },
+    {
+        "merged": "C:\\Users\\Sofia\\AndroidStudioProjects\\RendezVous\\app\\build\\intermediates\\incremental\\mergeDebugResources\\stripped.dir\\layout\\calendar_layout.xml",
+        "source": "C:\\Users\\Sofia\\AndroidStudioProjects\\RendezVous\\app\\src\\main\\res\\layout\\calendar_layout.xml"
+    }
+]

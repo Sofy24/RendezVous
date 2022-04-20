@@ -5,6 +5,7 @@ import android.app.Activity;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.Nullable;
@@ -23,6 +24,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.rendezvous.R;
+import com.example.rendezvous.TakeOut;
 import com.example.rendezvous.ui.login.LoginViewModel;
 import com.example.rendezvous.ui.login.LoginViewModelFactory;
 import com.example.rendezvous.databinding.ActivityLoginBinding;
@@ -114,12 +116,16 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
 
+
+
         loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 loadingProgressBar.setVisibility(View.VISIBLE);
                 loginViewModel.login(usernameEditText.getText().toString(),
                         passwordEditText.getText().toString());
+                Intent openHome = new Intent(LoginActivity.this, TakeOut.class);
+                startActivity(openHome);
             }
         });
     }

@@ -6,7 +6,6 @@
     <include layout="@layout/fab_add" />
 
     <include
-        layout="@layout/topbar"
-        />
+        layout="@layout/topbar" />
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

@@ -24,9 +24,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.rendezvous.R;
-import com.example.rendezvous.TakeOut;
-import com.example.rendezvous.ui.login.LoginViewModel;
-import com.example.rendezvous.ui.login.LoginViewModelFactory;
+import com.example.rendezvous.HomeCalendar;
 import com.example.rendezvous.databinding.ActivityLoginBinding;
 
 public class LoginActivity extends AppCompatActivity {
@@ -124,7 +122,7 @@ public class LoginActivity extends AppCompatActivity {
                 loadingProgressBar.setVisibility(View.VISIBLE);
                 loginViewModel.login(usernameEditText.getText().toString(),
                         passwordEditText.getText().toString());
-                Intent openHome = new Intent(LoginActivity.this, TakeOut.class);
+                Intent openHome = new Intent(LoginActivity.this, HomeCalendar.class);
                 startActivity(openHome);
             }
         });

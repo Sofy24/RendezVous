@@ -23,6 +23,7 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.rendezvous.DB.RendezVousDB;
 import com.example.rendezvous.R;
 import com.example.rendezvous.HomeCalendar;
 import com.example.rendezvous.databinding.ActivityLoginBinding;
@@ -41,6 +42,9 @@ public class LoginActivity extends AppCompatActivity {
 
         loginViewModel = new ViewModelProvider(this, new LoginViewModelFactory())
                 .get(LoginViewModel.class);
+
+        RendezVousDB db = RendezVousDB.getInstance(this);
+        db.databaseDAO().insertUser(123123, "cacca", "popo");
 
         final EditText usernameEditText = binding.username;
         final EditText passwordEditText = binding.password;

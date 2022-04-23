@@ -27,10 +27,9 @@ import java.util.List;
 
 public class HomeCalendarFragment extends Fragment {
     private static final String LOG_TAG = "HomeCalendarFragment";
+    private FragmentActivity activity;
 
-    //private CardAdapter adapter;
-
-    //private ListViewModel listViewModel;
+    /****IL FAB NON FUNZIONA PERCHè activity è NULL***/
 
     /**
      * Called to have the fragment instantiate its user interface view.
@@ -64,15 +63,8 @@ public class HomeCalendarFragment extends Fragment {
                 }
             });*/
 
-            /*FloatingActionButton floatingActionButton = view.findViewById(R.id.fab_add);
-            floatingActionButton.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    Utilities.insertFragment((AppCompatActivity) activity, new NewTakeOutFragment(),
-                            NewTakeOutFragment.class.getSimpleName());
-                }
-            });
-        } else {
+
+        /*} else {
             Log.e(LOG_TAG, "Activity is null");
         }*/
 
@@ -103,7 +95,24 @@ public class HomeCalendarFragment extends Fragment {
         @Override
         public void onCreate (@Nullable Bundle savedInstanceState){
             super.onCreate(savedInstanceState);
-            setHasOptionsMenu(true);
+            System.out.println("calendar"+this.activity);
+            if(this.activity != null){
+                /*NON ENTRA QUA PERCHè L'ACTIVITY è NULL*/
+                System.out.println("i'm in");
+                FloatingActionButton floatingActionButton = this.activity.findViewById(R.id.fab_add);
+                floatingActionButton.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        Utilities.insertFragment((AppCompatActivity) activity, new NewTakeOutFragment(),
+                                NewTakeOutFragment.class.getSimpleName());
+                    }
+                });
+            } else {
+                Log.e(LOG_TAG, "Activity is null");
+            }
+
+            //setHasOptionsMenu(true);
+
         }
 
     }

@@ -1,32 +1,26 @@
 package com.example.rendezvous;
 
-import android.app.Activity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.SearchView;
+import androidx.core.util.Pair;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
-import androidx.lifecycle.Observer;
-import androidx.lifecycle.ViewModelProvider;
-import androidx.recyclerview.widget.RecyclerView;
 
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
-
-import java.util.List;
+import com.google.android.material.datepicker.MaterialDatePicker;
+import com.google.android.material.datepicker.MaterialPickerOnPositiveButtonClickListener;
 
 public class NewTakeOutFragment extends Fragment {
     private static final String LOG_TAG = "NewTakeOutFragment";
-
+    private TextView dateRangeText;
+    private Button calendar;
+    private FragmentActivity activity;
 
 
     /**
@@ -46,41 +40,35 @@ public class NewTakeOutFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        FragmentActivity activity = getActivity();
+        this.activity = getActivity();
     }
-        /*if (activity != null) {
-            Utilities.setUpToolbar((AppCompatActivity) activity, getString(R.string.app_name));
-
-            setRecyclerView(activity);
-
-            listViewModel = new ViewModelProvider(activity).get(ListViewModel.class);
-            listViewModel.getCardItems().observe(activity, new Observer<List<CardItem>>() {
-                @Override
-                public void onChanged(List<CardItem> cardItems) {
-                    adapter.setData(cardItems);
-                }
-            });*/
-
-            /*FloatingActionButton floatingActionButton = view.findViewById(R.id.fab_add);
-            floatingActionButton.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    Utilities.insertFragment((AppCompatActivity) activity, new AddFragment(),
-                            AddFragment.class.getSimpleName());
-                }
-            });
-        } else {
-            Log.e(LOG_TAG, "Activity is null");
-        }*/
-
-
 
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setHasOptionsMenu(true);
+        if(activity != null){
+            this.dateRangeText = activity.findViewById(R.id.show_date);
+            this.calendar = activity.findViewById(R.id.button_open_calendar);
+            MaterialDatePicker<Pair<Long, Long>> materialDatePicker = MaterialDatePicker.Builder.dateRangePicker()
+                    .setSelection(Pair.create(MaterialDatePicker.thisMonthInUtcMilliseconds(),
+                            MaterialDatePicker.todayInUtcMilliseconds()))
+                    .setTitleText("Select dates")
+                    .build();
+
+            this.calendar.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    materialDatePicker.show(activity.getSupportFragmentManager(), "tag_picker");
+                    materialDatePicker.addOnPositiveButtonClickListener((MaterialPickerOnPositiveButtonClickListener) selection -> dateRangeText.setText(materialDatePicker.getHeaderText()));
+                }
+            });
+        }
+
+
+
+        //setHasOptionsMenu(true);
     }
 
-    
+
 }

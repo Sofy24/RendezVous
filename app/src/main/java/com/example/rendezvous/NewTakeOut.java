@@ -14,6 +14,7 @@ import com.google.android.material.datepicker.MaterialDatePicker;
 import com.google.android.material.datepicker.MaterialPickerOnPositiveButtonClickListener;
 
 public class NewTakeOut extends AppCompatActivity {
+    /**to delete, but not now*/
     TextView dateRangeText;
     Button calendar;
 

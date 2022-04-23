@@ -23,15 +23,15 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.rendezvous.DB.RendezVousDB;
 import com.example.rendezvous.R;
-import com.example.rendezvous.HomeCalendar;
+import com.example.rendezvous.HomeCalendarActivity;
 import com.example.rendezvous.databinding.ActivityLoginBinding;
 
 public class LoginActivity extends AppCompatActivity {
 
     private LoginViewModel loginViewModel;
     private ActivityLoginBinding binding;
+
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -43,8 +43,10 @@ public class LoginActivity extends AppCompatActivity {
         loginViewModel = new ViewModelProvider(this, new LoginViewModelFactory())
                 .get(LoginViewModel.class);
 
-        RendezVousDB db = RendezVousDB.getInstance(this);
-        db.databaseDAO().insertUser(123123, "cacca", "popo");
+
+
+        /*RendezVousDB db = RendezVousDB.getInstance(this);
+        db.databaseDAO().insertUser(123123, "cacca", "popo");*/
 
         final EditText usernameEditText = binding.username;
         final EditText passwordEditText = binding.password;
@@ -119,14 +121,13 @@ public class LoginActivity extends AppCompatActivity {
         });
 
 
-
         loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 loadingProgressBar.setVisibility(View.VISIBLE);
                 loginViewModel.login(usernameEditText.getText().toString(),
                         passwordEditText.getText().toString());
-                Intent openHome = new Intent(LoginActivity.this, HomeCalendar.class);
+                Intent openHome = new Intent(LoginActivity.this, HomeCalendarActivity.class);
                 startActivity(openHome);
             }
         });

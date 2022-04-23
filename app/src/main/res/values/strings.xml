@@ -12,4 +12,6 @@
     <string name="uscita_title">uscita_title</string>
     <string name="date">date</string>
     <string name="new_take_out">new_take_out</string>
+    <string name="selected_date">ciao</string>
+    <string name="open_calendar">Open calendar</string>
 </resources>

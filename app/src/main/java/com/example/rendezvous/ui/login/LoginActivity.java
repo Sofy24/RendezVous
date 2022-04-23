@@ -127,6 +127,7 @@ public class LoginActivity extends AppCompatActivity {
                 loadingProgressBar.setVisibility(View.VISIBLE);
                 loginViewModel.login(usernameEditText.getText().toString(),
                         passwordEditText.getText().toString());
+                // Here the intent is passed on and next activity is homecalendar
                 Intent openHome = new Intent(LoginActivity.this, HomeCalendarActivity.class);
                 startActivity(openHome);
             }

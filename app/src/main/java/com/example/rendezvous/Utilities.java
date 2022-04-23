@@ -36,15 +36,17 @@ public class Utilities {
         transaction.commit();
     }
 
-    static void setUpToolbar(AppCompatActivity activity, String title) {
+    static void setUpToolBar(AppCompatActivity activity, String title) {
+
         ActionBar actionBar = activity.getSupportActionBar();
-        if (actionBar == null) {
-            //create a toolbar that act as SupportActionBar
-            Toolbar toolbar = new Toolbar(activity);
-            activity.setSupportActionBar(toolbar);
+        if(actionBar == null) {
+            Toolbar toolBar = new Toolbar(activity);
+            activity.setSupportActionBar(toolBar);
+
         } else {
             activity.getSupportActionBar().setTitle(title);
         }
+
     }
 
     /**

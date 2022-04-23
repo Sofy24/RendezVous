@@ -6,6 +6,8 @@
     android:layout_gravity="bottom|end"
     android:layout_margin="16dp"
     android:contentDescription="@string/new_take_out"
-    android:id="@+id/fab_add">
+    android:id="@+id/fab_add"
+    android:tag="fab_tag"
+    >
 
 </com.google.android.material.floatingactionbutton.FloatingActionButton>

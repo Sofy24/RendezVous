@@ -33,7 +33,8 @@ public class HomeCalendarActivity extends AppCompatActivity {
         if (savedInstanceState == null)
             Utilities.insertFragment(this, new HomeCalendarFragment(), HomeCalendarFragment.class.getSimpleName());
 
-        addViewModel = new ViewModelProvider(this).get(AddViewModel.class);
+       //  da implementare ????
+        // addViewModel = new ViewModelProvider(this).get(AddViewModel.class);
     }
 
     /**

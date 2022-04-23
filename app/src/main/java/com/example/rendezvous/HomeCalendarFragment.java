@@ -17,6 +17,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.SearchView;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
+import androidx.fragment.app.FragmentManager;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.RecyclerView;
@@ -27,9 +28,6 @@ import java.util.List;
 
 public class HomeCalendarFragment extends Fragment {
     private static final String LOG_TAG = "HomeCalendarFragment";
-    private FragmentActivity activity;
-
-    /****IL FAB NON FUNZIONA PERCHè activity è NULL***/
 
     /**
      * Called to have the fragment instantiate its user interface view.
@@ -48,7 +46,27 @@ public class HomeCalendarFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        FragmentActivity activity = getActivity();
+        Activity activity = getActivity();
+
+            if(activity != null){
+
+                Utilities.setUpToolBar((AppCompatActivity) activity, getString(R.string.app_name));
+
+                //TODO onClick fab non funziona
+                // la risorsa viene caricata correttamente, con findByViewId invece non funziona
+                // soltanto che ora il click non va
+                view.findViewWithTag("fab_tag").setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        // non lo stampa....
+                        System.out.println("fab FOUND");
+                        Utilities.insertFragment((AppCompatActivity) activity, new NewTakeOutFragment(),
+                                NewTakeOutFragment.class.getSimpleName());
+                    }
+                });
+            } else {
+                Log.e(LOG_TAG, "Activity is null");
+            }
     }
         /*if (activity != null) {
             Utilities.setUpToolbar((AppCompatActivity) activity, getString(R.string.app_name));*/
@@ -95,21 +113,20 @@ public class HomeCalendarFragment extends Fragment {
         @Override
         public void onCreate (@Nullable Bundle savedInstanceState){
             super.onCreate(savedInstanceState);
-            System.out.println("calendar"+this.activity);
-            if(this.activity != null){
-                /*NON ENTRA QUA PERCHè L'ACTIVITY è NULL*/
-                System.out.println("i'm in");
-                FloatingActionButton floatingActionButton = this.activity.findViewById(R.id.fab_add);
-                floatingActionButton.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        Utilities.insertFragment((AppCompatActivity) activity, new NewTakeOutFragment(),
-                                NewTakeOutFragment.class.getSimpleName());
-                    }
-                });
-            } else {
-                Log.e(LOG_TAG, "Activity is null");
-            }
+
+            Activity activity = getActivity();
+//
+//            if(activity != null){
+//                activity.findViewById(R.id.fab_add).setOnClickListener(new View.OnClickListener() {
+//                    @Override
+//                    public void onClick(View view) {
+//                        Utilities.insertFragment((AppCompatActivity) activity, new NewTakeOutFragment(),
+//                                NewTakeOutFragment.class.getSimpleName());
+//                    }
+//                });
+//            } else {
+//                Log.e(LOG_TAG, "Activity is null");
+//            }
 
             //setHasOptionsMenu(true);
 

@@ -1,12 +1,16 @@
 package com.example.rendezvous;
 
+import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Bundle;
+import android.util.AttributeSet;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -35,6 +39,19 @@ public class HomeCalendarActivity extends AppCompatActivity {
 
        //  da implementare ????
         // addViewModel = new ViewModelProvider(this).get(AddViewModel.class);
+
+        FloatingActionButton floatingActionButton = findViewById(R.id.fab_add);
+
+        Activity activity = this;
+        floatingActionButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Toast.makeText((AppCompatActivity) activity, "Fab pressed", Toast.LENGTH_SHORT).show();
+                Utilities.insertFragment((AppCompatActivity) activity, new NewTakeOutFragment(),
+                        NewTakeOutFragment.class.getSimpleName());
+
+            }
+        });
     }
 
     /**
@@ -55,7 +72,10 @@ public class HomeCalendarActivity extends AppCompatActivity {
      */
 
 
-
-
+    @Nullable
+    @Override
+    public View onCreateView(@NonNull String name, @NonNull Context context, @NonNull AttributeSet attrs) {
+        return super.onCreateView(name, context, attrs);
+    }
 
 }

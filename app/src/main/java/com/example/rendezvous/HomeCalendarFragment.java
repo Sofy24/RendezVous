@@ -10,6 +10,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -48,25 +49,7 @@ public class HomeCalendarFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         Activity activity = getActivity();
 
-            if(activity != null){
 
-                Utilities.setUpToolBar((AppCompatActivity) activity, getString(R.string.app_name));
-
-                //TODO onClick fab non funziona
-                // la risorsa viene caricata correttamente, con findByViewId invece non funziona
-                // soltanto che ora il click non va
-                view.findViewWithTag("fab_tag").setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        // non lo stampa....
-                        System.out.println("fab FOUND");
-                        Utilities.insertFragment((AppCompatActivity) activity, new NewTakeOutFragment(),
-                                NewTakeOutFragment.class.getSimpleName());
-                    }
-                });
-            } else {
-                Log.e(LOG_TAG, "Activity is null");
-            }
     }
         /*if (activity != null) {
             Utilities.setUpToolbar((AppCompatActivity) activity, getString(R.string.app_name));*/
@@ -115,19 +98,6 @@ public class HomeCalendarFragment extends Fragment {
             super.onCreate(savedInstanceState);
 
             Activity activity = getActivity();
-//
-//            if(activity != null){
-//                activity.findViewById(R.id.fab_add).setOnClickListener(new View.OnClickListener() {
-//                    @Override
-//                    public void onClick(View view) {
-//                        Utilities.insertFragment((AppCompatActivity) activity, new NewTakeOutFragment(),
-//                                NewTakeOutFragment.class.getSimpleName());
-//                    }
-//                });
-//            } else {
-//                Log.e(LOG_TAG, "Activity is null");
-//            }
-
             //setHasOptionsMenu(true);
 
         }

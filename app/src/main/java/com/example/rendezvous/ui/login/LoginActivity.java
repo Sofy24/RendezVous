@@ -24,7 +24,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.rendezvous.R;
-import com.example.rendezvous.HomeCalendarActivity;
+import com.example.rendezvous.HomeActivity;
 import com.example.rendezvous.databinding.ActivityLoginBinding;
 
 public class LoginActivity extends AppCompatActivity {
@@ -128,7 +128,7 @@ public class LoginActivity extends AppCompatActivity {
                 loginViewModel.login(usernameEditText.getText().toString(),
                         passwordEditText.getText().toString());
                 // Here the intent is passed on and next activity is homecalendar
-                Intent openHome = new Intent(LoginActivity.this, HomeCalendarActivity.class);
+                Intent openHome = new Intent(LoginActivity.this, HomeActivity.class);
                 startActivity(openHome);
             }
         });

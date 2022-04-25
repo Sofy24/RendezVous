@@ -28,9 +28,10 @@ public class Utilities {
         transaction.replace(R.id.fragment_container_view, fragment, tag);
 
         //add the transaction to the back stack so the user can navigate back except for the HomeFragment
-        if (!(fragment instanceof HomeCalendarFragment)) {
+        transaction.addToBackStack(tag);
+        /*if (!(fragment instanceof HomeCalendarFragment)) {
             transaction.addToBackStack(tag);
-        }
+        }*/
 
         // Commit the transaction
         transaction.commit();

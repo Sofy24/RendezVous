@@ -3,6 +3,7 @@ package com.example.rendezvous;
 import android.app.Activity;
 import android.app.Application;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.AttributeSet;
 import android.view.Menu;
@@ -17,6 +18,7 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
 
 import com.example.rendezvous.ViewModel.AddViewModel;
+import com.example.rendezvous.ui.login.LoginActivity;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 public class HomeActivity extends AppCompatActivity {
@@ -43,12 +45,8 @@ public class HomeActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Toast.makeText((AppCompatActivity) activity, "Fab pressed", Toast.LENGTH_SHORT).show();
-                Fragment takeOutFragment = new NewTakeOutFragment();
-                takeOutFragment.onAttach(App.getContext());
-
-                Utilities.insertFragment((AppCompatActivity) activity, new NewTakeOutFragment(),
-                        NewTakeOutFragment.class.getSimpleName());
-
+                Intent openNewTakeOut = new Intent(HomeActivity.this, NewTakeOut.class);
+                startActivity(openNewTakeOut);
             }
         });
     }

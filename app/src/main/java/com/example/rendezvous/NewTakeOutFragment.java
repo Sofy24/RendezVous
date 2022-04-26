@@ -21,7 +21,8 @@ import com.google.android.material.datepicker.MaterialDatePicker;
 import com.google.android.material.datepicker.MaterialPickerOnPositiveButtonClickListener;
 
 public class NewTakeOutFragment extends Fragment {
-    private static final String LOG_TAG = "NewTakeOutFragment";
+    //to delete, but not now
+    /*private static final String LOG_TAG = "NewTakeOutFragment";
     private TextView dateRangeText;
     private Button calendar;
     private Activity activity;
@@ -34,7 +35,7 @@ public class NewTakeOutFragment extends Fragment {
         if (context instanceof Activity){
             activity = (FragmentActivity) context;
         }
-    }
+    }*/
 
     /**
      * Called to have the fragment instantiate its user interface view.
@@ -44,7 +45,7 @@ public class NewTakeOutFragment extends Fragment {
      * @param savedInstanceState If non-null, this fragment is being re-constructed from a previous saved state as given here.
      * @return Return the View for the fragment's UI, or null.
      */
-    @Nullable
+    /*@Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         return inflater.inflate(R.layout.add_take_out, container, false);
@@ -56,10 +57,7 @@ public class NewTakeOutFragment extends Fragment {
         //this.activity = getActivity();
     }
 
-    /*activity è null quindi non funziona il rangeDataPicker.
-    Ho provato con modi illegali a farlo funzionare. Non ci sono riuscita
 
-     */
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -81,13 +79,13 @@ public class NewTakeOutFragment extends Fragment {
                     materialDatePicker.show(activity.getSupportFragmentManager(), "tag_picker");
                     materialDatePicker.addOnPositiveButtonClickListener((MaterialPickerOnPositiveButtonClickListener) selection -> dateRangeText.setText(materialDatePicker.getHeaderText()));
                 }
-            });*/
+            });
         } else {
             System.out.println("activity null");
         }
 
 
-    }
+    }*/
 
 
 }

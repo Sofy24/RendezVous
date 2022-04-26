@@ -10,5 +10,10 @@
         android:id="@+id/toolbar"
         app:title="@string/app_name"
         android:theme="@style/Theme.App.Toolbar"
-        app:menu="@menu/top_app_bar"/>
+        app:menu="@menu/top_app_bar"
+
+        app:navigationIcon="@drawable/logo"
+        app:navigationContentDescription="@string/navDescription"
+
+        />
 </com.google.android.material.appbar.AppBarLayout>

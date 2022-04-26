@@ -15,4 +15,5 @@
     <string name="selected_date">ciao</string>
     <string name="open_calendar">Open calendar</string>
     <string name="logoDescr">Logo for RendezVous</string>
+    <string name="navDescription">Navigation Button</string>
 </resources>

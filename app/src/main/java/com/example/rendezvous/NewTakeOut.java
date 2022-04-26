@@ -46,7 +46,7 @@ public class NewTakeOut extends AppCompatActivity {
         });
 
 
-        FloatingActionButton floatingActionButton = findViewById(R.id.fab_add);
+        FloatingActionButton floatingActionButton = findViewById(R.id.fab_check);
         Activity activity = this;
         App.setCurrentActivity(activity);
         floatingActionButton.setOnClickListener(new View.OnClickListener() {

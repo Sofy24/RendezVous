@@ -16,4 +16,6 @@
     <string name="open_calendar">Open calendar</string>
     <string name="logoDescr">Logo for RendezVous</string>
     <string name="navDescription">Navigation Button</string>
+    <string name="take_out_cards">Take Out Cards</string>
+    <string name="calendar_take_out">Calendar take out</string>
 </resources>

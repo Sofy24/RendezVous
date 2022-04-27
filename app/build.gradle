@@ -32,6 +32,13 @@ android {
 
 dependencies {
     def room_version = "2.4.2"
+    def nav_version = "2.4.2"
+
+    implementation "androidx.navigation:navigation-fragment:$nav_version"
+    implementation "androidx.navigation:navigation-ui:$nav_version"
+
+
+    implementation "androidx.drawerlayout:drawerlayout:1.1.1"
 
     implementation "androidx.room:room-runtime:$room_version"
     annotationProcessor "androidx.room:room-compiler:$room_version"

@@ -1,7 +1,11 @@
 package com.example.rendezvous.ui.login;
 
+import android.app.ActionBar;
 import android.app.Activity;
 
+import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
@@ -14,7 +18,11 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.view.Gravity;
 import android.view.KeyEvent;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
 import android.widget.Button;
@@ -22,15 +30,19 @@ import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.widget.Toolbar;
 
 import com.example.rendezvous.R;
 import com.example.rendezvous.HomeActivity;
 import com.example.rendezvous.databinding.ActivityLoginBinding;
+import com.google.android.material.appbar.MaterialToolbar;
+import com.google.android.material.navigation.NavigationView;
 
 public class LoginActivity extends AppCompatActivity {
 
     private LoginViewModel loginViewModel;
     private ActivityLoginBinding binding;
+    private DrawerLayout dLayout;
 
 
     @Override
@@ -43,8 +55,18 @@ public class LoginActivity extends AppCompatActivity {
         loginViewModel = new ViewModelProvider(this, new LoginViewModelFactory())
                 .get(LoginViewModel.class);
 
-
-
+//
+//        MaterialToolbar materialToolbar = (MaterialToolbar) findViewById(R.id.toolbar);
+//        setSupportActionBar(materialToolbar);
+//
+//        materialToolbar.setNavigationOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                dLayout.openDrawer(Gravity.LEFT);
+//            }
+//        });
+//
+//        setNavigationDrawer();
         /*RendezVousDB db = RendezVousDB.getInstance(this);
         db.databaseDAO().insertUser(123123, "cacca", "popo");*/
 
@@ -132,6 +154,40 @@ public class LoginActivity extends AppCompatActivity {
                 startActivity(openHome);
             }
         });
+    }
+
+    private void setNavigationDrawer() {
+        dLayout = (DrawerLayout) findViewById(R.id.drawer_layout); // initiate a DrawerLayout
+        NavigationView navView = (NavigationView) findViewById(R.id.navigation); // initiate a Navigation View
+// implement setNavigationItemSelectedListener event on NavigationView
+        navView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(MenuItem menuItem) {
+//                Fragment frag = null; // create a Fragment Object
+//                int itemId = menuItem.getItemId(); // get selected menu item's id
+// check selected menu item's id and replace a Fragment Accordingly
+//
+//                if (itemId == R.id.first) {
+//                    frag = new FirstFragment();
+//                } else if (itemId == R.id.second) {
+//                    frag = new SecondFragment();
+//                } else if (itemId == R.id.third) {
+//                    frag = new ThirdFragment();
+//                }
+// display a toast message with menu item's title
+//                Toast.makeText(getApplicationContext(), menuItem.getTitle(), Toast.LENGTH_SHORT).show();
+//                if (frag != null) {
+//                    FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+//                    transaction.replace(R.id.frame, frag); // replace a Fragment with Frame Layout
+//                    transaction.commit(); // commit the changes
+//                    dLayout.closeDrawers(); // close the all open Drawer Views
+//                    return true;
+//                }
+//
+        return false;
+            }
+        });
+
     }
 
     private void updateUiWithUser(LoggedInUserView model) {

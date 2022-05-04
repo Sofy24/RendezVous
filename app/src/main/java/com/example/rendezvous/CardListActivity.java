@@ -1,15 +1,15 @@
 package com.example.rendezvous;
 
-import android.app.Activity;
+import android.content.Context;
 import android.os.Bundle;
-import android.view.LayoutInflater;
+import android.util.AttributeSet;
+import android.view.Menu;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.rendezvous.ViewModel.RecyclerTouchListener;
@@ -19,30 +19,22 @@ import com.example.rendezvous.ViewModel.Task;
 import java.util.ArrayList;
 import java.util.List;
 
-/*
-    Cardlist dovrebbe essere un activity, altrimenti sembra non funzionare bene affatto......
- */
-public class CardList extends Fragment {
+public class CardListActivity extends AppCompatActivity {
     private RecyclerView recyclerView;
     private RecyclerviewAdapter recyclerviewAdapter;
     private RecyclerTouchListener touchListener;
 
-    @Nullable
-    @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.list_take_out, container, false);
-    }
 
     @Override
-    public void onCreate(@Nullable Bundle savedInstanceState) {
+    protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Activity activity = getActivity();
+        setContentView(R.layout.list_take_out);
 
-        System.out.println("activity = " + activity);
-        recyclerView = activity.findViewById(R.id.recyclerView);
-        recyclerviewAdapter = new RecyclerviewAdapter(activity.getBaseContext());
 
-        System.out.println("recyclerView = " + recyclerView);
+        recyclerView = findViewById(R.id.recyclerView);
+        recyclerviewAdapter = new RecyclerviewAdapter(this);
+
+        System.out.println("You son of a bith mi in ");
         final List<Task> taskList = new ArrayList<>();
         Task task = new Task("Buy Dress","Buy Dress at Shoppershop for coming functions");
         taskList.add(task);
@@ -59,12 +51,12 @@ public class CardList extends Fragment {
         recyclerviewAdapter.setTaskList(taskList);
         recyclerView.setAdapter(recyclerviewAdapter);
 
-        touchListener = new RecyclerTouchListener(activity,recyclerView);
+        touchListener = new RecyclerTouchListener(this,recyclerView);
         touchListener
                 .setClickable(new RecyclerTouchListener.OnRowClickListener() {
                     @Override
                     public void onRowClicked(int position) {
-                        Toast.makeText(activity.getApplicationContext(),taskList.get(position).getName(), Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getApplicationContext(),taskList.get(position).getName(), Toast.LENGTH_SHORT).show();
                     }
 
                     @Override
@@ -82,12 +74,27 @@ public class CardList extends Fragment {
                                 recyclerviewAdapter.setTaskList(taskList);
                                 break;
                             case R.id.edit_task:
-                                Toast.makeText(activity.getApplicationContext(),"Edit Not Available",Toast.LENGTH_SHORT).show();
+                                Toast.makeText(getApplicationContext(),"Edit Not Available",Toast.LENGTH_SHORT).show();
                                 break;
 
                         }
                     }
                 });
         recyclerView.addOnItemTouchListener(touchListener);
+    }
+
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.top_app_bar, menu);
+        return true;
+    }
+    /*
+        Necessary ???????
+     */
+    @Nullable
+    @Override
+    public View onCreateView(@NonNull String name, @NonNull Context context, @NonNull AttributeSet attrs) {
+        return super.onCreateView(name, context, attrs);
     }
 }

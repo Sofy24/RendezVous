@@ -9,70 +9,7 @@
     android:id="@+id/task"
     >
 
-    <LinearLayout
-        android:id="@+id/rowBGLeft"
-        android:layout_width="wrap_content"
-        android:layout_height="70dp"
-        android:layout_alignParentRight="true"
-        android:layout_marginTop="10dp"
-        android:layout_marginRight="302dp"
-        android:background="#d65819"
-        android:gravity="right"
 
-        android:orientation="horizontal"
-        android:padding="10dp">
-
-        <RelativeLayout
-            android:id="@+id/edit_taskLeft"
-            android:layout_width="40dp"
-            android:layout_height="match_parent"
-            android:clickable="true"
-            android:focusable="true"
-            android:orientation="vertical">
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_centerInParent="true"
-                android:gravity="center"
-                android:orientation="vertical">
-
-                <ImageView
-                    android:id="@+id/img_editLeft"
-                    android:layout_width="30dp"
-                    android:layout_height="30dp"
-                    android:layout_gravity="center"
-                    android:src="@drawable/logo"
-                    app:tint="@android:color/white" />
-            </LinearLayout>
-        </RelativeLayout>
-
-        <RelativeLayout
-            android:id="@+id/delete_taskLeft"
-            android:layout_width="40dp"
-            android:layout_height="match_parent"
-            android:clickable="true"
-            android:focusable="true"
-            android:orientation="vertical">
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_centerInParent="true"
-                android:gravity="center"
-                android:orientation="vertical">
-
-                <ImageView
-                    android:id="@+id/img_deleteLeft"
-                    android:layout_width="30dp"
-                    android:layout_height="30dp"
-                    android:layout_gravity="center"
-                    android:src="@drawable/logo"
-                    app:tint="@android:color/white" />
-            </LinearLayout>
-        </RelativeLayout>
-
-    </LinearLayout>
 
     <LinearLayout
         android:id="@+id/rowBG"
@@ -106,7 +43,7 @@
                     android:layout_width="30dp"
                     android:layout_height="30dp"
                     android:layout_gravity="center"
-                    android:src="@drawable/logo"
+                    android:src="@drawable/ic_baseline_edit_24"
                     app:tint="@android:color/white" />
             </LinearLayout>
         </RelativeLayout>
@@ -131,7 +68,7 @@
                     android:layout_width="30dp"
                     android:layout_height="30dp"
                     android:layout_gravity="center"
-                    android:src="@drawable/logo"
+                    android:src="@drawable/ic_baseline_delete_24"
                     app:tint="@android:color/white" />
             </LinearLayout>
         </RelativeLayout>
@@ -157,35 +94,35 @@
 
             <TextView
                 android:id="@+id/task_name"
+                style="@style/TextAppearance.AppCompat.Headline"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginEnd="8dp"
-                android:layout_marginLeft="8dp"
-                android:layout_marginRight="8dp"
                 android:layout_marginStart="8dp"
-                tools:text="@tools:sample/first_names"
-                style="@style/TextAppearance.AppCompat.Headline"
+                android:layout_marginLeft="8dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginRight="8dp"
                 app:layout_constraintBottom_toTopOf="@+id/task_desc"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toTopOf="parent"
+                tools:text="@tools:sample/first_names" />
 
             <TextView
                 android:id="@+id/task_desc"
+                style="@style/TextAppearance.AppCompat.Medium"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginEnd="8dp"
-                android:layout_marginLeft="8dp"
-                android:layout_marginRight="8dp"
                 android:layout_marginStart="8dp"
-                tools:text="@tools:sample/cities"
-                android:lines="1"
+                android:layout_marginLeft="8dp"
                 android:layout_marginTop="5dp"
-                style="@style/TextAppearance.AppCompat.Medium"
+                android:layout_marginEnd="8dp"
+                android:layout_marginRight="8dp"
+                android:lines="1"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="@+id/task_name"
-                app:layout_constraintTop_toBottomOf="@+id/task_name" />
+                app:layout_constraintTop_toBottomOf="@+id/task_name"
+                tools:text="@tools:sample/cities" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

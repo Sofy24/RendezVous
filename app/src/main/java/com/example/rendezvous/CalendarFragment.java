@@ -4,11 +4,8 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,21 +15,13 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.SearchView;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
-import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
-import androidx.lifecycle.Observer;
-import androidx.lifecycle.ViewModelProvider;
-import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.appbar.MaterialToolbar;
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.navigation.NavigationView;
-
-import java.util.List;
 
 public class CalendarFragment extends Fragment {
     private static final String LOG_TAG = "HomeCalendarFragment";
@@ -94,7 +83,7 @@ public class CalendarFragment extends Fragment {
             super.onCreate(savedInstanceState);
 
             Activity activity = getActivity();
-            //setHasOptionsMenu(true);
+//            setHasOptionsMenu(true);
 
             MaterialToolbar materialToolbar = (MaterialToolbar) activity.findViewById(R.id.toolbar);
             ((AppCompatActivity) activity).setSupportActionBar(materialToolbar);
@@ -110,6 +99,8 @@ public class CalendarFragment extends Fragment {
             setNavigationDrawer(activity);
 
         }
+
+
     private void setNavigationDrawer(Activity activity) {
         dLayout = (DrawerLayout) activity.findViewById(R.id.drawer_layout); // initiate a DrawerLayout
         NavigationView navView = (NavigationView) activity.findViewById(R.id.navigation); // initiate a Navigation View
@@ -122,8 +113,17 @@ public class CalendarFragment extends Fragment {
 // check selected menu item's id and replace a Fragment Accordingly
 
                 if (itemId == R.id.first) {
-                    frag = new CardList();
+                    /*
+                        Use of fragments... we need activity,  now we'll use intent
+                     */
+                    //frag = new CardList();
+                    //CardListActivity cardListActivity = new CardListActivity();
+                    startActivity(new Intent(activity, CardListActivity.class));
+                    //startActivity(new Intent("CardListActivity"));
                 } else if (itemId == R.id.second) {
+                    /*
+                        Redunant and useless, but this new fragment works, older is dead.....
+                     */
                     frag = new CalendarFragment();
                 }
 //                else if (itemId == R.id.third) {
@@ -153,4 +153,4 @@ public class CalendarFragment extends Fragment {
 
     }
 
-    }
+}

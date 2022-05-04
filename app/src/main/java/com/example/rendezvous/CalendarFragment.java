@@ -19,6 +19,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
+import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
 import com.google.android.material.appbar.MaterialToolbar;
@@ -30,6 +31,7 @@ public class CalendarFragment extends Fragment {
     private static final String LOG_TAG = "HomeCalendarFragment";
     private Activity activity;
     private DrawerLayout dLayout;
+    Fragment frrrrr = this;
 
     /*@Override
     public void onAttach(Context context) {
@@ -83,8 +85,12 @@ public class CalendarFragment extends Fragment {
         @Override
         public void onCreate (@Nullable Bundle savedInstanceState){
             super.onCreate(savedInstanceState);
+<<<<<<< HEAD
 
             AppCompatActivity activity = (AppCompatActivity) getActivity();
+=======
+            Activity activity = getActivity();
+>>>>>>> 2d2dde76e923cc6b0ca9ac25a01416bee7e92b1f
 //            setHasOptionsMenu(true);
 
             MaterialToolbar materialToolbar = (MaterialToolbar) activity.findViewById(R.id.toolbar);
@@ -95,6 +101,11 @@ public class CalendarFragment extends Fragment {
                 @Override
                 public void onClick(View view) {
                     dLayout.openDrawer(Gravity.LEFT);
+//        Workaround per impedire che il fragment diventi timido quando la navigationView esce fuori
+
+                    FragmentManager fragmentManager = ((AppCompatActivity) activity).getSupportFragmentManager();
+                    fragmentManager.beginTransaction().hide(frrrrr).commit();
+
                 }
             });
 
@@ -106,7 +117,34 @@ public class CalendarFragment extends Fragment {
         dLayout = (DrawerLayout) activity.findViewById(R.id.drawer_layout); // initiate a DrawerLayout
         NavigationView navView = (NavigationView) activity.findViewById(R.id.navigation); // initiate a Navigation View
 // implement setNavigationItemSelectedListener event on NavigationView
+
+//        Workaround per impedire che il fragment diventi timido quando la navigationView esce fuori
+        dLayout.addDrawerListener(new DrawerLayout.DrawerListener() {
+            @Override
+            public void onDrawerSlide(@NonNull View drawerView, float slideOffset) {
+
+            }
+
+            @Override
+            public void onDrawerOpened(@NonNull View drawerView) {
+
+            }
+
+            @Override
+            public void onDrawerClosed(@NonNull View drawerView) {
+                FragmentManager fragmentManager = ((AppCompatActivity) activity).getSupportFragmentManager();
+                fragmentManager.beginTransaction().show(frrrrr).commit();
+            }
+
+            @Override
+            public void onDrawerStateChanged(int newState) {
+
+            }
+        });
+
         navView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
+
+
             @Override
             public boolean onNavigationItemSelected(MenuItem menuItem) {
                 Fragment frag = null; // create a Fragment Object
@@ -132,6 +170,8 @@ public class CalendarFragment extends Fragment {
 //                }
 // display a toast message with menu item's title
                 Toast.makeText(activity.getApplicationContext(), menuItem.getTitle(), Toast.LENGTH_SHORT).show();
+
+
                 if (frag != null) {
 //                    Utilities.insertFragment((AppCompatActivity) activity, frag, frag.getClass().getSimpleName());
 
@@ -153,6 +193,7 @@ public class CalendarFragment extends Fragment {
 
                 return false;
             }
+
         });
 
     }

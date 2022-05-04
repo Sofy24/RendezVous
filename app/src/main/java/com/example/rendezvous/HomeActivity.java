@@ -1,7 +1,5 @@
 package com.example.rendezvous;
 
-import android.app.Activity;
-import android.app.Application;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -13,12 +11,6 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.constraintlayout.widget.ConstraintLayout;
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentActivity;
-
-import com.example.rendezvous.ViewModel.AddViewModel;
-import com.example.rendezvous.ui.login.LoginActivity;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 public class HomeActivity extends AppCompatActivity {
@@ -29,7 +21,6 @@ public class HomeActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.home);
-        App.setContext(this);
 
 
         if (savedInstanceState == null){
@@ -39,15 +30,12 @@ public class HomeActivity extends AppCompatActivity {
 
 
         FloatingActionButton floatingActionButton = findViewById(R.id.fab_add);
-        Activity activity = this;
+        AppCompatActivity activity = this;
         App.setCurrentActivity(activity);
-        floatingActionButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Toast.makeText((AppCompatActivity) activity, "Fab pressed", Toast.LENGTH_SHORT).show();
-                Intent openNewTakeOut = new Intent(HomeActivity.this, NewTakeOut.class);
-                startActivity(openNewTakeOut);
-            }
+        floatingActionButton.setOnClickListener(view -> {
+            Toast.makeText(activity, "Fab pressed", Toast.LENGTH_SHORT).show();
+            Intent openNewTakeOut = new Intent(HomeActivity.this, NewTakeOut.class);
+            startActivity(openNewTakeOut);
         });
     }
 
@@ -58,7 +46,6 @@ public class HomeActivity extends AppCompatActivity {
      */
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        //getMenuInflater().inflate(R.menu.top_app_bar, menu);
         getMenuInflater().inflate(R.menu.top_app_bar, menu);
         return true;
     }

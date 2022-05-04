@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.Layout;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
@@ -28,14 +29,14 @@ public class CalendarFragment extends Fragment {
     private Activity activity;
     private DrawerLayout dLayout;
 
-    @Override
+    /*@Override
     public void onAttach(Context context) {
         super.onAttach(context);
 
         if (context instanceof Activity){
             activity = (FragmentActivity) context;
         }
-    }
+    }*/
 
     /**
      * Called to have the fragment instantiate its user interface view.
@@ -77,7 +78,6 @@ public class CalendarFragment extends Fragment {
         }*/
 
 
-
         @Override
         public void onCreate (@Nullable Bundle savedInstanceState){
             super.onCreate(savedInstanceState);
@@ -99,7 +99,6 @@ public class CalendarFragment extends Fragment {
             setNavigationDrawer(activity);
 
         }
-
 
     private void setNavigationDrawer(Activity activity) {
         dLayout = (DrawerLayout) activity.findViewById(R.id.drawer_layout); // initiate a DrawerLayout
@@ -136,9 +135,11 @@ public class CalendarFragment extends Fragment {
 
                     /*
                         Removes overlapping beetween fragments
+                        FrameLayout fl = (FrameLayout) activity.findViewById(R.id.calendar_frame_layout);
+                        fl.removeAllViews(); (queste righe non funzionano)
+                        MANNAGGIA ALL'OVERLAPPING CHE NON RIESCO A TOGLIERLO
                      */
-                    FrameLayout fl = (FrameLayout) activity.findViewById(R.id.calendar_frame_layout);
-                    fl.removeAllViews();
+
 
                     FragmentTransaction transaction = ((AppCompatActivity)activity).getSupportFragmentManager().beginTransaction();
                     transaction.replace(R.id.frame, frag); // replace a Fragment with Frame Layout

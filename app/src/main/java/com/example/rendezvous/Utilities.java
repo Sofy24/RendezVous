@@ -25,7 +25,7 @@ public class Utilities {
         FragmentTransaction transaction = activity.getSupportFragmentManager().beginTransaction();
 
         // Replace whatever is in the fragment_container_view with this fragment
-        transaction.replace(R.id.calendar_frame_layout, fragment, tag);
+        transaction.replace(R.id.home_layout, fragment, tag);
 
         //add the transaction to the back stack so the user can navigate back except for the HomeFragment
         transaction.addToBackStack(tag);

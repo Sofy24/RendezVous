@@ -24,6 +24,8 @@ import androidx.fragment.app.FragmentTransaction;
 import com.google.android.material.appbar.MaterialToolbar;
 import com.google.android.material.navigation.NavigationView;
 
+import java.util.Objects;
+
 public class CalendarFragment extends Fragment {
     private static final String LOG_TAG = "HomeCalendarFragment";
     private Activity activity;
@@ -82,7 +84,7 @@ public class CalendarFragment extends Fragment {
         public void onCreate (@Nullable Bundle savedInstanceState){
             super.onCreate(savedInstanceState);
 
-            Activity activity = getActivity();
+            AppCompatActivity activity = (AppCompatActivity) getActivity();
 //            setHasOptionsMenu(true);
 
             MaterialToolbar materialToolbar = (MaterialToolbar) activity.findViewById(R.id.toolbar);
@@ -100,7 +102,7 @@ public class CalendarFragment extends Fragment {
 
         }
 
-    private void setNavigationDrawer(Activity activity) {
+    private void setNavigationDrawer(AppCompatActivity activity) {
         dLayout = (DrawerLayout) activity.findViewById(R.id.drawer_layout); // initiate a DrawerLayout
         NavigationView navView = (NavigationView) activity.findViewById(R.id.navigation); // initiate a Navigation View
 // implement setNavigationItemSelectedListener event on NavigationView
@@ -140,7 +142,8 @@ public class CalendarFragment extends Fragment {
                         MANNAGGIA ALL'OVERLAPPING CHE NON RIESCO A TOGLIERLO
                      */
 
-
+                    activity.getSupportFragmentManager().beginTransaction().
+                    remove(Objects.requireNonNull(activity.getSupportFragmentManager().findFragmentById(R.id.calendar_frame_layout))).commit();
                     FragmentTransaction transaction = ((AppCompatActivity)activity).getSupportFragmentManager().beginTransaction();
                     transaction.replace(R.id.frame, frag); // replace a Fragment with Frame Layout
                     transaction.commit(); // commit the changes
@@ -153,5 +156,6 @@ public class CalendarFragment extends Fragment {
         });
 
     }
+
 
 }

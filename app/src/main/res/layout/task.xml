@@ -92,7 +92,8 @@
             android:layout_height="match_parent"
             android:foreground="?attr/selectableItemBackground">
 
-            <TextView
+
+        <TextView
                 android:id="@+id/task_name"
                 style="@style/TextAppearance.AppCompat.Headline"
                 android:layout_width="0dp"

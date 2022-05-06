@@ -31,11 +31,13 @@ public class NewTakeOut extends AppCompatActivity {
                 .setSelection(Pair.create(MaterialDatePicker.thisMonthInUtcMilliseconds(),
                         MaterialDatePicker.todayInUtcMilliseconds()))
                 .build();
+        System.out.println("getSupportFragmentManager().getFragments() = " + getSupportFragmentManager().getFragments());
 
         this.calendar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                materialDatePicker.show(getSupportFragmentManager(), "tag_picker");
+//                materialDatePicker.show(getSupportFragmentManager(), "tag_picker");
+                materialDatePicker.show(getSupportFragmentManager(), materialDatePicker.toString());
                 materialDatePicker.addOnPositiveButtonClickListener(new MaterialPickerOnPositiveButtonClickListener() {
                     @Override
                     public void onPositiveButtonClick(Object selection) {

@@ -85,12 +85,8 @@ public class CalendarFragment extends Fragment {
         @Override
         public void onCreate (@Nullable Bundle savedInstanceState){
             super.onCreate(savedInstanceState);
-<<<<<<< HEAD
 
             AppCompatActivity activity = (AppCompatActivity) getActivity();
-=======
-            Activity activity = getActivity();
->>>>>>> 2d2dde76e923cc6b0ca9ac25a01416bee7e92b1f
 //            setHasOptionsMenu(true);
 
             MaterialToolbar materialToolbar = (MaterialToolbar) activity.findViewById(R.id.toolbar);
@@ -100,6 +96,7 @@ public class CalendarFragment extends Fragment {
             materialToolbar.setNavigationOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
+                    System.out.println("IMMA GOT CLICKED");
                     dLayout.openDrawer(Gravity.LEFT);
 //        Workaround per impedire che il fragment diventi timido quando la navigationView esce fuori
 
@@ -182,6 +179,7 @@ public class CalendarFragment extends Fragment {
                         MANNAGGIA ALL'OVERLAPPING CHE NON RIESCO A TOGLIERLO
                      */
 
+                    //TODO qui muore a caso..........
                     activity.getSupportFragmentManager().beginTransaction().
                     remove(Objects.requireNonNull(activity.getSupportFragmentManager().findFragmentById(R.id.calendar_frame_layout))).commit();
                     FragmentTransaction transaction = ((AppCompatActivity)activity).getSupportFragmentManager().beginTransaction();

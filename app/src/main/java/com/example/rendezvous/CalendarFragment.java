@@ -160,7 +160,8 @@ public class CalendarFragment extends Fragment {
                     /*
                         Redunant and useless, but this new fragment works, older is dead.....
                      */
-                    frag = new CalendarFragment();
+//                    frag = new CalendarFragment();
+                    startActivity(new Intent(activity, HomeActivity.class));
                 }
 //                else if (itemId == R.id.third) {
 //                    frag = new ThirdFragment();

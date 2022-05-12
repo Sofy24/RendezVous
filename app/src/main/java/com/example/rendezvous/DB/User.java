@@ -6,8 +6,9 @@ import androidx.room.PrimaryKey;
 
 @Entity
 public class User {
-    @PrimaryKey
-    private int UID;
+    @PrimaryKey(autoGenerate = true) // come funziona ?
+    @NonNull
+    private Integer UID;
 
     @NonNull
     private String userName;
@@ -25,21 +26,13 @@ public class User {
 //    whose parameters match the fields (by name and type).
     public User() {}
 
-    public User(final int uid, final String nome, final String cognome, final String userName, final String psw) {
-        UID = uid;
+    public User(final String nome, final String cognome, final String userName, final String psw) {
         this.nome = nome;
         this.cognome = cognome;
         this.userName = userName;
-        PSW = psw;
+        this.PSW = psw;
     }
 
-    public int getUID() {
-        return UID;
-    }
-
-    public void setUID(int UID) {
-        this.UID = UID;
-    }
 
     public String getNome() {
         return nome;
@@ -72,4 +65,13 @@ public class User {
     public void setPSW(String PSW) {
         this.PSW = PSW;
     }
+
+    public void setUID(Integer uid){
+        this.UID = uid;
+    }
+
+    public Integer getUID(){
+        return this.UID;
+    }
+
 }

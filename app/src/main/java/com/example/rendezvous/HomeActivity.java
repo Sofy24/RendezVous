@@ -2,6 +2,7 @@ package com.example.rendezvous;
 
 import android.content.Context;
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.AttributeSet;
 import android.view.Menu;
@@ -11,6 +12,10 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+
+import com.example.rendezvous.DB.Circle;
+import com.example.rendezvous.DB.RendezVousDB;
+import com.example.rendezvous.DB.User;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 public class HomeActivity extends AppCompatActivity {
@@ -32,6 +37,25 @@ public class HomeActivity extends AppCompatActivity {
         FloatingActionButton floatingActionButton = findViewById(R.id.fab_add);
         AppCompatActivity activity = this;
         App.setCurrentActivity(activity);
+
+        RendezVousDB db = RendezVousDB.getInstance(activity.getBaseContext());
+        AsyncTask.execute(new Runnable() {
+            @Override
+            public void run() {
+                User mega = new User("Matteo", "Santoro", "Mega", "00000");
+                User sofy = new User("Sofia", "Tosi", "Sofy24", "123456");
+                User luis = new User("Luis", "Mi chiamo", "Lu1g1", "Ciao_sono_Luis");
+                User michi = new User("Michi", "Ferdinardo", "Clown", "Mi_piace_la_carne");
+                db.databaseDAO().insertUser(mega, sofy, luis, michi);
+                Circle coraggiosi = new Circle("Coraggiosi", "Rosso");
+                db.databaseDAO().insertCircle(coraggiosi);
+
+                db.databaseDAO().insertCircleOfFriends(coraggiosi.getC_name(), db.databaseDAO().getUID(mega.getUserName()));
+                db.databaseDAO().insertCircleOfFriends(coraggiosi.getC_name(), db.databaseDAO().getUID(sofy.getUserName()));
+
+            }
+        });
+
         floatingActionButton.setOnClickListener(view -> {
             Toast.makeText(activity, "Fab pressed", Toast.LENGTH_SHORT).show();
             Intent openNewTakeOut = new Intent(HomeActivity.this, NewTakeOut.class);

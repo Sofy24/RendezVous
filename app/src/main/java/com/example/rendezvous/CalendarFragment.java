@@ -180,7 +180,7 @@ public class CalendarFragment extends Fragment {
                         MANNAGGIA ALL'OVERLAPPING CHE NON RIESCO A TOGLIERLO
                      */
 
-                    //TODO qui muore a caso..........
+                    // Qui non ci arriva mai in realta, lo teniamo per completezza se dovessimo cambiare qualcosa al volo
                     activity.getSupportFragmentManager().beginTransaction().
                     remove(Objects.requireNonNull(activity.getSupportFragmentManager().findFragmentById(R.id.calendar_frame_layout))).commit();
                     FragmentTransaction transaction = ((AppCompatActivity)activity).getSupportFragmentManager().beginTransaction();

@@ -1,18 +1,27 @@
 package com.example.rendezvous;
 
+import static com.example.rendezvous.Utilities.REQUEST_IMAGE_CAPTURE;
+
 import android.Manifest;
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.content.ContentResolver;
+import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
+import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.provider.Settings;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -21,24 +30,37 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.util.Pair;
 import androidx.fragment.app.FragmentManager;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProvider;
+import androidx.lifecycle.ViewModelStoreOwner;
 
+import com.example.rendezvous.ViewModel.AddViewModel;
 import com.google.android.material.datepicker.MaterialDatePicker;
 import com.google.android.material.datepicker.MaterialPickerOnPositiveButtonClickListener;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.OutputStream;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Locale;
 
 public class NewTakeOut extends AppCompatActivity implements LocationListener {
     TextView dateRangeText;
     Button calendar;
     private String providerId = LocationManager.GPS_PROVIDER;
-    private LocationManager locationManager = null;
+    private final LocationManager locationManager = null;
     private static final int MIN_DIST = 20;
     private static final int MIN_PERIOD = 30000;
+    private AddViewModel addViewModel;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.add_take_out);
         this.dateRangeText = findViewById(R.id.show_date);
+
         this.calendar = findViewById(R.id.button_open_calendar);
         MaterialDatePicker materialDatePicker = MaterialDatePicker.Builder.dateRangePicker()
                 .setSelection(Pair.create(MaterialDatePicker.thisMonthInUtcMilliseconds(),
@@ -49,7 +71,6 @@ public class NewTakeOut extends AppCompatActivity implements LocationListener {
         this.calendar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-//                materialDatePicker.show(getSupportFragmentManager(), "tag_picker");
                 materialDatePicker.show(getSupportFragmentManager(), materialDatePicker.toString());
                 materialDatePicker.addOnPositiveButtonClickListener(new MaterialPickerOnPositiveButtonClickListener() {
                     @Override
@@ -59,6 +80,7 @@ public class NewTakeOut extends AppCompatActivity implements LocationListener {
                 });
             }
         });
+
 
 
         FloatingActionButton floatingActionButton = findViewById(R.id.fab_check);
@@ -72,6 +94,58 @@ public class NewTakeOut extends AppCompatActivity implements LocationListener {
                 startActivity(backHome);
             }
         });
+
+        findViewById(R.id.capture_button).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent takePicture = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+
+                if (takePicture.resolveActivity(activity.getPackageManager()) != null) {
+                    activity.startActivityForResult(takePicture, REQUEST_IMAGE_CAPTURE);
+                }
+            }
+        });
+        //addViewModel = new ViewModelProvider((ViewModelStoreOwner) activity).get(AddViewModel.class);
+        ImageView imageView = findViewById(R.id.picture_displayed_imageview);
+
+        /*addViewModel.getImageBitmap().observe(this, new Observer<Bitmap>() {
+            @Override
+            public void onChanged(Bitmap bitmap) {
+                imageView.setImageBitmap(bitmap);
+            }
+        });*/
+
+
+        /*findViewById(R.id.fab_add).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Bitmap
+                        bitmap = addViewModel.getImageBitmap().getValue();
+
+                String imageUriString;
+                try {
+                    if (bitmap != null) {
+                        imageUriString = String.valueOf(saveImage(bitmap, activity));
+                    } else {
+                        imageUriString = "ic_baseline_insert_photo_24";
+                    }
+                    /*if (placeTIET.getText() != null && descriptionTIET.getText() != null
+                            && dateTIET.getText() != null) {
+
+                        addViewModel.addCardItem(new CardItem(imageUriString,
+                                placeTIET.getText().toString(), descriptionTIET.getText().toString(),
+                                dateTIET.getText().toString()));
+
+                        //addViewModel.setImageBitmap(null);
+
+                        //((AppCompatActivity) activity).getSupportFragmentManager().popBackStack();
+                    }
+                } catch (FileNotFoundException e) {
+                    e.printStackTrace();
+                }
+            }
+        });*/
+
     }
 
     private void checkStatusGPS(Activity activity) {
@@ -125,7 +199,7 @@ public class NewTakeOut extends AppCompatActivity implements LocationListener {
     protected void onPause()
     {
         super.onPause();
-        locationManager.removeUpdates(this); //disattivazione aggiornamenti
+        //locationManager.removeUpdates(this); //disattivazione aggiornamenti
     }
 
     private void updateGUI(Location location)
@@ -156,9 +230,50 @@ public class NewTakeOut extends AppCompatActivity implements LocationListener {
     {  }
 
 
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == RESULT_OK) {
+            Bundle extras = data.getExtras();
+            Bitmap imageBitmap = (Bitmap) extras.get("data");
 
+            //this.addViewModel.setImageBitmap(imageBitmap);
+        }
+    }
 
+    /**
+     * Method that saves the image taken by the user in the phone gallery.
+     * @param bitmap the image taken by the user
+     * @param activity the activity for this fragment
+     * @throws FileNotFoundException if the file for the image was not created
+     */
+    private Uri saveImage(Bitmap bitmap, Activity activity) throws FileNotFoundException {
+        String timestamp = new SimpleDateFormat("yyyyMMdd_HHmmss", Locale.ITALY)
+                .format(new Date());
+        String name = "JPEG_" + timestamp + ".jpg";
 
+        ContentResolver contentResolver = activity.getContentResolver();
+        ContentValues contentValues = new ContentValues();
+        contentValues.put(MediaStore.MediaColumns.DISPLAY_NAME, name);
+        contentValues.put(MediaStore.MediaColumns.MIME_TYPE, "image/jpg");
+
+        Uri imageUri = contentResolver.insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI,
+                contentValues);
+
+        Log.d("AddFragment", String.valueOf(imageUri));
+
+        OutputStream outputStream = contentResolver.openOutputStream(imageUri);
+        bitmap.compress(Bitmap.CompressFormat.JPEG, 100, outputStream);
+
+        try {
+            outputStream.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        return imageUri;
+
+    }
 
 
     //TODO

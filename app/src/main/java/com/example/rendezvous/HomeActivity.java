@@ -24,8 +24,6 @@ import java.util.Date;
 
 public class HomeActivity extends AppCompatActivity {
 
-    //private AddViewModel addViewModel;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

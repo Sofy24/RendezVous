@@ -7,6 +7,8 @@ import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.MutableLiveData;
 
+import com.example.rendezvous.DB.RendezVousRepository;
+
 public class AddViewModel extends AndroidViewModel {
 
     /**
@@ -15,11 +17,11 @@ public class AddViewModel extends AndroidViewModel {
 
         private final MutableLiveData<Bitmap> imageBitmap = new MutableLiveData<>();
 
-        //private final CardItemRepository repository;
+        private final RendezVousRepository repository;
 
-        public AddViewModel(@NonNull Application application) {
+        public AddViewModel(@NonNull Application application, RendezVousRepository repository) {
             super(application);
-            //repository = new CardItemRepository(application);
+            this.repository = new RendezVousRepository(application);
         }
 
         /**

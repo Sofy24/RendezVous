@@ -12,7 +12,7 @@
     <string name="uscita_title">uscita_title</string>
     <string name="date">date</string>
     <string name="new_take_out">new_take_out</string>
-    <string name="selected_date">ciao</string>
+    <string name="selected_date">Nessuna data selezionata</string>
     <string name="open_calendar">Open calendar</string>
     <string name="logoDescr">Logo for RendezVous</string>
     <string name="navDescription">Navigation Button</string>
@@ -24,4 +24,5 @@
     <string name="description">description</string>
     <string name="take_gps_position">take gps position</string>
     <string name="location">Add a location</string>
+    <string name="helper_show_date">Selected dates</string>
 </resources>

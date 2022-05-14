@@ -28,6 +28,8 @@ public interface DatabaseDAO {
     @Query("SELECT UID FROM User WHERE userName = :userName")
     Integer getUID(String userName);
 
+    @Insert
+    void insertRendezvous(RendezVous ...rendezVous);
     //Drop database
 //    @Query("DELETE TABLE User")
 //    public void nukeTables();

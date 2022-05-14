@@ -14,9 +14,13 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.rendezvous.DB.Circle;
+import com.example.rendezvous.DB.Converters;
+import com.example.rendezvous.DB.RendezVous;
 import com.example.rendezvous.DB.RendezVousDB;
 import com.example.rendezvous.DB.User;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+
+import java.util.Date;
 
 public class HomeActivity extends AppCompatActivity {
 
@@ -53,6 +57,10 @@ public class HomeActivity extends AppCompatActivity {
                 db.databaseDAO().insertCircleOfFriends(coraggiosi.getC_name(), db.databaseDAO().getUID(mega.getUserName()));
                 db.databaseDAO().insertCircleOfFriends(coraggiosi.getC_name(), db.databaseDAO().getUID(sofy.getUserName()));
 
+                RendezVous rendezVous = new RendezVous(coraggiosi.getC_name(), Converters.dateToTimestamp(new Date()), Converters.dateToTimestamp(new Date()), 2);
+                db.databaseDAO().insertRendezvous(rendezVous);
+
+                System.out.println("Converters.fromTimestamp(Converters.dateToTimestamp(new Date())) = " + Converters.fromTimestamp(Converters.dateToTimestamp(new Date())));
             }
         });
 

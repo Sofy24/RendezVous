@@ -88,7 +88,7 @@
                     android:layout_height="wrap_content"
                     android:hint="@string/location"
                     android:imeOptions="flagNoExtractUi"
-                    android:id="@+id/place_edittext"/>
+                    android:id="@+id/location_edittext"/>
             </com.google.android.material.textfield.TextInputLayout>
 
             <ImageButton

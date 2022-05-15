@@ -1,6 +1,7 @@
 package com.example.rendezvous;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.AttributeSet;
 import android.view.Menu;
@@ -75,6 +76,8 @@ public class CardListActivity extends AppCompatActivity {
                                 break;
                             case R.id.edit_task:
                                 Toast.makeText(getApplicationContext(),"Edit Not Available",Toast.LENGTH_SHORT).show();
+                                Intent openEditTakeOut = new Intent(CardListActivity.this, EditTakeOut.class);
+                                startActivity(openEditTakeOut);
                                 break;
 
                         }

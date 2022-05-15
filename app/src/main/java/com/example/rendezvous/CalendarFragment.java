@@ -163,9 +163,9 @@ public class CalendarFragment extends Fragment {
 //                    frag = new CalendarFragment();
                     startActivity(new Intent(activity, HomeActivity.class));
                 }
-//                else if (itemId == R.id.third) {
-//                    frag = new ThirdFragment();
-//                }
+                else if (itemId == R.id.third) {
+                    startActivity(new Intent(activity, UserPage.class));
+                }
 // display a toast message with menu item's title
                 Toast.makeText(activity.getApplicationContext(), menuItem.getTitle(), Toast.LENGTH_SHORT).show();
 

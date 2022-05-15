@@ -16,6 +16,7 @@ import android.location.LocationListener;
 import android.location.LocationManager;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Looper;
 import android.provider.MediaStore;
 import android.provider.Settings;
 import android.util.Log;
@@ -25,6 +26,10 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.activity.result.ActivityResultCallback;
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
@@ -35,6 +40,11 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.lifecycle.ViewModelStoreOwner;
 
 import com.example.rendezvous.ViewModel.AddViewModel;
+import com.google.android.gms.location.FusedLocationProviderClient;
+import com.google.android.gms.location.LocationCallback;
+import com.google.android.gms.location.LocationRequest;
+import com.google.android.gms.location.LocationResult;
+import com.google.android.gms.location.LocationServices;
 import com.google.android.material.datepicker.MaterialDatePicker;
 import com.google.android.material.datepicker.MaterialPickerOnPositiveButtonClickListener;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -51,6 +61,12 @@ public class NewTakeOut extends AppCompatActivity implements LocationListener {
     Button calendar;
     private String providerId = LocationManager.GPS_PROVIDER;
     private final LocationManager locationManager = null;
+    private FusedLocationProviderClient fusedLocationProviderClient;
+    private LocationCallback locationCallback;
+    private LocationRequest locationRequest;
+    private ActivityResultLauncher<String> requestPermissionLauncher;
+    TextView textView_location;
+    private boolean requestingLocationUpdates = false;
     private static final int MIN_DIST = 20;
     private static final int MIN_PERIOD = 30000;
     private AddViewModel addViewModel;
@@ -59,6 +75,32 @@ public class NewTakeOut extends AppCompatActivity implements LocationListener {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.add_take_out);
+        if (NewTakeOut.this != null) {
+            requestPermissionLauncher = registerForActivityResult(
+                    new ActivityResultContracts.RequestPermission(),
+                    new ActivityResultCallback<Boolean>() {
+                        @Override
+                        public void onActivityResult(Boolean result) {
+                            if (result) {
+                                startLocationUpdates(NewTakeOut.this);
+                                Log.d("LAB-ADDFRAGMENT", "PERMISSION GRANTED");
+                            } else {
+                                Log.d("LAB-ADDFRAGMENT", "PERMISSION NOT GRANTED");
+                                showDialog(NewTakeOut.this);
+                            }
+                        }
+                    });
+            initializeLocation(NewTakeOut.this);
+
+            findViewById(R.id.gps_button).setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    requestingLocationUpdates = true;
+                    startLocationUpdates(NewTakeOut.this);
+                }
+            });
+        }
+
         this.dateRangeText = findViewById(R.id.show_date);
 
         this.calendar = findViewById(R.id.button_open_calendar);
@@ -81,7 +123,7 @@ public class NewTakeOut extends AppCompatActivity implements LocationListener {
             }
         });
 
-
+        textView_location = (TextView) findViewById(R.id.location_edittext);
 
         FloatingActionButton floatingActionButton = findViewById(R.id.fab_check);
         Activity activity = this;
@@ -148,6 +190,60 @@ public class NewTakeOut extends AppCompatActivity implements LocationListener {
 
     }
 
+    private void initializeLocation(Activity activity) {
+        this.fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(activity);
+        this.locationRequest = com.google.android.gms.location.LocationRequest.create();
+        //Set the desired interval for active location updates
+        locationRequest.setInterval(1000);
+        locationRequest.setPriority(com.google.android.gms.location.LocationRequest.PRIORITY_HIGH_ACCURACY);
+
+        locationCallback = new LocationCallback() {
+            @Override
+            public void onLocationResult(@NonNull LocationResult locationResult) {
+                super.onLocationResult(locationResult);
+
+                //Update UI with the location data
+                Location location = locationResult.getLastLocation();
+                String text = location.getLatitude() + ", " + location.getLongitude();
+                textView_location.setText(text);
+
+                requestingLocationUpdates = false;
+                stopLocationUpdates();
+            }
+        };
+    }
+
+    private void showDialog(Activity activity) {
+        new AlertDialog.Builder(activity)
+                .setMessage("Permission denied, but needed for gps functionality.")
+                .setCancelable(false)
+                .setPositiveButton("OK", ((dialogInterface, i) ->
+                        activity.startActivity(new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS))))
+                .setNegativeButton("Cancel", ((dialogInterface, i) -> dialogInterface.cancel()))
+                .create()
+                .show();
+    }
+
+    private void startLocationUpdates(Activity activity) {
+        final String PERMISSION_REQUESTED = Manifest.permission.ACCESS_FINE_LOCATION;
+        //permission granted
+        if (ActivityCompat.checkSelfPermission(activity, PERMISSION_REQUESTED)
+                == PackageManager.PERMISSION_GRANTED) {
+            checkStatusGPS(activity);
+            fusedLocationProviderClient.requestLocationUpdates(locationRequest,
+                    locationCallback,
+                    Looper.getMainLooper());
+        } else if (ActivityCompat
+                .shouldShowRequestPermissionRationale(activity, PERMISSION_REQUESTED)) {
+            //permission denied before
+            showDialog(activity);
+        } else {
+            //ask for the permission
+            requestPermissionLauncher.launch(PERMISSION_REQUESTED);
+        }
+
+    }
+
     private void checkStatusGPS(Activity activity) {
         final LocationManager locationManager =
                 (LocationManager) activity.getSystemService(Context.LOCATION_SERVICE);
@@ -168,7 +264,10 @@ public class NewTakeOut extends AppCompatActivity implements LocationListener {
     @Override
     protected void onResume() {
         super.onResume();
-        checkStatusGPS(this);
+        if (requestingLocationUpdates){
+            startLocationUpdates(NewTakeOut.this);
+        }
+        /*checkStatusGPS(this);
         //locationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
         //if (!locationManager.isProviderEnabled(providerId)) //controllo dello stato del provider
         //{
@@ -181,7 +280,7 @@ public class NewTakeOut extends AppCompatActivity implements LocationListener {
                 PackageManager.PERMISSION_GRANTED &&
                 ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) !=
                         PackageManager.PERMISSION_GRANTED) {
-            // TODO: Consider calling
+            //
             //    ActivityCompat#requestPermissions
             // here to request the missing permissions, and then overriding
             //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
@@ -190,16 +289,21 @@ public class NewTakeOut extends AppCompatActivity implements LocationListener {
             // for ActivityCompat#requestPermissions for more details.
             return;
         }
-        locationManager.requestLocationUpdates(providerId, MIN_PERIOD, MIN_DIST, this); //attivazione degli aggiornamenti
+        //locationManager.requestLocationUpdates(providerId, MIN_PERIOD, MIN_DIST, this); //attivazione degli aggiornamenti
         //this è l'oggetto che svolge il ruolo di LocationListener(in questo caso è l'activity stessa)
-
+*/
     }
 
     @Override
     protected void onPause()
     {
         super.onPause();
+        stopLocationUpdates();
         //locationManager.removeUpdates(this); //disattivazione aggiornamenti
+    }
+
+    private void stopLocationUpdates() {
+        fusedLocationProviderClient.removeLocationUpdates(locationCallback);
     }
 
     private void updateGUI(Location location)
@@ -207,8 +311,8 @@ public class NewTakeOut extends AppCompatActivity implements LocationListener {
         double latitude=location.getLatitude();
         double longitude=location.getLongitude();
         String msg="Ci troviamo in coordinate ("+latitude+","+longitude+")";
-        //TextView txt= (TextView) findViewById(R.id.locationText);
-        //txt.setText(msg);
+        textView_location = (TextView) findViewById(R.id.location_edittext);
+        textView_location.setText(msg);
     }
 
     @Override

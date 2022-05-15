@@ -28,6 +28,15 @@ public interface DatabaseDAO {
     @Query("SELECT UID FROM User WHERE userName = :userName")
     Integer getUID(String userName);
 
+    @Query("UPDATE User SET isActive = 1 where UID = :id")
+    void setUserActive(Integer id);
+
+    @Query("SELECT * from User where isActive = 1")
+    User getActiveUser();
+
+    @Query("UPDATE User SET isActive = 0 where UID = :id")
+    void setUserLoggedOut(Integer id);
+
     @Insert
     void insertRendezvous(RendezVous ...rendezVous);
     //Drop database

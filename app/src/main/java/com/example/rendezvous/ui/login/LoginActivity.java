@@ -6,6 +6,7 @@ import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
 
 import androidx.annotation.Nullable;
@@ -23,6 +24,8 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.rendezvous.DB.RendezVousDB;
+import com.example.rendezvous.DB.User;
 import com.example.rendezvous.R;
 import com.example.rendezvous.HomeActivity;
 import com.example.rendezvous.databinding.ActivityLoginBinding;
@@ -145,8 +148,22 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     private void updateUiWithUser(LoggedInUserView model) {
-        String welcome = getString(R.string.welcome) + model.getDisplayName();
-        // TODO : initiate successful logged in experience
+//        String welcome = getString(R.string.welcome) + model.getDisplayName();
+        String welcome = getString(R.string.welcome) + binding.username.getText().toString();
+
+        RendezVousDB db = RendezVousDB.getInstance(LoginActivity.this.getBaseContext());
+
+        AsyncTask.execute(new Runnable() {
+            @Override
+            public void run() {
+                User logged = new User(null, null, binding.username.getText().toString(),
+                        binding.password.getText().toString());
+                db.databaseDAO().insertUser(logged);
+                db.databaseDAO().setUserActive(db.databaseDAO().getUID(logged.getUserName()));
+
+            }
+        });
+            // TODO : initiate successful logged in experience
         Toast.makeText(getApplicationContext(), welcome, Toast.LENGTH_LONG).show();
     }
 

@@ -10,7 +10,7 @@ import androidx.room.TypeConverters;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
-@Database(entities = {User.class, Circle.class, CircleOfFriends.class, RendezVous.class ,Info.class}, version = 1)
+@Database(entities = {User.class, Circle.class, CircleOfFriends.class, RendezVous.class ,Info.class, Invited.class, ConfirmedRendezvous.class}, version = 1)
 @TypeConverters({Converters.class})
 public abstract class RendezVousDB extends RoomDatabase {
 

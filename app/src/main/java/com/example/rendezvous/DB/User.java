@@ -20,6 +20,9 @@ public class User {
 
     private String cognome;
 
+    @NonNull
+    private boolean isActive;
+
 
 //    Empty constructor to remove error Entities and POJOs must have a usable
 //    public constructor. You can have an empty constructor or a constructor
@@ -31,6 +34,7 @@ public class User {
         this.cognome = cognome;
         this.userName = userName;
         this.PSW = psw;
+        this.isActive = false;
     }
 
 
@@ -74,4 +78,11 @@ public class User {
         return this.UID;
     }
 
+    public boolean isActive() {
+        return isActive;
+    }
+
+    public void setActive(boolean active) {
+        isActive = active;
+    }
 }

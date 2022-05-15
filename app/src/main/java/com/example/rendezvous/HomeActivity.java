@@ -40,29 +40,31 @@ public class HomeActivity extends AppCompatActivity {
         AppCompatActivity activity = this;
         App.setCurrentActivity(activity);
 
-        RendezVousDB db = RendezVousDB.getInstance(activity.getBaseContext());
-        AsyncTask.execute(new Runnable() {
-            @Override
-            public void run() {
-                User mega = new User("Matteo", "Santoro", "Mega", "00000");
-                User sofy = new User("Sofia", "Tosi", "Sofy24", "123456");
-                User luis = new User("Luis", "Mi chiamo", "Lu1g1", "Ciao_sono_Luis");
-                User michi = new User("Michi", "Ferdinardo", "Clown", "Mi_piace_la_carne");
-                db.databaseDAO().insertUser(mega, sofy, luis, michi);
-                Circle coraggiosi = new Circle("Coraggiosi", "Rosso");
-                db.databaseDAO().insertCircle(coraggiosi);
 
-                db.databaseDAO().insertCircleOfFriends(coraggiosi.getC_name(), db.databaseDAO().getUID(mega.getUserName()));
-                db.databaseDAO().insertCircleOfFriends(coraggiosi.getC_name(), db.databaseDAO().getUID(sofy.getUserName()));
-
-                RendezVous rendezVous = new RendezVous(coraggiosi.getC_name(), Converters.dateToTimestamp(new Date()), Converters.dateToTimestamp(new Date()), 2);
-                db.databaseDAO().insertRendezvous(rendezVous);
-
-                System.out.println("Converters.fromTimestamp(Converters.dateToTimestamp(new Date())) = " + Converters.fromTimestamp(Converters.dateToTimestamp(new Date())));
-            }
-        });
 
         floatingActionButton.setOnClickListener(view -> {
+            RendezVousDB db = RendezVousDB.getInstance(activity.getBaseContext());
+            AsyncTask.execute(new Runnable() {
+                @Override
+                public void run() {
+                    User mega = new User("Matteo", "Santoro", "Mega", "00000");
+                    User sofy = new User("Sofia", "Tosi", "Sofy24", "123456");
+                    User luis = new User("Luis", "Mi chiamo", "Lu1g1", "Ciao_sono_Luis");
+                    User michi = new User("Michi", "Ferdinardo", "Clown", "Mi_piace_la_carne");
+                    db.databaseDAO().insertUser(mega, sofy, luis, michi);
+                    Circle coraggiosi = new Circle("Coraggiosi", "Rosso");
+                    db.databaseDAO().insertCircle(coraggiosi);
+
+                    db.databaseDAO().insertCircleOfFriends(coraggiosi.getC_name(), db.databaseDAO().getUID(mega.getUserName()));
+                    db.databaseDAO().insertCircleOfFriends(coraggiosi.getC_name(), db.databaseDAO().getUID(sofy.getUserName()));
+
+                    RendezVous rendezVous = new RendezVous(coraggiosi.getC_name(), Converters.dateToTimestamp(new Date()), Converters.dateToTimestamp(new Date()), 2);
+                    db.databaseDAO().insertRendezvous(rendezVous);
+
+                }
+            });
+
+
             Toast.makeText(activity, "Fab pressed", Toast.LENGTH_SHORT).show();
             Intent openNewTakeOut = new Intent(HomeActivity.this, NewTakeOut.class);
             startActivity(openNewTakeOut);

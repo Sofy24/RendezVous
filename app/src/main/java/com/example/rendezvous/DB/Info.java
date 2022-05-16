@@ -11,31 +11,58 @@ public class Info {
     private Integer I_ID;
 
     @NonNull
-    private final String title;
+    private String title;
 
-    @NonNull
-    private final String description;
+    private String description;
 
-    private final String imageURL;
+    private String imageURL;
 
-    public Info(final String title, final String description, final String imageURL) {
+    private Double latitude;
+
+    private Double longitude;
+
+    public Info(@NonNull final String title, final String description, final String imageURL) {
         this.title = title;
         this.description = description;
         this.imageURL = imageURL;
     }
 
-    public String getTitle() {
-        return title;
+    @NonNull
+    public String getTitle() { return title; }
+
+    public void setTitle(@NonNull String title) {
+        this.title = title;
     }
 
+    @NonNull
     public String getDescription() {
         return description;
     }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public void setImageURL(String imageURL) {
+        this.imageURL = imageURL;
+    }
+
+    public void setLatitude(double latitude) {
+        this.latitude = latitude;
+    }
+
+    public double getLongitude() { return longitude; }
+
+    public void setLongitude(double longitude) {
+        this.longitude = longitude;
+    }
+    public double getLatitude() { return latitude; }
 
     public String getImageURL() {
         return imageURL;
     }
 
+    @NonNull
     public Integer getI_ID(){
         return this.I_ID;
     }

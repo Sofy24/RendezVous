@@ -2,10 +2,8 @@ package com.example.rendezvous.DB;
 
 import androidx.room.Dao;
 import androidx.room.Insert;
+import androidx.room.OnConflictStrategy;
 import androidx.room.Query;
-import androidx.room.Transaction;
-
-import java.util.List;
 
 @Dao
 public interface DatabaseDAO {
@@ -18,6 +16,14 @@ public interface DatabaseDAO {
 
 //    @Query("INSERT INTO Circle VALUES(:C_ID, :C_name, :C_color)")
 //    public void insertCircle(String C_ID, String C_name, String C_color);
+
+
+    //@Query("INSERT INTO Info VALUES(:I_title, :I_description, :I_imageURL)")
+    //void insertInfo(String I_title, String I_description, String I_imageURL);
+    @Insert(onConflict = OnConflictStrategy.IGNORE)
+    void insertInfo(Info ...info);
+
+    //@Query("")
 
     @Insert
     void insertCircle(Circle ...circle);

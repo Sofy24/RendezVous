@@ -15,6 +15,7 @@ import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
 import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Looper;
 import android.provider.MediaStore;
@@ -39,7 +40,11 @@ import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.lifecycle.ViewModelStoreOwner;
 
+import com.example.rendezvous.DB.Info;
+import com.example.rendezvous.DB.RendezVousDB;
+import com.example.rendezvous.DB.User;
 import com.example.rendezvous.ViewModel.AddViewModel;
+import com.example.rendezvous.databinding.ActivityLoginBinding;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationCallback;
 import com.google.android.gms.location.LocationRequest;
@@ -48,6 +53,8 @@ import com.google.android.gms.location.LocationServices;
 import com.google.android.material.datepicker.MaterialDatePicker;
 import com.google.android.material.datepicker.MaterialPickerOnPositiveButtonClickListener;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.android.material.textfield.TextInputEditText;
+import com.google.android.material.textfield.TextInputLayout;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -55,26 +62,32 @@ import java.io.OutputStream;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
+import java.util.Objects;
 
 public class NewTakeOut extends AppCompatActivity implements LocationListener {
     TextView dateRangeText;
     Button calendar;
     private String providerId = LocationManager.GPS_PROVIDER;
     private final LocationManager locationManager = null;
+    private Location location = null;
     private FusedLocationProviderClient fusedLocationProviderClient;
     private LocationCallback locationCallback;
     private LocationRequest locationRequest;
     private ActivityResultLauncher<String> requestPermissionLauncher;
-    TextView textView_location;
+    private TextView textView_location;
     private boolean requestingLocationUpdates = false;
     private static final int MIN_DIST = 20;
     private static final int MIN_PERIOD = 30000;
     private AddViewModel addViewModel;
+    private Info info;
+    private ActivityLoginBinding binding;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.add_take_out);
+        binding = ActivityLoginBinding.inflate(getLayoutInflater());
+        setContentView(binding.getRoot());
         if (NewTakeOut.this != null) {
             requestPermissionLauncher = registerForActivityResult(
                     new ActivityResultContracts.RequestPermission(),
@@ -127,9 +140,31 @@ public class NewTakeOut extends AppCompatActivity implements LocationListener {
 
         FloatingActionButton floatingActionButton = findViewById(R.id.fab_check);
         AppCompatActivity activity = this;
+        TextInputLayout take_out_name_view = findViewById(R.id.name_new_take_out);
+        TextInputLayout take_out_description_view = findViewById(R.id.description_textinput);
+        TextInputEditText take_out_location_view = findViewById(R.id.location_edittext);
         floatingActionButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                String name_take_out = String.valueOf(Objects.requireNonNull(take_out_name_view.getEditText()).getText());
+                String description_take_out = String.valueOf(Objects.requireNonNull(take_out_description_view.getEditText()).getText());
+                String location_take_out = Objects.requireNonNull(take_out_location_view.getText()).toString();
+                String initial_day = String.valueOf(dateRangeText.getText());
+                info = new Info(name_take_out, description_take_out, null);
+
+                RendezVousDB db = RendezVousDB.getInstance(NewTakeOut.this.getBaseContext());
+                AsyncTask.execute(new Runnable() {
+                    @Override
+                    public void run() {
+                        db.databaseDAO().insertInfo(info);
+                        /*if(location != null){
+                            //System.out.println(location.getLatitude()+"=>"+location.getLongitude());
+                            //info.setLatitude(location.getLatitude());
+                            //info.setLongitude(location.getLongitude());
+                        }*/
+                    }
+                });
+                System.out.println("location null:"+location);
                 Toast.makeText(activity, "Fab pressed", Toast.LENGTH_SHORT).show();
                 Intent backHome = new Intent(NewTakeOut.this, HomeActivity.class);
                 startActivity(backHome);
@@ -202,10 +237,10 @@ public class NewTakeOut extends AppCompatActivity implements LocationListener {
                 super.onLocationResult(locationResult);
 
                 //Update UI with the location data
-                Location location = locationResult.getLastLocation();
+                location = locationResult.getLastLocation();
                 String text = location.getLatitude() + ", " + location.getLongitude();
                 textView_location.setText(text);
-
+                System.out.println(textView_location);
                 requestingLocationUpdates = false;
                 stopLocationUpdates();
             }

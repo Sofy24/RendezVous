@@ -149,18 +149,17 @@ public class NewTakeOut extends AppCompatActivity implements LocationListener {
                 String description_take_out = String.valueOf(Objects.requireNonNull(take_out_description_view.getEditText()).getText());
                 String location_take_out = Objects.requireNonNull(take_out_location_view.getText()).toString();
                 String initial_day = String.valueOf(dateRangeText.getText());
-                info = new Info(name_take_out, description_take_out, null);
 
                 RendezVousDB db = RendezVousDB.getInstance(NewTakeOut.this.getBaseContext());
                 AsyncTask.execute(new Runnable() {
                     @Override
                     public void run() {
-                        db.databaseDAO().insertInfo(info);
-                        /*if(location != null){
+                        if(location != null){
                             //System.out.println(location.getLatitude()+"=>"+location.getLongitude());
-                            //info.setLatitude(location.getLatitude());
-                            //info.setLongitude(location.getLongitude());
-                        }*/
+                            db.databaseDAO().insertInfo(new Info(name_take_out, description_take_out, null, location.getLatitude(), location.getLongitude()));
+                        }else {
+                            db.databaseDAO().insertInfo(new Info(name_take_out, description_take_out, null, 0.0, 0.0));
+                        }
                     }
                 });
                 System.out.println("location null:"+location);

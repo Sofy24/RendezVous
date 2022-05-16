@@ -21,12 +21,12 @@ public class Info {
 
     private Double longitude;
 
-    public Info(@NonNull final String title, final String description, final String imageURL) {
+    public Info(@NonNull final String title, final String description, final String imageURL, final Double latitude, final Double longitude) {
         this.title = title;
         this.description = description;
         this.imageURL = imageURL;
-        longitude = 0.0;
-        longitude = 0.0;
+        this.latitude = latitude;
+        this.longitude = longitude;
     }
 
     @NonNull

@@ -157,7 +157,7 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void run() {
                 User logged = new User(null, null, binding.username.getText().toString(),
-                        binding.password.getText().toString());
+                        binding.password.getText().toString(), null);
                 db.databaseDAO().insertUser(logged);
                 db.databaseDAO().setUserActive(db.databaseDAO().getUID(logged.getUserName()));
 

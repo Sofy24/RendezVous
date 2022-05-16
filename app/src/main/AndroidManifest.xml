@@ -35,8 +35,14 @@
         <activity android:name=".NewTakeOut" />
         <activity android:name=".EditTakeOut" />
         <activity android:name=".CardListActivity"/>
-        <activity android:name=".UserPage"/>
+        <activity android:name=".UserPage"
+            android:exported="true"
+            >
+            <intent-filter>
+                <action android:name="android.intent.action.OPEN_DOCUMENT" />
+            </intent-filter>
+       </activity>
 
-    </application>
+</application>
 
 </manifest>

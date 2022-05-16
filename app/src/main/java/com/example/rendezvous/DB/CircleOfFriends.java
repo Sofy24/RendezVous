@@ -8,6 +8,7 @@ import androidx.annotation.NonNull;
 import androidx.room.Embedded;
 import androidx.room.Entity;
 import androidx.room.ForeignKey;
+import androidx.room.Index;
 import androidx.room.Relation;
 
 import java.util.List;
@@ -18,7 +19,10 @@ import java.util.List;
         onDelete = CASCADE), @ForeignKey(entity = User.class,
         parentColumns = "UID",
         childColumns = "COF_UID",
-        onDelete = CASCADE)}, primaryKeys = { "COF_C_name", "COF_UID"})
+        onDelete = CASCADE)}, primaryKeys = { "COF_C_name", "COF_UID"}, indices = {
+        @Index(value = "COF_C_name"),
+        @Index(value = "COF_UID")
+})
 public class CircleOfFriends {
 //    @Embedded User user;
 //

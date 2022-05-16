@@ -33,4 +33,5 @@
     <string name="surname">Surname</string>
     <string name="compiled_user_page">Compiled User Page</string>
     <string name="container_for_group_circles">Container for group circles</string>
+    <string name="click_to_change_avatar_image">Click to change avatar image</string>
 </resources>

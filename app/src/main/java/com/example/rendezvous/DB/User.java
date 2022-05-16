@@ -28,17 +28,19 @@ public class User {
     @NonNull
     private boolean isActive;
 
+    private String URIavatar;
 
 //    Empty constructor to remove error Entities and POJOs must have a usable
 //    public constructor. You can have an empty constructor or a constructor
 //    whose parameters match the fields (by name and type).
     public User() {}
 
-    public User(final String nome, final String cognome, final String userName, final String psw) {
+    public User(final String nome, final String cognome, final String userName, final String psw, String urIavatar) {
         this.nome = nome;
         this.cognome = cognome;
         this.userName = userName;
         this.PSW = psw;
+        URIavatar = urIavatar;
         this.isActive = false;
     }
 
@@ -101,5 +103,13 @@ public class User {
                 ", cognome='" + cognome + '\'' +
                 ", isActive=" + isActive +
                 '}';
+    }
+
+    public String getURIavatar() {
+        return URIavatar;
+    }
+
+    public void setURIavatar(String URIavatar) {
+        this.URIavatar = URIavatar;
     }
 }

@@ -1,5 +1,7 @@
 package com.example.rendezvous.DB;
 
+import android.net.Uri;
+
 import androidx.room.Dao;
 import androidx.room.Insert;
 import androidx.room.OnConflictStrategy;
@@ -53,6 +55,9 @@ public interface DatabaseDAO {
 
     @Query("UPDATE User set nome = :name, cognome = :surname where UID = :id")
     void updateUser(Integer id, String name, String surname); //, String image);
+
+    @Query("UPDATE User set URIavatar = :uri")
+    void updateUserAvatar(String uri);
 
     @Query("SELECT * from circle")
     List<Circle> getCircles();

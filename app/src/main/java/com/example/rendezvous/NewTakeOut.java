@@ -154,6 +154,10 @@ public class NewTakeOut extends AppCompatActivity implements LocationListener {
                 AsyncTask.execute(new Runnable() {
                     @Override
                     public void run() {
+
+
+
+
                         if(location != null){
                             //System.out.println(location.getLatitude()+"=>"+location.getLongitude());
                             db.databaseDAO().insertInfo(new Info(name_take_out, description_take_out, null, location.getLatitude(), location.getLongitude()));

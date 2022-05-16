@@ -47,10 +47,10 @@ public class HomeActivity extends AppCompatActivity {
             AsyncTask.execute(new Runnable() {
                 @Override
                 public void run() {
-                    User mega = new User("Matteo", "Santoro", "Mega", "00000");
-                    User sofy = new User("Sofia", "Tosi", "Sofy24", "123456");
-                    User luis = new User("Luis", "Mi chiamo", "Lu1g1", "Ciao_sono_Luis");
-                    User michi = new User("Michi", "Ferdinardo", "Clown", "Mi_piace_la_carne");
+                    User mega = new User("Matteo", "Santoro", "Mega", "00000", null);
+                    User sofy = new User("Sofia", "Tosi", "Sofy24", "123456", null);
+                    User luis = new User("Luis", "Mi chiamo", "Lu1g1", "Ciao_sono_Luis", null);
+                    User michi = new User("Michi", "Ferdinardo", "Clown", "Mi_piace_la_carne", null);
                     db.databaseDAO().insertUser(mega, sofy, luis, michi);
                     Circle coraggiosi = new Circle("Coraggiosi", "Rosso");
                     db.databaseDAO().insertCircle(coraggiosi);

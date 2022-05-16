@@ -8,7 +8,7 @@
     >
 
     <ImageView
-        android:id="@+id/imageView"
+        android:id="@+id/avatar_image"
         android:layout_width="145dp"
         android:layout_height="143dp"
         android:layout_marginStart="50dp"
@@ -24,7 +24,7 @@
         android:layout_marginStart="50dp"
         android:layout_marginTop="152dp"
         android:text="TextView"
-        app:layout_constraintStart_toEndOf="@+id/imageView"
+        app:layout_constraintStart_toEndOf="@+id/avatar_image"
         app:layout_constraintTop_toTopOf="parent" />
 
     <com.google.android.material.textfield.TextInputLayout
@@ -94,9 +94,16 @@
             android:orientation="vertical" />
     </ScrollView>
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical"></LinearLayout>
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/add_photo_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="-40dp"
+        android:layout_marginTop="-45dp"
+        android:clickable="true"
+        android:contentDescription="@string/click_to_change_avatar_image"
+        app:layout_constraintStart_toEndOf="@+id/avatar_image"
+        app:layout_constraintTop_toBottomOf="@+id/avatar_image"
+        app:srcCompat="@drawable/ic_baseline_add_a_photo_24" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

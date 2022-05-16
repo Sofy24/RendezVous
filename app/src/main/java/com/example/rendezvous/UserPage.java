@@ -157,7 +157,7 @@ public class UserPage extends AppCompatActivity {
                                 AsyncTask.execute(new Runnable() {
                                     @Override
                                     public void run() {
-                                        db.databaseDAO().updateUserAvatar(imageUri.toString());
+                                        db.databaseDAO().updateUserAvatar(imageUri.toString(), db.databaseDAO().getActiveUser().getUserName());
                                     }
                                 });
                                 final InputStream imageStream = getContentResolver().openInputStream(imageUri);

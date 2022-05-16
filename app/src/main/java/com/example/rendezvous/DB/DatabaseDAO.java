@@ -56,8 +56,8 @@ public interface DatabaseDAO {
     @Query("UPDATE User set nome = :name, cognome = :surname where UID = :id")
     void updateUser(Integer id, String name, String surname); //, String image);
 
-    @Query("UPDATE User set URIavatar = :uri")
-    void updateUserAvatar(String uri);
+    @Query("UPDATE User set URIavatar = :uri where userName = :username")
+    void updateUserAvatar(String uri, String username);
 
     @Query("SELECT * from circle")
     List<Circle> getCircles();

@@ -3,6 +3,7 @@ package com.example.rendezvous;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.text.Layout;
 import android.view.Gravity;
@@ -22,6 +23,8 @@ import androidx.fragment.app.FragmentActivity;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
+import com.example.rendezvous.DB.RendezVous;
+import com.example.rendezvous.DB.RendezVousDB;
 import com.google.android.material.appbar.MaterialToolbar;
 import com.google.android.material.navigation.NavigationView;
 
@@ -165,6 +168,15 @@ public class CalendarFragment extends Fragment {
                 }
                 else if (itemId == R.id.third) {
                     startActivity(new Intent(activity, UserPage.class));
+                } else if (itemId == R.id.fourth) {
+                    RendezVousDB db = RendezVousDB.getInstance(activity.getBaseContext());
+                    AsyncTask.execute(new Runnable() {
+                        @Override
+                        public void run() {
+                            db.databaseDAO().setUserLoggedOut();
+                        }
+                    });
+                    System.exit(0);
                 }
 // display a toast message with menu item's title
                 Toast.makeText(activity.getApplicationContext(), menuItem.getTitle(), Toast.LENGTH_SHORT).show();

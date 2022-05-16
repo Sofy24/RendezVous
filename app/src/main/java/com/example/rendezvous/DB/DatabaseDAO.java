@@ -50,8 +50,8 @@ public interface DatabaseDAO {
     @Query("SELECT * from User where isActive = 1")
     User getActiveUser();
 
-    @Query("UPDATE User SET isActive = 0 where UID = :id")
-    void setUserLoggedOut(Integer id);
+    @Query("UPDATE User SET isActive = 0")
+    void setUserLoggedOut();
 
     @Query("UPDATE User set nome = :name, cognome = :surname where UID = :id")
     void updateUser(Integer id, String name, String surname); //, String image);

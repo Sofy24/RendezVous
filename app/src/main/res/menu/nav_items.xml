@@ -16,11 +16,11 @@
         <item
             android:id="@+id/third"
             android:icon="@drawable/logo"
-            android:title="Account ???" />
+            android:title="Personal Account" />
         <item
             android:id="@+id/fourth"
             android:icon="@drawable/ic_baseline_remove_circle_outline_24"
-            android:title="Close App/Log Out" />
+            android:title="Close/Log Out" />
 
     </group>
 </menu>

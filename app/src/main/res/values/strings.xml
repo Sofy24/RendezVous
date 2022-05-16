@@ -25,6 +25,11 @@
     <string name="take_gps_position">take gps position</string>
     <string name="location">Add a location</string>
     <string name="helper_show_date">Selected dates</string>
+    <string name="checkbox1">caso1</string>
+    <string name="checkbox2">caso2</string>
+    <string name="checkbox3">caso3</string>
+    <string name="checkbox4">caso4</string>
+    <string name="checkbox5">caso5</string>
     <string name="surname">Surname</string>
     <string name="compiled_user_page">Compiled User Page</string>
 </resources>

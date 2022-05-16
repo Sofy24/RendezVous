@@ -75,7 +75,7 @@ public class CardListActivity extends AppCompatActivity {
                                 recyclerviewAdapter.setTaskList(taskList);
                                 break;
                             case R.id.edit_task:
-                                Toast.makeText(getApplicationContext(),"Edit Not Available",Toast.LENGTH_SHORT).show();
+                                Toast.makeText(getApplicationContext(),"Edit!",Toast.LENGTH_SHORT).show();
                                 Intent openEditTakeOut = new Intent(CardListActivity.this, EditTakeOut.class);
                                 startActivity(openEditTakeOut);
                                 break;

@@ -126,12 +126,11 @@ public class NewTakeOut extends AppCompatActivity implements LocationListener {
         textView_location = (TextView) findViewById(R.id.location_edittext);
 
         FloatingActionButton floatingActionButton = findViewById(R.id.fab_check);
-        Activity activity = this;
-        App.setCurrentActivity(activity);
+        AppCompatActivity activity = this;
         floatingActionButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText((AppCompatActivity) activity, "Fab pressed", Toast.LENGTH_SHORT).show();
+                Toast.makeText(activity, "Fab pressed", Toast.LENGTH_SHORT).show();
                 Intent backHome = new Intent(NewTakeOut.this, HomeActivity.class);
                 startActivity(backHome);
             }

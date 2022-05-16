@@ -38,7 +38,6 @@ public class HomeActivity extends AppCompatActivity {
 
         FloatingActionButton floatingActionButton = findViewById(R.id.fab_add);
         AppCompatActivity activity = this;
-        App.setCurrentActivity(activity);
 
 
 

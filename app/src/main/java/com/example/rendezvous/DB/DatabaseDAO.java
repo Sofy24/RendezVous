@@ -5,13 +5,15 @@ import androidx.room.Insert;
 import androidx.room.OnConflictStrategy;
 import androidx.room.Query;
 
+import java.util.List;
+
 @Dao
 public interface DatabaseDAO {
     // Insert User
 //    @Query("INSERT INTO User VALUES(:UID, :username, :psw, null, null)")
 //    public void insertUser(String UID, String username, String psw);
 
-    @Insert
+    @Insert(onConflict = OnConflictStrategy.IGNORE)
     void insertUser(User ...user);
 
 //    @Query("INSERT INTO Circle VALUES(:C_ID, :C_name, :C_color)")
@@ -25,8 +27,14 @@ public interface DatabaseDAO {
 
     //@Query("")
 
-    @Insert
+    @Insert(onConflict =  OnConflictStrategy.IGNORE)
     void insertCircle(Circle ...circle);
+
+    @Insert(onConflict = OnConflictStrategy.IGNORE)
+    void insertCircleOfFriends(CircleOfFriends ...circleOfFriends);
+
+    @Query("DELETE from CircleOfFriends where COF_UID = :id and COF_C_name = :groupName")
+    void removeFromCircle(Integer id, String groupName);
 
     @Query("INSERT INTO CircleOfFriends VALUES(:gruopName, :user_ID)")
     void insertCircleOfFriends(String gruopName, Integer user_ID);
@@ -45,6 +53,14 @@ public interface DatabaseDAO {
 
     @Query("UPDATE User set nome = :name, cognome = :surname where UID = :id")
     void updateUser(Integer id, String name, String surname); //, String image);
+
+    @Query("SELECT * from circle")
+    List<Circle> getCircles();
+
+
+    @Query("SELECT C_name from circle join circleoffriends on (C_name = COF_C_name) where COF_UID = :id")
+    List<String> getUserCircles(Integer id);
+
     @Insert
     void insertRendezvous(RendezVous ...rendezVous);
     //Drop database

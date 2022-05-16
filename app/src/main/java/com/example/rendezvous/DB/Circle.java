@@ -57,5 +57,12 @@ public class Circle {
         C_ID = c_ID;
     }
 
-
+    @Override
+    public String toString() {
+        return "Circle{" +
+                "C_ID=" + C_ID +
+                ", C_name='" + C_name + '\'' +
+                ", C_color='" + C_color + '\'' +
+                '}';
+    }
 }

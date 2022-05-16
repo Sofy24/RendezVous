@@ -3,7 +3,9 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:id="@+id/user_page_view"
+    >
 
     <ImageView
         android:id="@+id/imageView"
@@ -72,5 +74,29 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/surname_active_user"
         app:srcCompat="@drawable/ic_baseline_check_24" />
+
+    <ScrollView
+        android:id="@+id/circle_checkbox"
+        android:layout_width="393dp"
+        android:layout_height="194dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="24dp"
+        android:layout_marginEnd="10dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/surname_active_user"
+        android:contentDescription="@string/container_for_group_circles"
+        >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical" />
+    </ScrollView>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"></LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

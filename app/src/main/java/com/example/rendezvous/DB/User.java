@@ -2,9 +2,14 @@ package com.example.rendezvous.DB;
 
 import androidx.annotation.NonNull;
 import androidx.room.Entity;
+import androidx.room.Index;
 import androidx.room.PrimaryKey;
 
-@Entity
+@Entity(  indices = {
+        @Index(value = "UID"),
+        @Index(value = "userName", unique = true)
+}
+)
 public class User {
     @PrimaryKey(autoGenerate = true) // come funziona ?
     @NonNull

@@ -41,8 +41,9 @@ public class HomeActivity extends AppCompatActivity {
 
 
 
+        RendezVousDB db = RendezVousDB.getInstance(activity.getBaseContext());
+
         floatingActionButton.setOnClickListener(view -> {
-            RendezVousDB db = RendezVousDB.getInstance(activity.getBaseContext());
             AsyncTask.execute(new Runnable() {
                 @Override
                 public void run() {
@@ -53,6 +54,11 @@ public class HomeActivity extends AppCompatActivity {
                     db.databaseDAO().insertUser(mega, sofy, luis, michi);
                     Circle coraggiosi = new Circle("Coraggiosi", "Rosso");
                     db.databaseDAO().insertCircle(coraggiosi);
+                    Circle gym = new Circle("Gym", "Black");
+                    db.databaseDAO().insertCircle(gym);
+                    Circle uni = new Circle("University", "Pink");
+                    db.databaseDAO().insertCircle(uni);
+
 
                     db.databaseDAO().insertCircleOfFriends(coraggiosi.getC_name(), db.databaseDAO().getUID(mega.getUserName()));
                     db.databaseDAO().insertCircleOfFriends(coraggiosi.getC_name(), db.databaseDAO().getUID(sofy.getUserName()));

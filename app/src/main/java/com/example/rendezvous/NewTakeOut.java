@@ -86,8 +86,6 @@ public class NewTakeOut extends AppCompatActivity implements LocationListener {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.add_take_out);
-        binding = ActivityLoginBinding.inflate(getLayoutInflater());
-        setContentView(binding.getRoot());
         if (NewTakeOut.this != null) {
             requestPermissionLauncher = registerForActivityResult(
                     new ActivityResultContracts.RequestPermission(),
@@ -105,6 +103,7 @@ public class NewTakeOut extends AppCompatActivity implements LocationListener {
                     });
             initializeLocation(NewTakeOut.this);
 
+            System.out.println("findViewById(R.id.gps_button)  = " + findViewById(R.id.gps_button).toString() );
             findViewById(R.id.gps_button).setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {

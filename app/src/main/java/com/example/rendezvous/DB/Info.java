@@ -25,6 +25,8 @@ public class Info {
         this.title = title;
         this.description = description;
         this.imageURL = imageURL;
+        longitude = 0.0;
+        longitude = 0.0;
     }
 
     @NonNull

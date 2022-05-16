@@ -5,7 +5,7 @@
     <string name="prompt_password">Password</string>
     <string name="action_sign_in">Sign in or register</string>
     <string name="action_sign_in_short">Sign in</string>
-    <string name="welcome">"Welcome !"</string>
+    <string name="welcome">"Okaerinasai "</string>
     <string name="invalid_username">Not a valid username</string>
     <string name="invalid_password">Password must be >5 characters</string>
     <string name="login_failed">"Login failed"</string>
@@ -25,4 +25,6 @@
     <string name="take_gps_position">take gps position</string>
     <string name="location">Add a location</string>
     <string name="helper_show_date">Selected dates</string>
+    <string name="surname">Surname</string>
+    <string name="compiled_user_page">Compiled User Page</string>
 </resources>

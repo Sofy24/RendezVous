@@ -37,6 +37,8 @@ public interface DatabaseDAO {
     @Query("UPDATE User SET isActive = 0 where UID = :id")
     void setUserLoggedOut(Integer id);
 
+    @Query("UPDATE User set nome = :name, cognome = :surname where UID = :id")
+    void updateUser(Integer id, String name, String surname); //, String image);
     @Insert
     void insertRendezvous(RendezVous ...rendezVous);
     //Drop database

@@ -66,7 +66,7 @@ public interface DatabaseDAO {
     @Query("SELECT C_name from circle join circleoffriends on (C_name = COF_C_name) where COF_UID = :id")
     List<String> getUserCircles(Integer id);
 
-    @Insert
+    @Insert(onConflict = OnConflictStrategy.IGNORE)
     void insertRendezvous(RendezVous ...rendezVous);
     //Drop database
 //    @Query("DELETE TABLE User")

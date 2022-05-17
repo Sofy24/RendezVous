@@ -53,9 +53,9 @@ public class UserPage extends AppCompatActivity {
     private List<Circle> circleList;
     private  TextInputEditText name ;
     private TextInputEditText surname;
-    private List<Circle> selectedCircles = new ArrayList<>();
+    private final List<Circle> selectedCircles = new ArrayList<>();
     private List<String> alreadyMember;
-    private List<CheckBox> checkBoxList = new ArrayList<>();
+    private final List<CheckBox> checkBoxList = new ArrayList<>();
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {

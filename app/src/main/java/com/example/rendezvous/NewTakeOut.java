@@ -22,8 +22,13 @@ import android.provider.MediaStore;
 import android.provider.Settings;
 import android.util.Log;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -40,6 +45,7 @@ import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.lifecycle.ViewModelStoreOwner;
 
+import com.example.rendezvous.DB.Circle;
 import com.example.rendezvous.DB.Info;
 import com.example.rendezvous.DB.RendezVousDB;
 import com.example.rendezvous.DB.User;
@@ -60,7 +66,9 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import java.util.Locale;
 import java.util.Objects;
 
@@ -80,7 +88,11 @@ public class NewTakeOut extends AppCompatActivity implements LocationListener {
     private static final int MIN_PERIOD = 30000;
     private AddViewModel addViewModel;
     private Info info;
-    private ActivityLoginBinding binding;
+    private final List<Circle> selectedCircles = new ArrayList<>();
+    private final List<CheckBox> checkBoxList = new ArrayList<>();
+    private List<Circle> circleList;
+    private List<String> alreadyMember;
+    private User activeUser;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -134,6 +146,39 @@ public class NewTakeOut extends AppCompatActivity implements LocationListener {
                 });
             }
         });
+
+        RendezVousDB db = RendezVousDB.getInstance(NewTakeOut.this.getBaseContext());
+        AsyncTask.execute(new Runnable() {
+                      @Override
+                      public void run() {
+                          activeUser = db.databaseDAO().getActiveUser();
+                          circleList = db.databaseDAO().getCircles();
+                          alreadyMember = db.databaseDAO().getUserCircles(db.databaseDAO().getUID(activeUser.getUserName()));
+                          ScrollView scrollView = findViewById(R.id.circle_checkbox);
+                          LinearLayout layout = (LinearLayout) scrollView.getChildAt(0);
+
+                          for (Circle c : circleList) {
+                              CheckBox box = new CheckBox(NewTakeOut.this.getBaseContext());
+                              box.setText(c.getC_name());
+                              box.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT));
+                              box.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+                                  @Override
+                                  public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+                                      selectedCircles.add(c);
+                                  }
+                              });
+                              if (alreadyMember.contains(c.getC_name())) {
+                                  box.setChecked(true); //non testato
+                              }
+                              layout.addView(box);
+                              checkBoxList.add(box);
+                          }
+                      }
+                  });
+
+
+
+
 
         textView_location = (TextView) findViewById(R.id.location_edittext);
 

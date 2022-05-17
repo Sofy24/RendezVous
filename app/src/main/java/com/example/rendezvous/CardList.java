@@ -14,6 +14,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.rendezvous.ViewModel.RecyclerTouchListener;
 import com.example.rendezvous.ViewModel.RecyclerviewAdapter;
+import com.example.rendezvous.ViewModel.RendezVousCard;
 import com.example.rendezvous.ViewModel.Task;
 
 import java.util.ArrayList;
@@ -43,20 +44,8 @@ public class CardList extends Fragment {
         recyclerviewAdapter = new RecyclerviewAdapter(activity.getBaseContext());
 
         System.out.println("recyclerView = " + recyclerView);
-        final List<Task> taskList = new ArrayList<>();
-        Task task = new Task("Buy Dress","Buy Dress at Shoppershop for coming functions");
-        taskList.add(task);
-        task = new Task("Go For Walk","Wake up 6AM go for walking");
-        taskList.add(task);
-        task = new Task("Office Work","Complete the office works on Time");
-        taskList.add(task);
-        task = new Task("watch Repair","Give watch to service center");
-        taskList.add(task);
-        task = new Task("Recharge Mobile","Recharge for 10$ to my **** number");
-        taskList.add(task);
-        task = new Task("Read book","Read android book completely");
-        taskList.add(task);
-        recyclerviewAdapter.setTaskList(taskList);
+        final List<RendezVousCard> rendezVousCards = new ArrayList<>();
+        recyclerviewAdapter.setTaskList(rendezVousCards);
         recyclerView.setAdapter(recyclerviewAdapter);
 
         touchListener = new RecyclerTouchListener(activity,recyclerView);
@@ -64,7 +53,7 @@ public class CardList extends Fragment {
                 .setClickable(new RecyclerTouchListener.OnRowClickListener() {
                     @Override
                     public void onRowClicked(int position) {
-                        Toast.makeText(activity.getApplicationContext(),taskList.get(position).getName(), Toast.LENGTH_SHORT).show();
+                        Toast.makeText(activity.getApplicationContext(),rendezVousCards.get(position).getTitle(), Toast.LENGTH_SHORT).show();
                     }
 
                     @Override
@@ -78,8 +67,8 @@ public class CardList extends Fragment {
                     public void onSwipeOptionClicked(int viewID, int position) {
                         switch (viewID){
                             case R.id.delete_task:
-                                taskList.remove(position);
-                                recyclerviewAdapter.setTaskList(taskList);
+                                rendezVousCards.remove(position);
+                                recyclerviewAdapter.setTaskList(rendezVousCards);
                                 break;
                             case R.id.edit_task:
                                 Toast.makeText(activity.getApplicationContext(),"Edit Not Available",Toast.LENGTH_SHORT).show();

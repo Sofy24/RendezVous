@@ -15,6 +15,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.rendezvous.ViewModel.RecyclerTouchListener;
 import com.example.rendezvous.ViewModel.RecyclerviewAdapter;
+import com.example.rendezvous.ViewModel.RendezVousCard;
 import com.example.rendezvous.ViewModel.Task;
 
 import java.util.ArrayList;
@@ -35,21 +36,25 @@ public class CardListActivity extends AppCompatActivity {
         recyclerView = findViewById(R.id.recyclerView);
         recyclerviewAdapter = new RecyclerviewAdapter(this);
 
-        System.out.println("You son of a bith mi in ");
-        final List<Task> taskList = new ArrayList<>();
-        Task task = new Task("Buy Dress","Buy Dress at Shoppershop for coming functions");
-        taskList.add(task);
-        task = new Task("Go For Walk","Wake up 6AM go for walking");
-        taskList.add(task);
-        task = new Task("Office Work","Complete the office works on Time");
-        taskList.add(task);
-        task = new Task("watch Repair","Give watch to service center");
-        taskList.add(task);
-        task = new Task("Recharge Mobile","Recharge for 10$ to my **** number");
-        taskList.add(task);
-        task = new Task("Read book","Read android book completely");
-        taskList.add(task);
-        recyclerviewAdapter.setTaskList(taskList);
+//        final List<Task> taskList = new ArrayList<>();
+//        Task task = new Task("Buy Dress","Buy Dress at Shoppershop for coming functions");
+//        taskList.add(task);
+//        task = new Task("Go For Walk","Wake up 6AM go for walking");
+//        taskList.add(task);
+//        task = new Task("Office Work","Complete the office works on Time");
+//        taskList.add(task);
+//        task = new Task("watch Repair","Give watch to service center");
+//        taskList.add(task);
+//        task = new Task("Recharge Mobile","Recharge for 10$ to my **** number");
+//        taskList.add(task);
+//        task = new Task("Read book","Read android book completely");
+//        taskList.add(task);
+        final List<RendezVousCard> rendezVousCards = new ArrayList<>();
+        rendezVousCards.add(new RendezVousCard("Uscita bellissima", null));
+        rendezVousCards.add(new RendezVousCard("Uscita spiacevole", null));
+        rendezVousCards.add(new RendezVousCard("Uscita tra uomini", null));
+
+        recyclerviewAdapter.setTaskList(rendezVousCards);
         recyclerView.setAdapter(recyclerviewAdapter);
 
         touchListener = new RecyclerTouchListener(this,recyclerView);
@@ -57,7 +62,7 @@ public class CardListActivity extends AppCompatActivity {
                 .setClickable(new RecyclerTouchListener.OnRowClickListener() {
                     @Override
                     public void onRowClicked(int position) {
-                        Toast.makeText(getApplicationContext(),taskList.get(position).getName(), Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getApplicationContext(),rendezVousCards.get(position).getTitle(), Toast.LENGTH_SHORT).show();
                     }
 
                     @Override
@@ -71,8 +76,8 @@ public class CardListActivity extends AppCompatActivity {
                     public void onSwipeOptionClicked(int viewID, int position) {
                         switch (viewID){
                             case R.id.delete_task:
-                                taskList.remove(position);
-                                recyclerviewAdapter.setTaskList(taskList);
+                                rendezVousCards.remove(position);
+                                recyclerviewAdapter.setTaskList(rendezVousCards);
                                 break;
                             case R.id.edit_task:
                                 Toast.makeText(getApplicationContext(),"Edit!",Toast.LENGTH_SHORT).show();

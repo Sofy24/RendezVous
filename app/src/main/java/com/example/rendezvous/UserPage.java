@@ -130,7 +130,7 @@ public class UserPage extends AppCompatActivity {
                     }
                 }
             });
-
+            this.finish();
         });
 
         FloatingActionButton photoUpload = (FloatingActionButton) findViewById(R.id.add_photo_button);

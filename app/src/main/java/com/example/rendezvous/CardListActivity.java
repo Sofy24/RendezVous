@@ -2,6 +2,7 @@ package com.example.rendezvous;
 
 import android.content.Context;
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.AttributeSet;
 import android.view.Menu;
@@ -13,6 +14,8 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.rendezvous.DB.Info;
+import com.example.rendezvous.DB.RendezVousDB;
 import com.example.rendezvous.ViewModel.RecyclerTouchListener;
 import com.example.rendezvous.ViewModel.RecyclerviewAdapter;
 import com.example.rendezvous.ViewModel.RendezVousCard;
@@ -25,7 +28,7 @@ public class CardListActivity extends AppCompatActivity {
     private RecyclerView recyclerView;
     private RecyclerviewAdapter recyclerviewAdapter;
     private RecyclerTouchListener touchListener;
-
+    private List<Info> infos;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -50,12 +53,25 @@ public class CardListActivity extends AppCompatActivity {
 //        task = new Task("Read book","Read android book completely");
 //        taskList.add(task);
         final List<RendezVousCard> rendezVousCards = new ArrayList<>();
-        rendezVousCards.add(new RendezVousCard("Uscita bellissima", null));
-        rendezVousCards.add(new RendezVousCard("Uscita spiacevole", null));
-        rendezVousCards.add(new RendezVousCard("Uscita tra uomini", null));
+        RendezVousDB db = RendezVousDB.getInstance(CardListActivity.this.getBaseContext());
 
-        recyclerviewAdapter.setTaskList(rendezVousCards);
-        recyclerView.setAdapter(recyclerviewAdapter);
+        AsyncTask.execute(new Runnable() {
+            @Override
+            public void run() {
+                infos = db.databaseDAO().getListCardsForActiveUser();
+                for (Info singleInfo:
+                     infos) {
+                    rendezVousCards.add(new RendezVousCard(singleInfo.getTitle(), singleInfo.getImageURL()));
+                    recyclerviewAdapter.setTaskList(rendezVousCards);
+                    recyclerView.setAdapter(recyclerviewAdapter);
+
+                }
+            }
+        });
+//        rendezVousCards.add(new RendezVousCard("Uscita bellissima", null));
+//        rendezVousCards.add(new RendezVousCard("Uscita spiacevole", null));
+//        rendezVousCards.add(new RendezVousCard("Uscita tra uomini", null));
+
 
         touchListener = new RecyclerTouchListener(this,recyclerView);
         touchListener

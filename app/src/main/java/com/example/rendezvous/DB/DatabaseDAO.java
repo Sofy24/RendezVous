@@ -62,12 +62,15 @@ public interface DatabaseDAO {
     @Query("SELECT * from circle")
     List<Circle> getCircles();
 
-
     @Query("SELECT C_name from circle join circleoffriends on (C_name = COF_C_name) where COF_UID = :id")
     List<String> getUserCircles(Integer id);
 
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     void insertRendezvous(RendezVous ...rendezVous);
+
+    @Query("SELECT o.* FROM RendezVous join Info o on (R_infoID = I_ID) join CircleOfFriends on (R_circleName = COF_C_name) join User on (COF_UID = UID) where isActive = 1 ;")
+    List<Info> getListCardsForActiveUser();
+
     //Drop database
 //    @Query("DELETE TABLE User")
 //    public void nukeTables();

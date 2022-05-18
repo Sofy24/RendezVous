@@ -19,6 +19,7 @@ import com.example.rendezvous.DB.RendezVous;
 import com.example.rendezvous.DB.RendezVousDB;
 import com.example.rendezvous.DB.User;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.type.DateTime;
 
 import java.util.Date;
 
@@ -65,8 +66,14 @@ public class HomeActivity extends AppCompatActivity {
 
                     RendezVous rendezVous = new RendezVous(coraggiosi.getC_name(), Converters.dateToTimestamp(new Date()), Converters.dateToTimestamp(new Date()), 2);
                     db.databaseDAO().insertRendezvous(rendezVous);
+                    RendezVous rendezVous2 = new RendezVous(coraggiosi.getC_name(), Converters.dateToTimestamp(new Date()), Converters.dateToTimestamp(new Date()), 24);
+                    db.databaseDAO().insertRendezvous(rendezVous2);
+                    Circle cc = new Circle("cc", "Pink");
+                    db.databaseDAO().insertCircle(cc);
+                    db.databaseDAO().insertRendezvous(new RendezVous("cc", 1000,1000, 45));
 
                 }
+                //System.out.println("new DateTime() = "); //soutv
             });
 
 

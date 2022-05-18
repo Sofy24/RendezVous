@@ -162,6 +162,8 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/picture_displayed_imageview" />
 
+<!--TODO la scrollview sottostante ha un magik number come altezza-->
+
     <ScrollView
         android:id="@+id/circle_checkbox"
         android:layout_width="match_parent"

@@ -40,17 +40,14 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.util.Pair;
-import androidx.fragment.app.FragmentManager;
-import androidx.lifecycle.Observer;
-import androidx.lifecycle.ViewModelProvider;
-import androidx.lifecycle.ViewModelStoreOwner;
 
 import com.example.rendezvous.DB.Circle;
+import com.example.rendezvous.DB.Converters;
 import com.example.rendezvous.DB.Info;
+import com.example.rendezvous.DB.RendezVous;
 import com.example.rendezvous.DB.RendezVousDB;
 import com.example.rendezvous.DB.User;
 import com.example.rendezvous.ViewModel.AddViewModel;
-import com.example.rendezvous.databinding.ActivityLoginBinding;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationCallback;
 import com.google.android.gms.location.LocationRequest;
@@ -88,6 +85,7 @@ public class NewTakeOut extends AppCompatActivity implements LocationListener {
     private static final int MIN_PERIOD = 30000;
     private AddViewModel addViewModel;
     private Info info;
+    private RendezVous rendezVous;
     private final List<Circle> selectedCircles = new ArrayList<>();
     private final List<CheckBox> checkBoxList = new ArrayList<>();
     private List<Circle> circleList;
@@ -128,11 +126,11 @@ public class NewTakeOut extends AppCompatActivity implements LocationListener {
         this.dateRangeText = findViewById(R.id.show_date);
 
         this.calendar = findViewById(R.id.button_open_calendar);
-        MaterialDatePicker materialDatePicker = MaterialDatePicker.Builder.dateRangePicker()
+        MaterialDatePicker<Pair<Long, Long>> materialDatePicker = MaterialDatePicker.Builder.dateRangePicker()
                 .setSelection(Pair.create(MaterialDatePicker.thisMonthInUtcMilliseconds(),
                         MaterialDatePicker.todayInUtcMilliseconds()))
                 .build();
-        System.out.println("getSupportFragmentManager().getFragments() = " + getSupportFragmentManager().getFragments());
+        //System.out.println("getSupportFragmentManager().getFragments() = " + getSupportFragmentManager().getFragments());
 
         this.calendar.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -190,25 +188,36 @@ public class NewTakeOut extends AppCompatActivity implements LocationListener {
         floatingActionButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String name_take_out = String.valueOf(Objects.requireNonNull(take_out_name_view.getEditText()).getText());
-                String description_take_out = String.valueOf(Objects.requireNonNull(take_out_description_view.getEditText()).getText());
-                String location_take_out = Objects.requireNonNull(take_out_location_view.getText()).toString();
-                String initial_day = String.valueOf(dateRangeText.getText());
+                String nameTakeOut = String.valueOf(Objects.requireNonNull(take_out_name_view.getEditText()).getText());
+                String descriptionTakeOut = String.valueOf(Objects.requireNonNull(take_out_description_view.getEditText()).getText());
+                String locationTakeOut = Objects.requireNonNull(take_out_location_view.getText()).toString();
+                String[] days = String.valueOf(dateRangeText.getText()).split("- ");
+                final List<String> circleOfFriendsSelected = new ArrayList<>();
 
                 RendezVousDB db = RendezVousDB.getInstance(NewTakeOut.this.getBaseContext());
                 AsyncTask.execute(new Runnable() {
                     @Override
                     public void run() {
 
+                        /*if(location != null){
+                            info = new Info(nameTakeOut, descriptionTakeOut, null, location.getLatitude(), location.getLongitude());
 
-
-
-                        if(location != null){
-                            //System.out.println(location.getLatitude()+"=>"+location.getLongitude());
-                            db.databaseDAO().insertInfo(new Info(name_take_out, description_take_out, null, location.getLatitude(), location.getLongitude()));
                         }else {
-                            db.databaseDAO().insertInfo(new Info(name_take_out, description_take_out, null, 0.0, 0.0));
+                            info = new Info(nameTakeOut, descriptionTakeOut, null, 0.0, 0.0);
                         }
+                        Integer infoId = info.getI_ID();
+                        db.databaseDAO().insertInfo(info);
+                        for (CheckBox box : checkBoxList){
+                            if(box.isChecked()){
+                                circleOfFriendsSelected.add(String.valueOf(box.getText()));
+                            }
+                        }*/
+                        RendezVous rendezVous = new RendezVous("prova_time", Converters.dateToTimestamp(new Date()), Converters.dateToTimestamp(new Date()), 24);
+                        db.databaseDAO().insertRendezvous(rendezVous);
+                        db.databaseDAO().insertRendezvous(new RendezVous("ciao", 1000,1000, 45));
+
+
+
                     }
                 });
                 System.out.println("location null:"+location);
@@ -461,6 +470,5 @@ public class NewTakeOut extends AppCompatActivity implements LocationListener {
     }
 
 
-    //TODO
 
 }

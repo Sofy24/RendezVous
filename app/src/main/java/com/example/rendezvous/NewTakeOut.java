@@ -214,7 +214,7 @@ public class NewTakeOut extends AppCompatActivity implements LocationListener {
                         }
                         Circle cc = new Circle("cc", "Pink");
                         db.databaseDAO().insertCircle(cc);
-                        db.databaseDAO().insertRendezvous(new RendezVous("cc", 1000,1000, 45));
+                        db.databaseDAO().insertRendezvous(new RendezVous("cc", 1002,1000, 23));
 
 
 
@@ -222,8 +222,12 @@ public class NewTakeOut extends AppCompatActivity implements LocationListener {
                 });
                 System.out.println("location null:"+location);
                 Toast.makeText(activity, "Fab pressed", Toast.LENGTH_SHORT).show();
-                Intent backHome = new Intent(NewTakeOut.this, HomeActivity.class);
-                startActivity(backHome);
+                if (nameTakeOut.length() > 0){
+                    Intent backHome = new Intent(NewTakeOut.this, HomeActivity.class);
+                    startActivity(backHome);
+                } else{ //nome vuoto
+                    Toast.makeText(NewTakeOut.this, "Inserisci il nome dell'uscita", Toast.LENGTH_SHORT).show();
+                }
             }
         });
 

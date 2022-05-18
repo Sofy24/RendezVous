@@ -47,34 +47,26 @@ public class HomeActivity extends AppCompatActivity {
             AsyncTask.execute(new Runnable() {
                 @Override
                 public void run() {
-//                    User mega = new User("Matteo", "Santoro", "Mega", "00000", null);
-//                    User sofy = new User("Sofia", "Tosi", "Sofy24", "123456", null);
-//                    User luis = new User("Luis", "Mi chiamo", "Lu1g1", "Ciao_sono_Luis", null);
-//                    User michi = new User("Michi", "Ferdinardo", "Clown", "Mi_piace_la_carne", null);
-//                    db.databaseDAO().insertUser(mega, sofy, luis, michi);
-//                    Circle coraggiosi = new Circle("Coraggiosi", "Rosso");
-//                    db.databaseDAO().insertCircle(coraggiosi);
-//                    Circle gym = new Circle("Gym", "Black");
-//                    db.databaseDAO().insertCircle(gym);
-//                    Circle uni = new Circle("University", "Pink");
-//                    db.databaseDAO().insertCircle(uni);
+                    User mega = new User("Matteo", "Santoro", "Mega", "00000", null);
+                    User sofy = new User("Sofia", "Tosi", "Sofy24", "123456", null);
+                    User luis = new User("Luis", "Mi chiamo", "Lu1g1", "Ciao_sono_Luis", null);
+                    User michi = new User("Michi", "Ferdinardo", "Clown", "Mi_piace_la_carne", null);
+                    db.databaseDAO().insertUser(mega, sofy, luis, michi);
+                    Circle coraggiosi = new Circle("Coraggiosi", "Rosso");
+                    db.databaseDAO().insertCircle(coraggiosi);
+                    Circle gym = new Circle("Gym", "Black");
+                    db.databaseDAO().insertCircle(gym);
+                    Circle uni = new Circle("University", "Pink");
+                    db.databaseDAO().insertCircle(uni);
 
 
-//                    db.databaseDAO().insertCircleOfFriends(coraggiosi.getC_name(), db.databaseDAO().getUID(mega.getUserName()));
-//                    db.databaseDAO().insertCircleOfFriends(coraggiosi.getC_name(), db.databaseDAO().getUID(sofy.getUserName()));
+                    db.databaseDAO().insertCircleOfFriends(coraggiosi.getC_name(), db.databaseDAO().getUID(mega.getUserName()));
+                    db.databaseDAO().insertCircleOfFriends(coraggiosi.getC_name(), db.databaseDAO().getUID(sofy.getUserName()));
 
-//                    RendezVous rendezVous = new RendezVous(coraggiosi.getC_name(), Converters.dateToTimestamp(new Date()), Converters.dateToTimestamp(new Date()), 2);
-//                    db.databaseDAO().insertRendezvous(rendezVous);
                     RendezVous rendezVous = new RendezVous(coraggiosi.getC_name(), Converters.dateToTimestamp(new Date()), Converters.dateToTimestamp(new Date()), 2);
                     db.databaseDAO().insertRendezvous(rendezVous);
-                    RendezVous rendezVous2 = new RendezVous(coraggiosi.getC_name(), Converters.dateToTimestamp(new Date()), Converters.dateToTimestamp(new Date()), 24);
-                    db.databaseDAO().insertRendezvous(rendezVous2);
-                    Circle cc = new Circle("cc", "Pink");
-                    db.databaseDAO().insertCircle(cc);
-                    db.databaseDAO().insertRendezvous(new RendezVous("cc", 1000,1000, 45));
 
                 }
-                //System.out.println("new DateTime() = "); //soutv
             });
 
 

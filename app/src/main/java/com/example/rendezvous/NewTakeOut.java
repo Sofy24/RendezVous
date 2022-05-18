@@ -199,7 +199,7 @@ public class NewTakeOut extends AppCompatActivity implements LocationListener {
                     @Override
                     public void run() {
 
-                        /*if(location != null){
+                        if(location != null){
                             info = new Info(nameTakeOut, descriptionTakeOut, null, location.getLatitude(), location.getLongitude());
 
                         }else {
@@ -211,10 +211,10 @@ public class NewTakeOut extends AppCompatActivity implements LocationListener {
                             if(box.isChecked()){
                                 circleOfFriendsSelected.add(String.valueOf(box.getText()));
                             }
-                        }*/
-                        RendezVous rendezVous = new RendezVous("prova_time", Converters.dateToTimestamp(new Date()), Converters.dateToTimestamp(new Date()), 24);
-                        db.databaseDAO().insertRendezvous(rendezVous);
-                        db.databaseDAO().insertRendezvous(new RendezVous("ciao", 1000,1000, 45));
+                        }
+                        Circle cc = new Circle("cc", "Pink");
+                        db.databaseDAO().insertCircle(cc);
+                        db.databaseDAO().insertRendezvous(new RendezVous("cc", 1000,1000, 45));
 
 
 

@@ -83,6 +83,19 @@ public class UserPage extends AppCompatActivity {
                         e.printStackTrace();
                     }
                 }
+                // Animators may only be run on Looper threads problem resolved
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                if(activeUser.getUserName() != null){
+                    name.setText(activeUser.getNome());
+                }
+                if(activeUser.getCognome() != null){
+                    surname.setText(activeUser.getCognome());
+                }
+
+                    }
+                });
                 circleList = db.databaseDAO().getCircles();
                 alreadyMember = db.databaseDAO().getUserCircles(db.databaseDAO().getUID(activeUser.getUserName()));
                 ScrollView scrollView = findViewById(R.id.circle_checkbox);
@@ -130,7 +143,7 @@ public class UserPage extends AppCompatActivity {
                     }
                 }
             });
-
+            this.finish();
         });
 
         FloatingActionButton photoUpload = (FloatingActionButton) findViewById(R.id.add_photo_button);

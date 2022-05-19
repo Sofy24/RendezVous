@@ -91,6 +91,8 @@ public class NewTakeOut extends AppCompatActivity implements LocationListener {
     private List<Circle> circleList;
     private List<String> alreadyMember;
     private User activeUser;
+    long firstDay;
+    long endDay;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -136,9 +138,11 @@ public class NewTakeOut extends AppCompatActivity implements LocationListener {
             @Override
             public void onClick(View view) {
                 materialDatePicker.show(getSupportFragmentManager(), materialDatePicker.toString());
-                materialDatePicker.addOnPositiveButtonClickListener(new MaterialPickerOnPositiveButtonClickListener() {
+                materialDatePicker.addOnPositiveButtonClickListener(new MaterialPickerOnPositiveButtonClickListener<Pair<Long, Long>>() {
                     @Override
-                    public void onPositiveButtonClick(Object selection) {
+                    public void onPositiveButtonClick(Pair<Long, Long> selection) {
+                        firstDay = selection.first;
+                        endDay = selection.second;
                         dateRangeText.setText(materialDatePicker.getHeaderText());
                     }
                 });
@@ -198,26 +202,22 @@ public class NewTakeOut extends AppCompatActivity implements LocationListener {
                 AsyncTask.execute(new Runnable() {
                     @Override
                     public void run() {
-
                         if(location != null){
                             info = new Info(nameTakeOut, descriptionTakeOut, null, location.getLatitude(), location.getLongitude());
 
                         }else {
                             info = new Info(nameTakeOut, descriptionTakeOut, null, 0.0, 0.0);
                         }
-                        Integer infoId = info.getI_ID();
                         db.databaseDAO().insertInfo(info);
                         for (CheckBox box : checkBoxList){
                             if(box.isChecked()){
                                 circleOfFriendsSelected.add(String.valueOf(box.getText()));
                             }
                         }
-                        Circle cc = new Circle("cc", "Pink");
-                        db.databaseDAO().insertCircle(cc);
-                        db.databaseDAO().insertRendezvous(new RendezVous("cc", 1000,1000, 45));
-
-
-
+                        for (String circleName:
+                             circleOfFriendsSelected) {
+                                db.databaseDAO().insertRendezvous(new RendezVous(circleName, firstDay, endDay, db.databaseDAO().getInfo(info.getTitle())));
+                        }
                     }
                 });
                 System.out.println("location null:"+location);

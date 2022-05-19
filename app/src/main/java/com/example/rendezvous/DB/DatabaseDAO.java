@@ -71,6 +71,11 @@ public interface DatabaseDAO {
     @Query("SELECT o.* FROM RendezVous join Info o on (R_infoID = I_ID) join CircleOfFriends on (R_circleName = COF_C_name) join User on (COF_UID = UID) where isActive = 1 ;")
     List<Info> getListCardsForActiveUser();
 
+    @Query("SELECT I_ID from Info where title = :title")
+    Integer getInfo(String title);
+
+
+
     //Drop database
 //    @Query("DELETE TABLE User")
 //    public void nukeTables();

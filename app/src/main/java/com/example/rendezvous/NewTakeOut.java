@@ -11,6 +11,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
@@ -33,6 +34,7 @@ import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.activity.result.ActivityResult;
 import androidx.activity.result.ActivityResultCallback;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
@@ -62,6 +64,7 @@ import com.google.android.material.textfield.TextInputLayout;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.OutputStream;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -92,6 +95,7 @@ public class NewTakeOut extends AppCompatActivity implements LocationListener {
     private List<Circle> circleList;
     private List<String> alreadyMember;
     private User activeUser;
+        private     Uri imageUri;
     long firstDay;
     long endDay;
 
@@ -212,10 +216,10 @@ public class NewTakeOut extends AppCompatActivity implements LocationListener {
                     public void run() {
 
                         if(location != null){
-                            info = new Info(nameTakeOut, descriptionTakeOut, null, location.getLatitude(), location.getLongitude());
+                            info = new Info(nameTakeOut, descriptionTakeOut, imageUri.toString(), location.getLatitude(), location.getLongitude());
 
                         }else {
-                            info = new Info(nameTakeOut, descriptionTakeOut, null, 0.0, 0.0);
+                            info = new Info(nameTakeOut, descriptionTakeOut, imageUri.toString(), 0.0, 0.0);
                         }
                         Integer infoId = info.getI_ID();
                         db.databaseDAO().insertInfo(info);
@@ -241,18 +245,65 @@ public class NewTakeOut extends AppCompatActivity implements LocationListener {
             }
         });
 
-        findViewById(R.id.capture_button).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent takePicture = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
 
-                if (takePicture.resolveActivity(activity.getPackageManager()) != null) {
-                    activity.startActivityForResult(takePicture, REQUEST_IMAGE_CAPTURE);
-                }
-            }
+        ActivityResultLauncher<Intent> someActivityResultLauncher = registerForActivityResult(
+                new ActivityResultContracts.StartActivityForResult(),
+                new ActivityResultCallback<ActivityResult>() {
+                    @Override
+                    public void onActivityResult(ActivityResult result) {
+                        if (result.getResultCode() == Activity.RESULT_OK) {
+                            // There are no request codes
+                            Intent data = result.getData();
+
+                            try {
+                                imageUri = data.getData();
+                                getContentResolver().takePersistableUriPermission(imageUri, Intent.FLAG_GRANT_READ_URI_PERMISSION
+                                        | Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
+                                //reverse Uri.parse(stringUri);
+                                AsyncTask.execute(new Runnable() {
+                                    @Override
+                                    public void run() {
+//                                        db.databaseDAO().updateUserAvatar(, db.databaseDAO().getActiveUser().getUserName());
+
+                                    }
+                                });
+                                final InputStream imageStream = getContentResolver().openInputStream(imageUri);
+                                final Bitmap selectedImage = BitmapFactory.decodeStream(imageStream);
+
+                                ImageView imageView = (ImageView)findViewById(R.id.picture_displayed_imageview);
+                                imageView.setImageBitmap(selectedImage);
+                            } catch (FileNotFoundException e) {
+                                e.printStackTrace();
+                                Toast.makeText(NewTakeOut.this, "Something went wrong", Toast.LENGTH_LONG).show();
+                            }
+
+                        }else {
+                            Toast.makeText(NewTakeOut.this, "You haven't picked Image",Toast.LENGTH_LONG).show();
+                        }
+                    }
+                });
+
+        Button addImageBtn = (Button) findViewById(R.id.capture_button);
+        addImageBtn.setOnClickListener(view -> {
+            Intent photoPickerIntent = new Intent(Intent.ACTION_OPEN_DOCUMENT);
+            photoPickerIntent.setType("image/*");
+            someActivityResultLauncher.launch(photoPickerIntent);
         });
+
+//        findViewById(R.id.capture_button).setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//
+//                Intent takePicture = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+//
+//                if (takePicture.resolveActivity(activity.getPackageManager()) != null) {
+//                    activity.startActivityForResult(takePicture, REQUEST_IMAGE_CAPTURE);
+//                }
+//            }
+//        });
+//
         //addViewModel = new ViewModelProvider((ViewModelStoreOwner) activity).get(AddViewModel.class);
-        ImageView imageView = findViewById(R.id.picture_displayed_imageview);
+//        ImageView imageView = findViewById(R.id.picture_displayed_imageview);
 
         /*addViewModel.getImageBitmap().observe(this, new Observer<Bitmap>() {
             @Override

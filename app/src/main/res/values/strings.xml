@@ -13,7 +13,7 @@
     <string name="date">date</string>
     <string name="new_take_out">new_take_out</string>
     <string name="selected_date">Nessuna data selezionata</string>
-    <string name="open_calendar">Open calendar</string>
+    <string name="open_calendar">Select days</string>
     <string name="logoDescr">Logo for RendezVous</string>
     <string name="navDescription">Navigation Button</string>
     <string name="take_out_cards">Take Out Cards</string>

@@ -20,6 +20,7 @@ import android.os.Bundle;
 import android.os.Looper;
 import android.provider.MediaStore;
 import android.provider.Settings;
+import android.text.format.DateFormat;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
@@ -127,11 +128,16 @@ public class NewTakeOut extends AppCompatActivity implements LocationListener {
 
         this.calendar = findViewById(R.id.button_open_calendar);
         MaterialDatePicker<Pair<Long, Long>> materialDatePicker = MaterialDatePicker.Builder.dateRangePicker()
-                .setSelection(Pair.create(MaterialDatePicker.thisMonthInUtcMilliseconds(),
-                        MaterialDatePicker.todayInUtcMilliseconds()))
+                .setSelection(Pair.create(MaterialDatePicker.thisMonthInUtcMilliseconds(),MaterialDatePicker.todayInUtcMilliseconds()))
                 .build();
-        //System.out.println("getSupportFragmentManager().getFragments() = " + getSupportFragmentManager().getFragments());
 
+        Long startDate = materialDatePicker.getSelection().first;
+        Long endDate = materialDatePicker.getSelection().second;
+        String startDateString = DateFormat.format("dd/MM/yyyy", new Date(startDate)).toString();
+        String endDateString = DateFormat.format("dd/MM/yyyy", new Date(endDate)).toString();
+        String date = startDateString + " - " + endDateString;
+
+        dateRangeText.setText(date);
         this.calendar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -191,7 +197,8 @@ public class NewTakeOut extends AppCompatActivity implements LocationListener {
                 String nameTakeOut = String.valueOf(Objects.requireNonNull(take_out_name_view.getEditText()).getText());
                 String descriptionTakeOut = String.valueOf(Objects.requireNonNull(take_out_description_view.getEditText()).getText());
                 String locationTakeOut = Objects.requireNonNull(take_out_location_view.getText()).toString();
-                String[] days = String.valueOf(dateRangeText.getText()).split("- ");
+                //String[] days = String.valueOf(dateRangeText.getText()).split("- ");
+                Pair<Long, Long> days = materialDatePicker.getSelection();
                 final List<String> circleOfFriendsSelected = new ArrayList<>();
 
                 RendezVousDB db = RendezVousDB.getInstance(NewTakeOut.this.getBaseContext());
@@ -220,9 +227,9 @@ public class NewTakeOut extends AppCompatActivity implements LocationListener {
 
                     }
                 });
-                System.out.println("location null:"+location);
+
                 Toast.makeText(activity, "Fab pressed", Toast.LENGTH_SHORT).show();
-                if (nameTakeOut.length() > 0){
+                if (nameTakeOut.length() > 0 ){
                     Intent backHome = new Intent(NewTakeOut.this, HomeActivity.class);
                     startActivity(backHome);
                 } else{ //nome vuoto

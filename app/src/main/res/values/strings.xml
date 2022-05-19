@@ -35,4 +35,5 @@
     <string name="container_for_group_circles">Container for group circles</string>
     <string name="click_to_change_avatar_image">Click to change avatar image</string>
     <string name="selected_circle">Seleziona uno o più gruppi che sono coinvolti in questa uscita</string>
+    <string name="confirm_the_address">confirm the address</string>
 </resources>

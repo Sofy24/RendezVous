@@ -12,6 +12,8 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.location.Address;
+import android.location.Geocoder;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
@@ -61,6 +63,7 @@ import com.google.android.material.datepicker.MaterialPickerOnPositiveButtonClic
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
+import com.google.type.LatLng;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -120,13 +123,37 @@ public class NewTakeOut extends AppCompatActivity implements LocationListener {
                     });
             initializeLocation(NewTakeOut.this);
 
-            System.out.println("findViewById(R.id.gps_button)  = " + findViewById(R.id.gps_button).toString() );
+
+            //final String address = "Via San Vito, 149, 47822 Santarcangelo di Romagna RN";
+            //final String address2 = "Rimini";
+            findViewById(R.id.confirm_address).setOnClickListener(new View.OnClickListener() {
+                  @Override
+                  public void onClick(View view) {
+                      final TextInputEditText take_out_location_view = findViewById(R.id.location_edittext);
+                      final String address = String.valueOf(take_out_location_view.getText());
+                      LatLng latLng = getLocationFromAddress(getApplicationContext(), address);
+                      System.out.println("latLng = " + latLng); //ho ottenuto le coordinate che volevo!!!
+
+                  }
+              });
+
+            findViewById(R.id.gps_button).setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Intent intent_map = new Intent(Intent.ACTION_VIEW);
+                    intent_map.setData(Uri.parse("geo:47.4925,19.0513"));
+                    Intent chooser = Intent.createChooser(intent_map, "Launch maps");
+                    startActivity(chooser);
+                }
+
+            /******metodo commentato funzionante***
             findViewById(R.id.gps_button).setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
                     requestingLocationUpdates = true;
                     startLocationUpdates(NewTakeOut.this);
                 }
+        /***fine metodo gps location ***/
             });
         }
 
@@ -193,19 +220,19 @@ public class NewTakeOut extends AppCompatActivity implements LocationListener {
 
 
 
-        textView_location = (TextView) findViewById(R.id.location_edittext);
+        /***///textView_location = (TextView) findViewById(R.id.location_edittext);
 
         FloatingActionButton floatingActionButton = findViewById(R.id.fab_check);
         AppCompatActivity activity = this;
         TextInputLayout take_out_name_view = findViewById(R.id.name_new_take_out);
         TextInputLayout take_out_description_view = findViewById(R.id.description_textinput);
-        TextInputEditText take_out_location_view = findViewById(R.id.location_edittext);
+        /***///TextInputEditText take_out_location_view = findViewById(R.id.location_edittext);
         floatingActionButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 String nameTakeOut = String.valueOf(Objects.requireNonNull(take_out_name_view.getEditText()).getText());
                 String descriptionTakeOut = String.valueOf(Objects.requireNonNull(take_out_description_view.getEditText()).getText());
-                String locationTakeOut = Objects.requireNonNull(take_out_location_view.getText()).toString();
+                /***///String locationTakeOut = Objects.requireNonNull(take_out_location_view.getText()).toString();
                 //String[] days = String.valueOf(dateRangeText.getText()).split("- ");
                 Pair<Long, Long> days = materialDatePicker.getSelection();
                 final List<String> circleOfFriendsSelected = new ArrayList<>();
@@ -290,58 +317,6 @@ public class NewTakeOut extends AppCompatActivity implements LocationListener {
             someActivityResultLauncher.launch(photoPickerIntent);
         });
 
-//        findViewById(R.id.capture_button).setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//
-//                Intent takePicture = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-//
-//                if (takePicture.resolveActivity(activity.getPackageManager()) != null) {
-//                    activity.startActivityForResult(takePicture, REQUEST_IMAGE_CAPTURE);
-//                }
-//            }
-//        });
-//
-        //addViewModel = new ViewModelProvider((ViewModelStoreOwner) activity).get(AddViewModel.class);
-//        ImageView imageView = findViewById(R.id.picture_displayed_imageview);
-
-        /*addViewModel.getImageBitmap().observe(this, new Observer<Bitmap>() {
-            @Override
-            public void onChanged(Bitmap bitmap) {
-                imageView.setImageBitmap(bitmap);
-            }
-        });*/
-
-
-        /*findViewById(R.id.fab_add).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Bitmap
-                        bitmap = addViewModel.getImageBitmap().getValue();
-
-                String imageUriString;
-                try {
-                    if (bitmap != null) {
-                        imageUriString = String.valueOf(saveImage(bitmap, activity));
-                    } else {
-                        imageUriString = "ic_baseline_insert_photo_24";
-                    }
-                    /*if (placeTIET.getText() != null && descriptionTIET.getText() != null
-                            && dateTIET.getText() != null) {
-
-                        addViewModel.addCardItem(new CardItem(imageUriString,
-                                placeTIET.getText().toString(), descriptionTIET.getText().toString(),
-                                dateTIET.getText().toString()));
-
-                        //addViewModel.setImageBitmap(null);
-
-                        //((AppCompatActivity) activity).getSupportFragmentManager().popBackStack();
-                    }
-                } catch (FileNotFoundException e) {
-                    e.printStackTrace();
-                }
-            }
-        });*/
 
     }
 
@@ -413,6 +388,33 @@ public class NewTakeOut extends AppCompatActivity implements LocationListener {
                     .create()
                     .show();
         }
+    }
+
+    private LatLng getLocationFromAddress(Context context, String strAddress) {
+
+        Geocoder coder = new Geocoder(context);
+        List<Address> address;
+        LatLng p1 = null;
+
+        try {
+            address = coder.getFromLocationName(strAddress, 5);
+            if (address == null) {
+                return null;
+            }
+            Address location = address.get(0);
+            location.getLatitude();
+            location.getLongitude();
+
+            p1 = LatLng.newBuilder().setLatitude(location.getLatitude()).setLongitude(location.getLongitude()).build();
+            System.out.println("p1 = " + p1);
+
+
+        } catch (Exception ex) {
+
+            ex.printStackTrace();
+        }
+
+        return p1;
     }
 
 

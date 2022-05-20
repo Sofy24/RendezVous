@@ -35,6 +35,7 @@
         <activity android:name=".NewTakeOut" />
         <activity android:name=".EditTakeOut" />
         <activity android:name=".CardListActivity"/>
+        <activity android:name=".RendeVousCard"/>
         <activity android:name=".UserPage"
             android:exported="true"
             >

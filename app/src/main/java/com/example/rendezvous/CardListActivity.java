@@ -4,14 +4,19 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.transition.AutoTransition;
+import android.transition.TransitionManager;
 import android.util.AttributeSet;
 import android.view.Menu;
 import android.view.View;
+import android.widget.ImageButton;
+import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -30,6 +35,9 @@ public class CardListActivity extends AppCompatActivity {
     private RecyclerviewAdapter recyclerviewAdapter;
     private RecyclerTouchListener touchListener;
     private List<Info> infos;
+    ImageButton arrow;
+    LinearLayout hiddenView;
+    CardView cardView;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -55,6 +63,43 @@ public class CardListActivity extends AppCompatActivity {
 //        taskList.add(task);
 //        task = new Task("Read book","Read android book completely");
 //        taskList.add(task);
+        cardView = findViewById(R.id.base_cardview);
+        arrow = findViewById(R.id.arrow_button);
+        hiddenView = findViewById(R.id.hidden_view);
+
+        /*arrow.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                // If the CardView is already expanded, set its visibility
+                // to gone and change the expand less icon to expand more.
+                if (hiddenView.getVisibility() == View.VISIBLE) {
+
+                    // The transition of the hiddenView is carried out
+                    // by the TransitionManager class.
+                    // Here we use an object of the AutoTransition
+                    // Class to create a default transition.
+                    TransitionManager.beginDelayedTransition(cardView,
+                            new AutoTransition());
+                    hiddenView.setVisibility(View.GONE);
+                    arrow.setImageResource(R.drawable.ic_baseline_arrow_drop_down_24);
+                }
+
+                // If the CardView is not expanded, set its visibility
+                // to visible and change the expand more icon to expand less.
+                else {
+
+                    TransitionManager.beginDelayedTransition(cardView,
+                            new AutoTransition());
+                    hiddenView.setVisibility(View.VISIBLE);
+                    arrow.setImageResource(R.drawable.ic_baseline_arrow_drop_up_24);
+                }
+            }
+        });*/
+
+
+
+
         final List<RendezVousCard> rendezVousCards = new ArrayList<>();
         RendezVousDB db = RendezVousDB.getInstance(CardListActivity.this.getBaseContext());
 
@@ -82,6 +127,8 @@ public class CardListActivity extends AppCompatActivity {
                     @Override
                     public void onRowClicked(int position) {
                         Toast.makeText(getApplicationContext(),rendezVousCards.get(position).getTitle(), Toast.LENGTH_SHORT).show();
+                        Intent openCardDetails = new Intent(CardListActivity.this, RendeVousCard.class);
+                        startActivity(openCardDetails);
                     }
 
                     @Override

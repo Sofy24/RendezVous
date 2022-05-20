@@ -37,4 +37,5 @@
     <string name="selected_circle">Seleziona uno o più gruppi che sono coinvolti in questa uscita</string>
     <string name="confirm_the_address">confirm the address</string>
     <string name="swipe_to_select_a_day_or_delete">Swipe to select a day or delete</string>
+    <string name="more_info">More info</string>
 </resources>

@@ -24,11 +24,17 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.rendezvous.DB.Circle;
+import com.example.rendezvous.DB.Converters;
+import com.example.rendezvous.DB.Info;
+import com.example.rendezvous.DB.RendezVous;
 import com.example.rendezvous.DB.RendezVousDB;
 import com.example.rendezvous.DB.User;
 import com.example.rendezvous.R;
 import com.example.rendezvous.HomeActivity;
 import com.example.rendezvous.databinding.ActivityLoginBinding;
+
+import java.util.Date;
 
 public class LoginActivity extends AppCompatActivity {
 
@@ -151,7 +157,48 @@ public class LoginActivity extends AppCompatActivity {
 //        String welcome = getString(R.string.welcome) + model.getDisplayName();
         String welcome = getString(R.string.welcome) + binding.username.getText().toString();
 
+
         RendezVousDB db = RendezVousDB.getInstance(LoginActivity.this.getBaseContext());
+
+        if(binding.username.getText().toString().equals("insertData") ){
+            AsyncTask.execute(new Runnable() {
+                @Override
+                public void run() {
+                    User mega = new User("Matteo", "Santoro", "Mega", "00000", null);
+                    User sofy = new User("Sofia", "Tosi", "Sofy24", "123456", null);
+                    User luis = new User("Luis", "Mi chiamo", "Lu1g1", "Ciao_sono_Luis", null);
+                    User michi = new User("Michi", "Ferdinardo", "Clown", "Mi_piace_la_carne", null);
+                    User klevis = new User("Klevis", "Duka", "Duca", "Veloce_come_uno_squalo", null);
+                    User fede = new User("Federico", "Cobianchi", "F3d3", "passw0rd", null);
+                    db.databaseDAO().insertUser(mega, sofy, luis, michi, klevis);
+                    Circle progetto = new Circle("Gruppo progetto", "Rosso");
+                    Circle gym = new Circle("Gym", "Black");
+                    Circle uni = new Circle("University", "Pink");
+                    db.databaseDAO().insertCircle(progetto, gym, uni);
+
+                    db.databaseDAO().insertCircleOfFriends(uni.getC_name(), db.databaseDAO().getUID(mega.getUserName()));
+                    db.databaseDAO().insertCircleOfFriends(uni.getC_name(), db.databaseDAO().getUID(sofy.getUserName()));
+                    db.databaseDAO().insertCircleOfFriends(uni.getC_name(), db.databaseDAO().getUID(luis.getUserName()));
+                    db.databaseDAO().insertCircleOfFriends(uni.getC_name(), db.databaseDAO().getUID(michi.getUserName()));
+
+                    db.databaseDAO().insertCircleOfFriends(progetto.getC_name(), db.databaseDAO().getUID(michi.getUserName()));
+                    db.databaseDAO().insertCircleOfFriends(progetto.getC_name(), db.databaseDAO().getUID(mega.getUserName()));
+                    db.databaseDAO().insertCircleOfFriends(progetto.getC_name(), db.databaseDAO().getUID(luis.getUserName()));
+
+                    db.databaseDAO().insertCircleOfFriends(gym.getC_name(), db.databaseDAO().getUID(mega.getUserName()));
+                    db.databaseDAO().insertCircleOfFriends(gym.getC_name(), db.databaseDAO().getUID(klevis.getUserName()));
+
+//                    RendezVous rendezVous = new RendezVous(coraggiosi.getC_name(), Converters.dateToTimestamp(new Date()), Converters.dateToTimestamp(new Date()), 2);
+//                    db.databaseDAO().insertRendezvous(rendezVous);
+//                    RendezVous rendezVous2 = new RendezVous(coraggiosi.getC_name(), Converters.dateToTimestamp(new Date()), Converters.dateToTimestamp(new Date()), 24);
+//                    db.databaseDAO().insertRendezvous(rendezVous2);
+//                    Circle cc = new Circle("cc", "Pink");
+//                    db.databaseDAO().insertCircle(cc);
+//                    db.databaseDAO().insertRendezvous(new RendezVous("cc", 1000,1000, 45));
+
+                }
+            });
+        }
 
         AsyncTask.execute(new Runnable() {
             @Override

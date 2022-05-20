@@ -1,7 +1,6 @@
 package com.example.rendezvous.DB;
 
-import android.net.Uri;
-
+import androidx.core.util.Pair;
 import androidx.room.Dao;
 import androidx.room.Insert;
 import androidx.room.OnConflictStrategy;
@@ -74,7 +73,8 @@ public interface DatabaseDAO {
     @Query("SELECT I_ID from Info where title = :title")
     Integer getInfo(String title);
 
-
+//    @Query("SELECT R_circleName,R_ID from RendezVous where R_DataI = :firstDay and R_DataF = :endDay and R_infoID = :info_id;")
+//    List<Pair<String, Integer>> getRendezVous(long firstDay, long endDay, Integer info_id);
 
     //Drop database
 //    @Query("DELETE TABLE User")

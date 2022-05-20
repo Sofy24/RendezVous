@@ -21,6 +21,5 @@
             android:id="@+id/fourth"
             android:icon="@drawable/ic_baseline_remove_circle_outline_24"
             android:title="Close/Log Out" />
-
     </group>
 </menu>

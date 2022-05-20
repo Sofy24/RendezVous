@@ -204,30 +204,34 @@ public class NewTakeOut extends AppCompatActivity implements LocationListener {
                               box.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
                                   @Override
                                   public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
-                                      selectedCircles.add(c);
+                                      System.out.println("pressed check now b= " + b);
+                                      if(b) {
+                                          selectedCircles.add(c);
+                                      }else {
+                                          selectedCircles.remove(c);
+                                      }
+                                      System.out.println("selectedCircles = " + selectedCircles);
                                   }
                               });
-                              if (alreadyMember.contains(c.getC_name())) {
-                                  box.setChecked(true); //non testato
-                              }
                               layout.addView(box);
                               checkBoxList.add(box);
                           }
                       }
                   });
 
+        textView_location = (TextView) findViewById(R.id.location_edittext);
 
 
 
 
         /***///textView_location = (TextView) findViewById(R.id.location_edittext);
 
-        FloatingActionButton floatingActionButton = findViewById(R.id.fab_check);
-        AppCompatActivity activity = this;
+        FloatingActionButton doneButton = findViewById(R.id.fab_check);
         TextInputLayout take_out_name_view = findViewById(R.id.name_new_take_out);
         TextInputLayout take_out_description_view = findViewById(R.id.description_textinput);
-        /***///TextInputEditText take_out_location_view = findViewById(R.id.location_edittext);
-        floatingActionButton.setOnClickListener(new View.OnClickListener() {
+        TextInputEditText take_out_location_view = findViewById(R.id.location_edittext);
+
+        doneButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 String nameTakeOut = String.valueOf(Objects.requireNonNull(take_out_name_view.getEditText()).getText());
@@ -237,38 +241,45 @@ public class NewTakeOut extends AppCompatActivity implements LocationListener {
                 Pair<Long, Long> days = materialDatePicker.getSelection();
                 final List<String> circleOfFriendsSelected = new ArrayList<>();
 
-                RendezVousDB db = RendezVousDB.getInstance(NewTakeOut.this.getBaseContext());
-                AsyncTask.execute(new Runnable() {
-                    @Override
-                    public void run() {
-
-                        if(location != null){
-                            info = new Info(nameTakeOut, descriptionTakeOut, imageUri != null ? imageUri.toString() : null, location.getLatitude(), location.getLongitude());
-
-                        }else {
-                            info = new Info(nameTakeOut, descriptionTakeOut, imageUri != null ? imageUri.toString() : null, 0.0, 0.0);
-                        }
-                        Integer infoId = info.getI_ID();
-                        db.databaseDAO().insertInfo(info);
-                        for (CheckBox box : checkBoxList){
-                            if(box.isChecked()){
-                                circleOfFriendsSelected.add(String.valueOf(box.getText()));
-                            }
-                        }
-                        for (String circleName:
-                             circleOfFriendsSelected) {
-                                db.databaseDAO().insertRendezvous(new RendezVous(circleName, firstDay, endDay, db.databaseDAO().getInfo(info.getTitle())));
-                        }
-                    }
-                });
-
-                Toast.makeText(activity, "Fab pressed", Toast.LENGTH_SHORT).show();
                 if (nameTakeOut.length() > 0 ){
-                    Intent backHome = new Intent(NewTakeOut.this, HomeActivity.class);
-                    startActivity(backHome);
+                    if (!selectedCircles.isEmpty()){
+                        // title is ok
+                        // groups are selected so i add data
+                        AsyncTask.execute(new Runnable() {
+                            @Override
+                            public void run() {
+                                //insert Info and relative RendezVous
+                                db.databaseDAO().insertInfo(new Info(nameTakeOut, descriptionTakeOut,
+                                        imageUri == null ? null : imageUri.toString(),
+                                        location == null ? 0.0 : location.getLatitude(),
+                                        location == null ? 0.0 : location.getLongitude()
+                                        ));
+                                Integer info_id = db.databaseDAO().getInfo(nameTakeOut);
+                               for (Circle circle:
+                                        selectedCircles) {
+                                    db.databaseDAO().insertRendezvous(new RendezVous(circle.getC_name(), firstDay, endDay, info_id));
+                                }
+                               // Populate invited table
+
+//                                List<Pair<String, Integer>> redezVousIDs = db.databaseDAO().getRendezVous(firstDay, endDay, info_id);
+//                                for (Pair<String, Integer> pair:
+//                                     rendezVousIDs) {
+//                                    System.out.println("pair = " + pair);
+//                                }
+
+                            }
+                        });
+
+                        Intent backHome = new Intent(NewTakeOut.this, HomeActivity.class);
+                        startActivity(backHome);
+                    } else{ //nome vuoto
+                        System.out.println("circleOfFriendsSelected = " + circleOfFriendsSelected);
+                        Toast.makeText(NewTakeOut.this, "Inserisci almeno un gruppo !", Toast.LENGTH_SHORT).show();
+                    }
                 } else{ //nome vuoto
                     Toast.makeText(NewTakeOut.this, "Inserisci il nome dell'uscita", Toast.LENGTH_SHORT).show();
                 }
+
             }
         });
 
@@ -317,6 +328,58 @@ public class NewTakeOut extends AppCompatActivity implements LocationListener {
             someActivityResultLauncher.launch(photoPickerIntent);
         });
 
+//        findViewById(R.id.capture_button).setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//
+//                Intent takePicture = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+//
+//                if (takePicture.resolveActivity(activity.getPackageManager()) != null) {
+//                    activity.startActivityForResult(takePicture, REQUEST_IMAGE_CAPTURE);
+//                }
+//            }
+//        });
+//
+        //addViewModel = new ViewModelProvider((ViewModelStoreOwner) activity).get(AddViewModel.class);
+//        ImageView imageView = findViewById(R.id.picture_displayed_imageview);
+
+        /*addViewModel.getImageBitmap().observe(this, new Observer<Bitmap>() {
+            @Override
+            public void onChanged(Bitmap bitmap) {
+                imageView.setImageBitmap(bitmap);
+            }
+        });*/
+
+
+        /*findViewById(R.id.fab_add).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Bitmap
+                        bitmap = addViewModel.getImageBitmap().getValue();
+
+                String imageUriString;
+                try {
+                    if (bitmap != null) {
+                        imageUriString = String.valueOf(saveImage(bitmap, activity));
+                    } else {
+                        imageUriString = "ic_baseline_insert_photo_24";
+                    }
+                    /*if (placeTIET.getText() != null && descriptionTIET.getText() != null
+                            && dateTIET.getText() != null) {
+
+                        addViewModel.addCardItem(new CardItem(imageUriString,
+                                placeTIET.getText().toString(), descriptionTIET.getText().toString(),
+                                dateTIET.getText().toString()));
+
+                        //addViewModel.setImageBitmap(null);
+
+                        //((AppCompatActivity) activity).getSupportFragmentManager().popBackStack();
+                    }
+                } catch (FileNotFoundException e) {
+                    e.printStackTrace();
+                }
+            }
+        });*/
 
     }
 

@@ -108,7 +108,11 @@ public class UserPage extends AppCompatActivity {
                     box.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
                         @Override
                         public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
-                            selectedCircles.add(c);
+                            if (b) {
+                                selectedCircles.add(c);
+                            } else {
+                                selectedCircles.remove(c);
+                            }
                         }
                     });
                     if(alreadyMember.contains(c.getC_name())){

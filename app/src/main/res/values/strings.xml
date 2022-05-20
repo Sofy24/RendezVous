@@ -36,4 +36,5 @@
     <string name="click_to_change_avatar_image">Click to change avatar image</string>
     <string name="selected_circle">Seleziona uno o più gruppi che sono coinvolti in questa uscita</string>
     <string name="confirm_the_address">confirm the address</string>
+    <string name="swipe_to_select_a_day_or_delete">Swipe to select a day or delete</string>
 </resources>

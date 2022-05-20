@@ -98,7 +98,7 @@ public class NewTakeOut extends AppCompatActivity implements LocationListener {
     private List<Circle> circleList;
     private List<String> alreadyMember;
     private User activeUser;
-        private     Uri imageUri;
+    private Uri imageUri;
     long firstDay;
     long endDay;
 
@@ -243,10 +243,10 @@ public class NewTakeOut extends AppCompatActivity implements LocationListener {
                     public void run() {
 
                         if(location != null){
-                            info = new Info(nameTakeOut, descriptionTakeOut, imageUri.toString(), location.getLatitude(), location.getLongitude());
+                            info = new Info(nameTakeOut, descriptionTakeOut, imageUri != null ? imageUri.toString() : null, location.getLatitude(), location.getLongitude());
 
                         }else {
-                            info = new Info(nameTakeOut, descriptionTakeOut, imageUri.toString(), 0.0, 0.0);
+                            info = new Info(nameTakeOut, descriptionTakeOut, imageUri != null ? imageUri.toString() : null, 0.0, 0.0);
                         }
                         Integer infoId = info.getI_ID();
                         db.databaseDAO().insertInfo(info);

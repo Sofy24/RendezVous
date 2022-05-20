@@ -12,6 +12,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.rendezvous.DB.Info;
@@ -38,6 +39,8 @@ public class CardListActivity extends AppCompatActivity {
 
         recyclerView = findViewById(R.id.recyclerView);
         recyclerviewAdapter = new RecyclerviewAdapter(this);
+        recyclerView.setAdapter(recyclerviewAdapter);
+        //recyclerviewAdapter.notifyDataStateChanged();
 
 //        final List<Task> taskList = new ArrayList<>();
 //        Task task = new Task("Buy Dress","Buy Dress at Shoppershop for coming functions");

@@ -80,4 +80,15 @@ public class RendezVous {
     public void setR_infoID(@NonNull Integer r_infoID) {
         R_infoID = r_infoID;
     }
+
+    @Override
+    public String toString() {
+        return "RendezVous{" +
+                "R_circleName='" + R_circleName + '\'' +
+                ", R_ID=" + R_ID +
+                ", R_DataI=" + R_DataI +
+                ", R_DataF=" + R_DataF +
+                ", R_infoID=" + R_infoID +
+                '}';
+    }
 }

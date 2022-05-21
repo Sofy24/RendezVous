@@ -25,6 +25,8 @@ import java.util.Set;
 
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.rendezvous.R;
+
 public class RecyclerTouchListener implements RecyclerView.OnItemTouchListener, OnActivityTouchListener {
     private static final String TAG = "RecyclerTouchListener";
     final Handler handler = new Handler();
@@ -512,7 +514,8 @@ public class RecyclerTouchListener implements RecyclerView.OnItemTouchListener, 
                     if (swipeable) {
                         mVelocityTracker = VelocityTracker.obtain();
                         mVelocityTracker.addMovement(motionEvent);
-                        fgView = touchedView.findViewById(fgViewID);
+                        //fgView = touchedView.findViewById(fgViewID);
+                        fgView = touchedView.findViewById(R.id.base_cardview);
                         bgView = touchedView.findViewById(bgViewID);
 //                        bgView.getLayoutParams().height = fgView.getHeight();
                         bgView.setMinimumHeight(fgView.getHeight());

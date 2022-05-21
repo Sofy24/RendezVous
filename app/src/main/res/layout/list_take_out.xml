@@ -16,6 +16,6 @@
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         android:id="@+id/recyclerView"
-        tools:listitem="@layout/card_details"
-        />
+        tools:listitem="@layout/card_details" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

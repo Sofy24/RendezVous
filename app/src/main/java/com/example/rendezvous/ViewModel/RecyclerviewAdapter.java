@@ -1,13 +1,18 @@
 package com.example.rendezvous.ViewModel;
 
 import android.content.Context;
+import android.transition.AutoTransition;
+import android.transition.TransitionManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.rendezvous.R;
@@ -43,8 +48,37 @@ public class RecyclerviewAdapter extends RecyclerView.Adapter<RecyclerviewAdapte
     @Override
     public RecyclerviewAdapter.MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         //View view = LayoutInflater.from(mContext).inflate(R.layout.task_item,parent,false);
-        View view = LayoutInflater.from(mContext).inflate(R.layout.rendezvous_card,parent,false);
-        System.out.println("view = " + view);
+        //View view = LayoutInflater.from(mContext).inflate(R.layout.rendezvous_card,parent,false);
+        View view = LayoutInflater.from(mContext).inflate(R.layout.card_details,parent,false);
+
+        CardView cardView = view.findViewById(R.id.base_cardview);
+        LinearLayout hiddenView = view.findViewById(R.id.hidden_view);
+        ImageButton arrow = (ImageButton)  view.findViewById(R.id.arrow_button);
+        arrow.setOnClickListener(view1 -> {
+            // If the CardView is already expanded, set its visibility
+            // to gone and change the expand less icon to expand more.
+            if (hiddenView.getVisibility() == View.VISIBLE) {
+
+                // The transition of the hiddenView is carried out
+                // by the TransitionManager class.
+                // Here we use an object of the AutoTransition
+                // Class to create a default transition.
+                TransitionManager.beginDelayedTransition(cardView,
+                        new AutoTransition());
+                hiddenView.setVisibility(View.GONE);
+                arrow.setImageResource(R.drawable.ic_baseline_arrow_drop_down_24);
+            }
+
+            // If the CardView is not expanded, set its visibility
+            // to visible and change the expand more icon to expand less.
+            else {
+
+                TransitionManager.beginDelayedTransition(cardView,
+                        new AutoTransition());
+                hiddenView.setVisibility(View.VISIBLE);
+                arrow.setImageResource(R.drawable.ic_baseline_arrow_drop_up_24);
+            }
+        });
         return new MyViewHolder(view);
     }
 

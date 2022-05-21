@@ -50,56 +50,6 @@ public class CardListActivity extends AppCompatActivity {
         recyclerView.setAdapter(recyclerviewAdapter);
         //recyclerviewAdapter.notifyDataStateChanged();
 
-//        final List<Task> taskList = new ArrayList<>();
-//        Task task = new Task("Buy Dress","Buy Dress at Shoppershop for coming functions");
-//        taskList.add(task);
-//        task = new Task("Go For Walk","Wake up 6AM go for walking");
-//        taskList.add(task);
-//        task = new Task("Office Work","Complete the office works on Time");
-//        taskList.add(task);
-//        task = new Task("watch Repair","Give watch to service center");
-//        taskList.add(task);
-//        task = new Task("Recharge Mobile","Recharge for 10$ to my **** number");
-//        taskList.add(task);
-//        task = new Task("Read book","Read android book completely");
-//        taskList.add(task);
-        cardView = findViewById(R.id.base_cardview);
-        arrow = findViewById(R.id.arrow_button);
-        hiddenView = findViewById(R.id.hidden_view);
-
-        /*arrow.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-                // If the CardView is already expanded, set its visibility
-                // to gone and change the expand less icon to expand more.
-                if (hiddenView.getVisibility() == View.VISIBLE) {
-
-                    // The transition of the hiddenView is carried out
-                    // by the TransitionManager class.
-                    // Here we use an object of the AutoTransition
-                    // Class to create a default transition.
-                    TransitionManager.beginDelayedTransition(cardView,
-                            new AutoTransition());
-                    hiddenView.setVisibility(View.GONE);
-                    arrow.setImageResource(R.drawable.ic_baseline_arrow_drop_down_24);
-                }
-
-                // If the CardView is not expanded, set its visibility
-                // to visible and change the expand more icon to expand less.
-                else {
-
-                    TransitionManager.beginDelayedTransition(cardView,
-                            new AutoTransition());
-                    hiddenView.setVisibility(View.VISIBLE);
-                    arrow.setImageResource(R.drawable.ic_baseline_arrow_drop_up_24);
-                }
-            }
-        });*/
-
-
-
-
         final List<RendezVousCard> rendezVousCards = new ArrayList<>();
         RendezVousDB db = RendezVousDB.getInstance(CardListActivity.this.getBaseContext());
 
@@ -127,8 +77,8 @@ public class CardListActivity extends AppCompatActivity {
                     @Override
                     public void onRowClicked(int position) {
                         Toast.makeText(getApplicationContext(),rendezVousCards.get(position).getTitle(), Toast.LENGTH_SHORT).show();
-                        Intent openCardDetails = new Intent(CardListActivity.this, RendeVousCard.class);
-                        startActivity(openCardDetails);
+//                        Intent openCardDetails = new Intent(CardListActivity.this, RendeVousCard.class);
+//                        startActivity(openCardDetails);
                     }
 
                     @Override

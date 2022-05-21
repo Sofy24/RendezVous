@@ -33,12 +33,18 @@ public class RecyclerviewAdapter extends RecyclerView.Adapter<RecyclerviewAdapte
     }
 
 
+    /** codice google maps da inserire nella card
+     *                     Intent intent_map = new Intent(Intent.ACTION_VIEW);
+     *                     intent_map.setData(Uri.parse("geo:47.4925,19.0513"));
+     *                     Intent chooser = Intent.createChooser(intent_map, "Launch maps");
+     *                     startActivity(chooser); **/
+
     @Override
     public void onBindViewHolder(@NonNull RecyclerviewAdapter.MyViewHolder holder, int position) {
         RendezVousCard task = taskList.get(position);
         holder.tvCardTitle.setText(task.getTitle());
         if(task.getImageUri()!=null) {
-            //TODO non e' un text ma un imgView -> ce' da piangere
+            //TODO non e' un text ma un imgView -> c'è da piangere
             //holder.tvCardUri.setText(task.getImageUri());
         }
     }

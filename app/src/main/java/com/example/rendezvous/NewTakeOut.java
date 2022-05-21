@@ -53,6 +53,7 @@ import com.example.rendezvous.DB.RendezVous;
 import com.example.rendezvous.DB.RendezVousDB;
 import com.example.rendezvous.DB.User;
 import com.example.rendezvous.ViewModel.AddViewModel;
+import com.google.android.gms.common.internal.BaseGmsClient;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationCallback;
 import com.google.android.gms.location.LocationRequest;
@@ -71,6 +72,7 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
@@ -82,6 +84,7 @@ public class NewTakeOut extends AppCompatActivity implements LocationListener {
     private String providerId = LocationManager.GPS_PROVIDER;
     private final LocationManager locationManager = null;
     private Location location = null;
+    private float[] distance = new float[1];
     private FusedLocationProviderClient fusedLocationProviderClient;
     private LocationCallback locationCallback;
     private LocationRequest locationRequest;
@@ -129,31 +132,45 @@ public class NewTakeOut extends AppCompatActivity implements LocationListener {
             findViewById(R.id.confirm_address).setOnClickListener(new View.OnClickListener() {
                   @Override
                   public void onClick(View view) {
-                      final TextInputEditText take_out_location_view = findViewById(R.id.location_edittext);
+                      final TextInputEditText take_out_location_view = findViewById(R.id.take_out_location_edittext);
                       final String address = String.valueOf(take_out_location_view.getText());
                       LatLng latLng = getLocationFromAddress(getApplicationContext(), address);
                       System.out.println("latLng = " + latLng); //ho ottenuto le coordinate che volevo!!!
-
+                      requestingLocationUpdates = true;
+                      startLocationUpdates(NewTakeOut.this);
+                      take_out_location_view.setText(Objects.requireNonNull(latLng).getLatitude() + ", " + Objects.requireNonNull(latLng).getLongitude() );
+                      Location.distanceBetween(location.getLatitude(), location.getLongitude(), latLng.getLatitude(), latLng.getLongitude() , distance);
+                      System.out.println("distance = " + distance[0]);
                   }
               });
 
-            findViewById(R.id.gps_button).setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    Intent intent_map = new Intent(Intent.ACTION_VIEW);
-                    intent_map.setData(Uri.parse("geo:47.4925,19.0513"));
-                    Intent chooser = Intent.createChooser(intent_map, "Launch maps");
-                    startActivity(chooser);
-                }
 
-            /******metodo commentato funzionante***
+            findViewById(R.id.check_distance).setOnClickListener(new View.OnClickListener() {
+                 @Override
+                 public void onClick(View view) {
+                    AlertDialog.Builder builder = new AlertDialog.Builder(NewTakeOut.this);
+                    builder.setMessage(distance[0] + "metres")
+                        .setTitle("Distance between you and the take out");
+                            /*.setPositiveButton("Close", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int id) {
+                                    // User clicked OK, so save the selectedItems results somewhere
+                                    // or return them to the component that opened the dialog
+                   ...
+                                }
+                            });*/
+                    AlertDialog dialog = builder.create();
+
+                 }
+             });
+
+
             findViewById(R.id.gps_button).setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
                     requestingLocationUpdates = true;
                     startLocationUpdates(NewTakeOut.this);
                 }
-        /***fine metodo gps location ***/
             });
         }
 
@@ -219,12 +236,9 @@ public class NewTakeOut extends AppCompatActivity implements LocationListener {
                       }
                   });
 
+
+
         textView_location = (TextView) findViewById(R.id.location_edittext);
-
-
-
-
-        /***///textView_location = (TextView) findViewById(R.id.location_edittext);
 
         FloatingActionButton doneButton = findViewById(R.id.fab_check);
         TextInputLayout take_out_name_view = findViewById(R.id.name_new_take_out);
@@ -236,7 +250,7 @@ public class NewTakeOut extends AppCompatActivity implements LocationListener {
             public void onClick(View view) {
                 String nameTakeOut = String.valueOf(Objects.requireNonNull(take_out_name_view.getEditText()).getText());
                 String descriptionTakeOut = String.valueOf(Objects.requireNonNull(take_out_description_view.getEditText()).getText());
-                /***///String locationTakeOut = Objects.requireNonNull(take_out_location_view.getText()).toString();
+                String locationTakeOut = Objects.requireNonNull(take_out_location_view.getText()).toString();
                 //String[] days = String.valueOf(dateRangeText.getText()).split("- ");
                 Pair<Long, Long> days = materialDatePicker.getSelection();
                 final List<String> circleOfFriendsSelected = new ArrayList<>();

@@ -66,20 +66,9 @@
                 android:text="@string/open_calendar"
                 android:textAllCaps="true"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toStartOf="@id/confirm_address"
-                app:layout_constraintTop_toBottomOf="@+id/show_date" />
-
-            <Button
-                android:id="@+id/confirm_address"
-                style="@style/ThemeOverlay.Material3.Button"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                android:text="@string/confirm_the_address"
-                android:textAllCaps="true"
-                app:layout_constraintStart_toEndOf="@+id/button_open_calendar"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/show_date" />
+
 
 
             <com.google.android.material.textfield.TextInputLayout
@@ -97,7 +86,7 @@
                 <com.google.android.material.textfield.TextInputEditText
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="@string/location"
+                    android:hint="Click the gps button to get your location"
                     android:imeOptions="flagNoExtractUi"
                     android:id="@+id/location_edittext"/>
             </com.google.android.material.textfield.TextInputLayout>
@@ -122,11 +111,56 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="10dp"
+                android:id="@+id/take_out_location"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/gps_button"
+                app:layout_constraintEnd_toEndOf="parent">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/add_the_place_of_the_take_out"
+                    android:imeOptions="flagNoExtractUi"
+                    android:id="@+id/take_out_location_edittext"/>
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <Button
+                android:id="@+id/confirm_address"
+                style="@style/ThemeOverlay.Material3.Button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:text="@string/confirm_the_address"
+                android:textAllCaps="true"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/check_distance"
+                app:layout_constraintTop_toBottomOf="@+id/take_out_location" />
+
+
+            <ImageButton
+                android:id="@+id/check_distance"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="16dp"
+                android:backgroundTint="@color/white"
+                android:contentDescription="@string/check_the_distance"
+                android:minHeight="48dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/confirm_address"
+                app:layout_constraintTop_toBottomOf="@+id/take_out_location"
+                app:srcCompat="@drawable/ic_baseline_near_me_24" />
+
+            <com.google.android.material.textfield.TextInputLayout
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
                 app:endIconMode="clear_text"
                 app:errorEnabled="false"
                 android:id="@+id/description_textinput"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/gps_button"
+                app:layout_constraintTop_toBottomOf="@+id/confirm_address"
                 app:layout_constraintEnd_toEndOf="parent">
 
                 <com.google.android.material.textfield.TextInputEditText

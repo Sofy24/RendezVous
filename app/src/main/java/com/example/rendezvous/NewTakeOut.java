@@ -152,7 +152,7 @@ public class NewTakeOut extends AppCompatActivity implements LocationListener {
                  @Override
                  public void onClick(View view) {
                      new AlertDialog.Builder(NewTakeOut.this)
-                             .setMessage("The distance between you and the take out is "+ distance[0] + "metres.")
+                             .setMessage(distance[0] == 0 ? "Please, enter all the data" : "The distance between you and the take out is "+ distance[0] + " metres.")
                              .setCancelable(true)
                              .setNeutralButton("Close", ((dialogInterface, i) -> dialogInterface.cancel()))
                              .create()

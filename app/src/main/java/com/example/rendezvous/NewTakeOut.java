@@ -151,19 +151,12 @@ public class NewTakeOut extends AppCompatActivity implements LocationListener {
             findViewById(R.id.check_distance).setOnClickListener(new View.OnClickListener() {
                  @Override
                  public void onClick(View view) {
-                    AlertDialog.Builder builder = new AlertDialog.Builder(NewTakeOut.this);
-                    builder.setMessage(distance[0] + "metres")
-                        .setTitle("Distance between you and the take out");
-                            /*.setPositiveButton("Close", new DialogInterface.OnClickListener() {
-                                @Override
-                                public void onClick(DialogInterface dialog, int id) {
-                                    // User clicked OK, so save the selectedItems results somewhere
-                                    // or return them to the component that opened the dialog
-                   ...
-                                }
-                            });*/
-                    AlertDialog dialog = builder.create();
-
+                     new AlertDialog.Builder(NewTakeOut.this)
+                             .setMessage("The distance between you and the take out is "+ distance[0] + "metres.")
+                             .setCancelable(true)
+                             .setNeutralButton("Close", ((dialogInterface, i) -> dialogInterface.cancel()))
+                             .create()
+                             .show();
                  }
              });
 

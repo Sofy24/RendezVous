@@ -26,11 +26,10 @@ public class Invited {
 
     public Invited() {}
 
-    public Invited(@NonNull Integer ir_id, @NonNull Integer u_id, @NonNull String i_state, long i_date) {
+    public Invited(@NonNull Integer ir_id, @NonNull Integer u_id, @NonNull String i_state) {
         IR_ID = ir_id;
         IU_ID = u_id;
         I_state = i_state;
-        I_date = i_date;
     }
 
     @NonNull

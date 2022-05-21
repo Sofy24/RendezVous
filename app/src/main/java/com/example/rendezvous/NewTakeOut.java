@@ -19,6 +19,7 @@ import android.location.LocationListener;
 import android.location.LocationManager;
 import android.net.Uri;
 import android.os.AsyncTask;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Looper;
 import android.provider.MediaStore;
@@ -49,6 +50,7 @@ import androidx.core.util.Pair;
 import com.example.rendezvous.DB.Circle;
 import com.example.rendezvous.DB.Converters;
 import com.example.rendezvous.DB.Info;
+import com.example.rendezvous.DB.Invited;
 import com.example.rendezvous.DB.RendezVous;
 import com.example.rendezvous.DB.RendezVousDB;
 import com.example.rendezvous.DB.User;
@@ -100,6 +102,7 @@ public class NewTakeOut extends AppCompatActivity implements LocationListener {
     private final List<CheckBox> checkBoxList = new ArrayList<>();
     private List<Circle> circleList;
     private List<String> alreadyMember;
+    private List<User> invitedUsers = new ArrayList<>();
     private User activeUser;
     private Uri imageUri;
     long firstDay;
@@ -272,10 +275,21 @@ public class NewTakeOut extends AppCompatActivity implements LocationListener {
                                for (Circle circle:
                                         selectedCircles) {
                                     db.databaseDAO().insertRendezvous(new RendezVous(circle.getC_name(), firstDay, endDay, info_id));
-                                }
-                               // Populate invited table
+                                    invitedUsers.addAll(db.databaseDAO().getUsersInCircle(circle.getC_name()));
+                                   System.out.println("invitedUsers = " + invitedUsers);
+                               }
+                                // Populate invited table
 
-//                                List<Pair<String, Integer>> redezVousIDs = db.databaseDAO().getRendezVous(firstDay, endDay, info_id);
+                                List<RendezVous> redezVousIDs = db.databaseDAO().getRendezVous(firstDay, endDay, info_id);
+                                for (RendezVous rendezVous:
+                                     redezVousIDs) {
+                                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+                                        invitedUsers.stream().distinct().forEach(user -> { //TODO non va il distinct maledetti stream.....
+                                                db.databaseDAO().insertInvited(new Invited(rendezVous.getR_ID(), user.getUID(), "Received"));
+
+                                        });
+                                    }
+                                }
 //                                for (Pair<String, Integer> pair:
 //                                     rendezVousIDs) {
 //                                    System.out.println("pair = " + pair);

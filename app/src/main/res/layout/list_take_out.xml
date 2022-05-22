@@ -18,4 +18,10 @@
         android:id="@+id/recyclerView"
         tools:listitem="@layout/card_details" />
 
+    <!--<include
+        android:id="@id/pulsante_gps_recycler"
+        layout="@layout/fab_check"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />-->
+
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -10,12 +10,21 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-
+import android.location.Location;
 import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
-
+import android.app.Activity;
+import com.example.rendezvous.CardListActivity;
+import com.example.rendezvous.NewTakeOut;
 import com.example.rendezvous.R;
+import com.google.android.gms.location.FusedLocationProviderClient;
+import com.google.android.gms.location.LocationCallback;
+import com.google.android.gms.location.LocationRequest;
+import com.google.android.gms.location.LocationResult;
+import com.google.android.gms.location.LocationServices;
+
+import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -101,12 +110,17 @@ public class RecyclerviewAdapter extends RecyclerView.Adapter<RecyclerviewAdapte
     public class MyViewHolder extends RecyclerView.ViewHolder {
         private TextView tvCardTitle;
         private ImageView tvCardUri;
+        private TextView distanceView;
+        private float distance = 0.0F;
+
         public MyViewHolder(View itemView) {
             super(itemView);
 
             System.out.println("itemView = " + itemView);
             tvCardTitle = itemView.findViewById(R.id.rendezvous_title_card);
             tvCardUri = itemView.findViewById(R.id.rendezvous_image_card);
+            this.distanceView = itemView.findViewById(R.id.distance_card);
+            this.distanceView.setText(distance + " metri.");
         }
     }
 }

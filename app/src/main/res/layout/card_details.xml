@@ -188,15 +188,18 @@
                             android:layout_marginBottom="10dp"
                             android:src="@drawable/ic_baseline_edit_24" />-->
 
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="20dp"
-                        android:layout_marginTop="20dp"
-                        android:text="metri"
-                        android:textColor="#000000"
-                        android:textSize="20sp" />
-                </LinearLayout>
+
+                        <TextView
+                            android:id="@+id/distance_card"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="20dp"
+                            android:layout_marginTop="20dp"
+                            android:text="@string/check_the_distance"
+                            android:textColor="#000000"
+                            android:textSize="20sp" />
+                    </LinearLayout>
+
 
                 <!--Child LinearLayout 3-->
                 <!-- <LinearLayout

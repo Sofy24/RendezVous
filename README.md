@@ -1,3 +1,3 @@
-# Progetto Mobile
+# Progetto Mobile RendeVous
 
 Tosi Santoro

@@ -86,7 +86,6 @@ public class NewTakeOut extends AppCompatActivity implements LocationListener {
     private String providerId = LocationManager.GPS_PROVIDER;
     private final LocationManager locationManager = null;
     private Location location = null;
-    private LatLng latLng = null;
     private float[] distance = new float[1];
     private FusedLocationProviderClient fusedLocationProviderClient;
     private LocationCallback locationCallback;
@@ -138,7 +137,7 @@ public class NewTakeOut extends AppCompatActivity implements LocationListener {
                   public void onClick(View view) {
                       final TextInputEditText take_out_location_view = findViewById(R.id.take_out_location_edittext);
                       final String address = String.valueOf(take_out_location_view.getText());
-                      latLng = getLocationFromAddress(getApplicationContext(), address);
+                      LatLng latLng = getLocationFromAddress(getApplicationContext(), address);
                       System.out.println("latLng = " + latLng); //ho ottenuto le coordinate che volevo!!!
                       requestingLocationUpdates = true;
                       startLocationUpdates(NewTakeOut.this);
@@ -262,8 +261,8 @@ public class NewTakeOut extends AppCompatActivity implements LocationListener {
                                 //insert Info and relative RendezVous
                                 db.databaseDAO().insertInfo(new Info(nameTakeOut, descriptionTakeOut,
                                         imageUri == null ? null : imageUri.toString(),
-                                        latLng == null ? 0.0 : latLng.getLatitude(),
-                                        latLng == null ? 0.0 : latLng.getLongitude()
+                                        location == null ? 0.0 : location.getLatitude(),
+                                        location == null ? 0.0 : location.getLongitude()
                                         ));
                                 Integer info_id = db.databaseDAO().getInfo(nameTakeOut);
                                for (Circle circle:

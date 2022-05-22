@@ -1,8 +1,6 @@
 package com.example.rendezvous.ViewModel;
 
-import android.app.Activity;
 import android.content.Context;
-import android.location.Location;
 import android.transition.AutoTransition;
 import android.transition.TransitionManager;
 import android.view.LayoutInflater;
@@ -17,16 +15,7 @@ import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.rendezvous.CardListActivity;
-import com.example.rendezvous.NewTakeOut;
 import com.example.rendezvous.R;
-import com.google.android.gms.location.FusedLocationProviderClient;
-import com.google.android.gms.location.LocationCallback;
-import com.google.android.gms.location.LocationRequest;
-import com.google.android.gms.location.LocationResult;
-import com.google.android.gms.location.LocationServices;
-
-import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -37,7 +26,6 @@ public class RecyclerviewAdapter extends RecyclerView.Adapter<RecyclerviewAdapte
 
     private Context mContext;
     private List<RendezVousCard> taskList;
-
 
     public RecyclerviewAdapter(Context context){
         mContext = context;
@@ -62,15 +50,9 @@ public class RecyclerviewAdapter extends RecyclerView.Adapter<RecyclerviewAdapte
     }
 
 
-
     @NonNull
     @Override
     public RecyclerviewAdapter.MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-
-
-
-
-
         //View view = LayoutInflater.from(mContext).inflate(R.layout.task_item,parent,false);
         //View view = LayoutInflater.from(mContext).inflate(R.layout.rendezvous_card,parent,false);
         View view = LayoutInflater.from(mContext).inflate(R.layout.card_details,parent,false);
@@ -119,17 +101,12 @@ public class RecyclerviewAdapter extends RecyclerView.Adapter<RecyclerviewAdapte
     public class MyViewHolder extends RecyclerView.ViewHolder {
         private TextView tvCardTitle;
         private ImageView tvCardUri;
-        private TextView distanceView;
-        private float distance = 0.0F;
-
         public MyViewHolder(View itemView) {
             super(itemView);
 
             System.out.println("itemView = " + itemView);
             tvCardTitle = itemView.findViewById(R.id.rendezvous_title_card);
             tvCardUri = itemView.findViewById(R.id.rendezvous_image_card);
-            this.distanceView = itemView.findViewById(R.id.distance_card);
-            this.distanceView.setText(distance + " metri.");
         }
     }
 }

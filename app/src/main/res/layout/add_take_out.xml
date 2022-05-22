@@ -83,8 +83,6 @@
                 app:layout_constraintTop_toBottomOf="@+id/button_open_calendar"
                 app:layout_constraintEnd_toEndOf="parent">
 
-                <!--TODO change the label-->
-
                 <com.google.android.material.textfield.TextInputEditText
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"

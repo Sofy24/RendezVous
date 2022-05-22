@@ -113,6 +113,7 @@ public class CardListActivity extends AppCompatActivity implements LocationListe
                 requestingLocationUpdates = true;
                 startLocationUpdates(CardListActivity.this);
                 updateGUI(location);
+                //
             }
         });
 

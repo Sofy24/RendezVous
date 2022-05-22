@@ -107,13 +107,12 @@ public class CardListActivity extends AppCompatActivity implements LocationListe
             }
         });
 
-        findViewById(R.id.pulsante_gps_card).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                requestingLocationUpdates = true;
-                startLocationUpdates(CardListActivity.this);
-            }
-        });
+        if (recyclerviewAdapter.arrowIsPressed()){
+            requestingLocationUpdates = true;
+            startLocationUpdates(CardListActivity.this);
+            recyclerviewAdapter.setArrow(false);
+        }
+
 
         touchListener = new RecyclerTouchListener(this,recyclerView);
         touchListener

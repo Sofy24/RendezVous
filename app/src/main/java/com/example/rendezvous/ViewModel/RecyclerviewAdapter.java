@@ -10,22 +10,10 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.location.Location;
 import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
-import android.app.Activity;
-import com.example.rendezvous.CardListActivity;
-import com.example.rendezvous.NewTakeOut;
 import com.example.rendezvous.R;
-import com.google.android.gms.location.FusedLocationProviderClient;
-import com.google.android.gms.location.LocationCallback;
-import com.google.android.gms.location.LocationRequest;
-import com.google.android.gms.location.LocationResult;
-import com.google.android.gms.location.LocationServices;
-
-import org.w3c.dom.Text;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -35,10 +23,12 @@ public class RecyclerviewAdapter extends RecyclerView.Adapter<RecyclerviewAdapte
 
     private Context mContext;
     private List<RendezVousCard> taskList;
+    private boolean isArrowPressed;
 
     public RecyclerviewAdapter(Context context){
         mContext = context;
         taskList = new ArrayList<>();
+        isArrowPressed = false;
     }
 
 
@@ -70,6 +60,10 @@ public class RecyclerviewAdapter extends RecyclerView.Adapter<RecyclerviewAdapte
         LinearLayout hiddenView = view.findViewById(R.id.hidden_view);
         ImageButton arrow = (ImageButton)  view.findViewById(R.id.arrow_button);
         arrow.setOnClickListener(view1 -> {
+            this.isArrowPressed = true;
+            notifyDataSetChanged(); //uff
+
+
             // If the CardView is already expanded, set its visibility
             // to gone and change the expand less icon to expand more.
             if (hiddenView.getVisibility() == View.VISIBLE) {
@@ -107,6 +101,14 @@ public class RecyclerviewAdapter extends RecyclerView.Adapter<RecyclerviewAdapte
         notifyDataSetChanged();
     }
 
+    public void setArrow(boolean value){
+        this.isArrowPressed = value;
+    }
+
+    public boolean arrowIsPressed(){
+        return this.isArrowPressed;
+    }
+
     public class MyViewHolder extends RecyclerView.ViewHolder {
         private TextView tvCardTitle;
         private ImageView tvCardUri;
@@ -122,5 +124,7 @@ public class RecyclerviewAdapter extends RecyclerView.Adapter<RecyclerviewAdapte
             this.distanceView = itemView.findViewById(R.id.distance_card);
             this.distanceView.setText(distance + " metri.");
         }
+
+
     }
 }

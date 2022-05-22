@@ -121,9 +121,9 @@ public class NewTakeOut extends AppCompatActivity implements LocationListener {
                         public void onActivityResult(Boolean result) {
                             if (result) {
                                 startLocationUpdates(NewTakeOut.this);
-                                Log.d("LAB-ADDFRAGMENT", "PERMISSION GRANTED");
+                                Log.d("permission", "PERMISSION GRANTED");
                             } else {
-                                Log.d("LAB-ADDFRAGMENT", "PERMISSION NOT GRANTED");
+                                Log.d("permission", "PERMISSION NOT GRANTED");
                                 showDialog(NewTakeOut.this);
                             }
                         }

@@ -107,12 +107,10 @@ public class CardListActivity extends AppCompatActivity implements LocationListe
             }
         });
 
-        if (recyclerviewAdapter.arrowIsPressed()){
-            soutv
+        findViewById(R.id.pulsante_gps_card).setOnClickListener(view1 -> {
             requestingLocationUpdates = true;
             startLocationUpdates(CardListActivity.this);
-            recyclerviewAdapter.setArrow(false);
-        }
+        });
 
 
         touchListener = new RecyclerTouchListener(this,recyclerView);
@@ -189,6 +187,7 @@ public class CardListActivity extends AppCompatActivity implements LocationListe
                 String text = location.getLatitude() + ", " + location.getLongitude();
                 //textView_location.setText(text);
                 System.out.println("Ecco a voi le coordinate"+text);
+                recyclerviewAdapter.setCurrentLocation(location);
                 requestingLocationUpdates = false;
                 stopLocationUpdates();
             }

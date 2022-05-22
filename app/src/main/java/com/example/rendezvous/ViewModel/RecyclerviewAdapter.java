@@ -1,6 +1,10 @@
 package com.example.rendezvous.ViewModel;
 
+import android.app.Activity;
 import android.content.Context;
+import android.content.ContextWrapper;
+import android.location.Location;
+import android.os.AsyncTask;
 import android.transition.AutoTransition;
 import android.transition.TransitionManager;
 import android.view.LayoutInflater;
@@ -13,6 +17,10 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.example.rendezvous.DB.Info;
+import com.example.rendezvous.DB.RendezVousDB;
+import com.example.rendezvous.NewTakeOut;
 import com.example.rendezvous.R;
 import java.util.ArrayList;
 import java.util.List;
@@ -23,12 +31,13 @@ public class RecyclerviewAdapter extends RecyclerView.Adapter<RecyclerviewAdapte
 
     private Context mContext;
     private List<RendezVousCard> taskList;
-    private boolean isArrowPressed;
+    private Location location = null;
+    private int viewPosition;
 
     public RecyclerviewAdapter(Context context){
         mContext = context;
         taskList = new ArrayList<>();
-        isArrowPressed = false;
+        this.viewPosition = -1;
     }
 
 
@@ -60,9 +69,6 @@ public class RecyclerviewAdapter extends RecyclerView.Adapter<RecyclerviewAdapte
         LinearLayout hiddenView = view.findViewById(R.id.hidden_view);
         ImageButton arrow = (ImageButton)  view.findViewById(R.id.arrow_button);
         arrow.setOnClickListener(view1 -> {
-            this.isArrowPressed = true;
-            notifyDataSetChanged(); //uff
-
 
             // If the CardView is already expanded, set its visibility
             // to gone and change the expand less icon to expand more.
@@ -88,6 +94,7 @@ public class RecyclerviewAdapter extends RecyclerView.Adapter<RecyclerviewAdapte
                 arrow.setImageResource(R.drawable.ic_baseline_arrow_drop_up_24);
             }
         });
+        this.viewPosition++;
         return new MyViewHolder(view);
     }
 
@@ -101,19 +108,18 @@ public class RecyclerviewAdapter extends RecyclerView.Adapter<RecyclerviewAdapte
         notifyDataSetChanged();
     }
 
-    public void setArrow(boolean value){
-        this.isArrowPressed = value;
+    public void setCurrentLocation(Location value){
+        this.location = value;
     }
 
-    public boolean arrowIsPressed(){
-        return this.isArrowPressed;
-    }
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
         private TextView tvCardTitle;
         private ImageView tvCardUri;
         private TextView distanceView;
-        private float distance = 0.0F;
+        private float[] distance = new float[1];
+        private List<Double> allTheDistances = new ArrayList<>();
+        private List<Info> infos;
 
         public MyViewHolder(View itemView) {
             super(itemView);
@@ -121,10 +127,52 @@ public class RecyclerviewAdapter extends RecyclerView.Adapter<RecyclerviewAdapte
             System.out.println("itemView = " + itemView);
             tvCardTitle = itemView.findViewById(R.id.rendezvous_title_card);
             tvCardUri = itemView.findViewById(R.id.rendezvous_image_card);
+            AsyncTask.execute(new Runnable() {
+                @Override
+                public void run() {
+                    //insert Info and relative RendezVous
+                    RendezVousDB db = RendezVousDB.getInstance(getActivity(mContext).getBaseContext());
+                    infos = db.databaseDAO().getListCardsForActiveUser();
+                    for (Info singleInfo:
+                            infos) {
+                        if(location != null ){
+                            Location.distanceBetween(location.getLatitude(), location.getLongitude(), singleInfo.getLatitude(), singleInfo.getLongitude() , distance);
+                            allTheDistances.add((double) distance[0]);
+                        } else {
+                            allTheDistances.add(0.0);
+                        }
+                    }
+                }
+            });
+
+            System.out.println("allTheDistances = " + allTheDistances);
             this.distanceView = itemView.findViewById(R.id.distance_card);
-            this.distanceView.setText(distance + " metri.");
+            /*for (Double dist : allTheDistances){
+
+            }*/
+            this.distanceView.setText(itemView.getId() + " metri.");
         }
 
+        public Activity getActivity(Context context)
+        {
+            if (context == null)
+            {
+                return null;
+            }
+            else if (context instanceof ContextWrapper)
+            {
+                if (context instanceof Activity)
+                {
+                    return (Activity) context;
+                }
+                else
+                {
+                    return getActivity(((ContextWrapper) context).getBaseContext());
+                }
+            }
+
+            return null;
+        }
 
     }
 }

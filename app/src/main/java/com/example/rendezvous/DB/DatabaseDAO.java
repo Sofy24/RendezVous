@@ -21,12 +21,9 @@ public interface DatabaseDAO {
 //    public void insertCircle(String C_ID, String C_name, String C_color);
 
 
-    //@Query("INSERT INTO Info VALUES(:I_title, :I_description, :I_imageURL)")
-    //void insertInfo(String I_title, String I_description, String I_imageURL);
+
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     void insertInfo(Info ...info);
-
-    //@Query("")
 
     @Insert(onConflict =  OnConflictStrategy.IGNORE)
     void insertCircle(Circle ...circle);

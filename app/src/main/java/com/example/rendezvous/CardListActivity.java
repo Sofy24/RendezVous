@@ -108,6 +108,7 @@ public class CardListActivity extends AppCompatActivity implements LocationListe
         });
 
         if (recyclerviewAdapter.arrowIsPressed()){
+            soutv
             requestingLocationUpdates = true;
             startLocationUpdates(CardListActivity.this);
             recyclerviewAdapter.setArrow(false);

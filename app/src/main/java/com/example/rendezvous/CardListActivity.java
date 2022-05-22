@@ -1,7 +1,9 @@
 package com.example.rendezvous;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.location.Location;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.transition.AutoTransition;
@@ -26,6 +28,11 @@ import com.example.rendezvous.ViewModel.RecyclerTouchListener;
 import com.example.rendezvous.ViewModel.RecyclerviewAdapter;
 import com.example.rendezvous.ViewModel.RendezVousCard;
 import com.example.rendezvous.ViewModel.Task;
+import com.google.android.gms.location.FusedLocationProviderClient;
+import com.google.android.gms.location.LocationCallback;
+import com.google.android.gms.location.LocationRequest;
+import com.google.android.gms.location.LocationResult;
+import com.google.android.gms.location.LocationServices;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -38,12 +45,17 @@ public class CardListActivity extends AppCompatActivity {
     ImageButton arrow;
     LinearLayout hiddenView;
     CardView cardView;
+    private FusedLocationProviderClient fusedLocationProviderClient;
+    private LocationCallback locationCallback;
+    private LocationRequest locationRequest;
+    private boolean requestingLocationUpdates = false;
+    private Location location = null;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.list_take_out);
-
+        initializeLocation(CardListActivity.this);
 
         recyclerView = findViewById(R.id.recyclerView);
         recyclerviewAdapter = new RecyclerviewAdapter(this);
@@ -66,9 +78,6 @@ public class CardListActivity extends AppCompatActivity {
                 }
             }
         });
-//        rendezVousCards.add(new RendezVousCard("Uscita bellissima", null));
-//        rendezVousCards.add(new RendezVousCard("Uscita spiacevole", null));
-//        rendezVousCards.add(new RendezVousCard("Uscita tra uomini", null));
 
 
         touchListener = new RecyclerTouchListener(this,recyclerView);
@@ -120,5 +129,30 @@ public class CardListActivity extends AppCompatActivity {
     @Override
     public View onCreateView(@NonNull String name, @NonNull Context context, @NonNull AttributeSet attrs) {
         return super.onCreateView(name, context, attrs);
+    }
+
+    private void stopLocationUpdates() {
+        fusedLocationProviderClient.removeLocationUpdates(locationCallback);
+    }
+
+    private void initializeLocation(Activity activity) {
+        this.fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(activity);
+        this.locationRequest = com.google.android.gms.location.LocationRequest.create();
+        //Set the desired interval for active location updates
+        locationRequest.setInterval(1000);
+        locationRequest.setPriority(com.google.android.gms.location.LocationRequest.PRIORITY_HIGH_ACCURACY);
+
+        locationCallback = new LocationCallback() {
+            @Override
+            public void onLocationResult(@NonNull LocationResult locationResult) {
+                super.onLocationResult(locationResult);
+
+                //Update UI with the location data
+                location = locationResult.getLastLocation();
+                String text = location.getLatitude() + ", " + location.getLongitude();
+                requestingLocationUpdates = false;
+                stopLocationUpdates();
+            }
+        };
     }
 }

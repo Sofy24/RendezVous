@@ -18,10 +18,17 @@
         android:id="@+id/recyclerView"
         tools:listitem="@layout/card_details" />
 
-    <!--<include
-        android:id="@id/pulsante_gps_recycler"
-        layout="@layout/fab_check"
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/pulsante_gps_card"
+        android:layout_width="142dp"
+        android:layout_height="142dp"
+        android:layout_gravity="bottom|end"
+        android:layout_margin="16dp"
+        android:contentDescription="@string/new_take_out"
+        android:src="@drawable/ic_baseline_check_24"
+        android:tag="fab_tag"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />-->
+        app:layout_constraintEnd_toEndOf="parent" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

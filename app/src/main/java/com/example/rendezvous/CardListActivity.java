@@ -100,10 +100,9 @@ public class CardListActivity extends AppCompatActivity implements LocationListe
                 infos = db.databaseDAO().getListCardsForActiveUser();
                 for (Info singleInfo:
                      infos) {
-                    rendezVousCards.add(new RendezVousCard(singleInfo.getTitle(), singleInfo.getImageURL()));
+                    rendezVousCards.add(new RendezVousCard(singleInfo.getTitle(), singleInfo.getImageURL(), singleInfo.getI_ID()));
                     recyclerviewAdapter.setTaskList(rendezVousCards);
                     recyclerView.setAdapter(recyclerviewAdapter);
-
                 }
             }
         });
@@ -142,8 +141,10 @@ public class CardListActivity extends AppCompatActivity implements LocationListe
                                 recyclerviewAdapter.setTaskList(rendezVousCards);
                                 break;
                             case R.id.edit_task:
+                                System.out.println("rendezVousCards = " + rendezVousCards);
                                 Toast.makeText(getApplicationContext(),"Edit!",Toast.LENGTH_SHORT).show();
                                 Intent openEditTakeOut = new Intent(CardListActivity.this, EditTakeOut.class);
+                                openEditTakeOut.putExtra("R_title", rendezVousCards.get(position).getTitle());
                                 startActivity(openEditTakeOut);
                                 break;
 

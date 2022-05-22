@@ -70,7 +70,7 @@ public interface DatabaseDAO {
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     void insertRendezvous(RendezVous ...rendezVous);
 
-    @Query("SELECT o.* FROM RendezVous join Info o on (R_infoID = I_ID) join CircleOfFriends on (R_circleName = COF_C_name) join User on (COF_UID = UID) where isActive = 1 ;")
+    @Query("SELECT DISTINCT o.* FROM RendezVous join Info o on (R_infoID = I_ID) join CircleOfFriends on (R_circleName = COF_C_name) join User on (COF_UID = UID) where isActive = 1 ;")
     List<Info> getListCardsForActiveUser();
 
     @Query("SELECT I_ID from Info where title = :title")
@@ -80,7 +80,8 @@ public interface DatabaseDAO {
 //    @Query("SELECT R_circleName,R_ID from RendezVous where R_DataI = :firstDay and R_DataF = :endDay and R_infoID = :info_id;")
     List<RendezVous> getRendezVous(long firstDay, long endDay, Integer info_id);
 
-    @Insert
+
+    @Insert(onConflict = OnConflictStrategy.IGNORE)
     void insertInvited(Invited ...inviteds);
     //Drop database
 //    @Query("DELETE TABLE User")

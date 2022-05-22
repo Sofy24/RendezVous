@@ -3,10 +3,12 @@ package com.example.rendezvous;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.AttributeSet;
 import android.view.Menu;
 import android.view.View;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.Toast;
 
@@ -14,8 +16,12 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.rendezvous.DB.RendezVousDB;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.textfield.TextInputLayout;
+
+import java.util.ArrayList;
+import java.util.List;
 
 
 public class EditTakeOut extends AppCompatActivity {
@@ -23,6 +29,25 @@ public class EditTakeOut extends AppCompatActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.edit_take_out);
+
+
+        List<CheckBox> datesList = new ArrayList<>();
+
+        RendezVousDB db = RendezVousDB.getInstance(EditTakeOut.this.getBaseContext());
+
+        AsyncTask.execute(new Runnable() {
+            @Override
+            public void run() {
+//                db.databaseDAO().
+            }
+        });
+
+
+
+
+
+
+
 
         FloatingActionButton floatingActionButton = findViewById(R.id.fab_edit);
         floatingActionButton.setOnClickListener(new View.OnClickListener() {

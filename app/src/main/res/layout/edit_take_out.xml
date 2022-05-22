@@ -5,7 +5,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <TextView
-        android:id="@+id/name_edit_take_out"
+        android:id="@+id/name_rendez_vous"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -27,43 +27,13 @@
         android:layout_marginStart="8dp"
         android:layout_marginTop="4dp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/name_edit_take_out">
+        app:layout_constraintTop_toBottomOf="@+id/name_rendez_vous">
 
         <LinearLayout
+            android:id="@+id/dates_container"
             android:layout_width="wrap_content"
             android:layout_height="0dp"
-            android:orientation="vertical">
-
-            <CheckBox
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:checked="true"
-                android:text="@string/checkbox1"
-                app:layout_constraintEnd_toEndOf="@+id/scrollView"
-                app:layout_constraintStart_toStartOf="@+id/scrollView"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <CheckBox
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:text="@string/checkbox2" />
-
-            <CheckBox
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:text="@string/checkbox3" />
-
-            <CheckBox
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:text="@string/checkbox4" />
-
-            <CheckBox
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:text="@string/checkbox5" />
-
-        </LinearLayout>
+            android:orientation="vertical"/>
     </ScrollView>
 
     <include

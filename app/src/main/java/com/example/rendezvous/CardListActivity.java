@@ -62,7 +62,7 @@ public class CardListActivity extends AppCompatActivity implements LocationListe
     private FusedLocationProviderClient fusedLocationProviderClient;
     private LocationCallback locationCallback;
     private LocationRequest locationRequest;
-    private boolean requestingLocationUpdates = true;
+    private boolean requestingLocationUpdates = false;
     private ActivityResultLauncher<String> requestPermissionLauncher;
     private Location location = null;
 
@@ -112,8 +112,6 @@ public class CardListActivity extends AppCompatActivity implements LocationListe
             public void onClick(View view) {
                 requestingLocationUpdates = true;
                 startLocationUpdates(CardListActivity.this);
-                updateGUI(location);
-                //
             }
         });
 
@@ -189,7 +187,9 @@ public class CardListActivity extends AppCompatActivity implements LocationListe
                 //Update UI with the location data
                 location = locationResult.getLastLocation();
                 String text = location.getLatitude() + ", " + location.getLongitude();
-                requestingLocationUpdates = true;
+                //textView_location.setText(text);
+                System.out.println("Ecco a voi le coordinate"+text);
+                requestingLocationUpdates = false;
                 stopLocationUpdates();
             }
         };

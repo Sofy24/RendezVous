@@ -6,6 +6,7 @@ import androidx.room.Insert;
 import androidx.room.OnConflictStrategy;
 import androidx.room.Query;
 
+import java.util.Date;
 import java.util.List;
 
 @Dao
@@ -71,15 +72,30 @@ public interface DatabaseDAO {
     List<Info> getListCardsForActiveUser();
 
     @Query("SELECT I_ID from Info where title = :title")
-    Integer getInfo(String title);
+    Integer getInfoID(String title);
+
+    @Query("SELECT * from Info where title = :title")
+    Info getInfo(String title);
 
     @Query("SELECT * from RendezVous where R_DataI = :firstDay and R_DataF = :endDay and R_infoID = :info_id;")
 //    @Query("SELECT R_circleName,R_ID from RendezVous where R_DataI = :firstDay and R_DataF = :endDay and R_infoID = :info_id;")
     List<RendezVous> getRendezVous(long firstDay, long endDay, Integer info_id);
 
+    @Query("SELECT * from RendezVous where R_infoID = :info_id;")
+    RendezVous getRendezVousFromInfo(Integer info_id);
 
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     void insertInvited(Invited ...inviteds);
+
+    @Query("UPDATE invited SET I_date = :dateToTimestamp, I_state = \"partecipa\" where IU_ID = (select UID from User where isActive = 1)")
+    void updateInvited(Long dateToTimestamp);
+
+    @Query("UPDATE invited SET I_state = \"Busy\" where IU_ID = (select UID from User where isActive = 1)")
+    void setBusy();
+
+    @Query("SELECT I_state from invited where IU_ID = (select UID from User where isActive = 1)")
+    String getInvitedState();
+
     //Drop database
 //    @Query("DELETE TABLE User")
 //    public void nukeTables();

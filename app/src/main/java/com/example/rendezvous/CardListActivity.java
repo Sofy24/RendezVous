@@ -125,7 +125,7 @@ public class CardListActivity extends AppCompatActivity implements LocationListe
 
                     @Override
                     public void onIndependentViewClicked(int independentViewID, int position) {
-
+                        System.out.println("LA SOFIA E' BELLA");
                     }
                 })
                 .setSwipeOptionViews(R.id.delete_task,R.id.edit_task)
@@ -134,15 +134,34 @@ public class CardListActivity extends AppCompatActivity implements LocationListe
                     public void onSwipeOptionClicked(int viewID, int position) {
                         switch (viewID){
                             case R.id.delete_task:
+                                AsyncTask.execute(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        db.databaseDAO().setBusy();
+                                    }
+                                });
                                 rendezVousCards.remove(position);
                                 recyclerviewAdapter.setTaskList(rendezVousCards);
                                 break;
                             case R.id.edit_task:
-                                System.out.println("rendezVousCards = " + rendezVousCards);
-                                Toast.makeText(getApplicationContext(),"Edit!",Toast.LENGTH_SHORT).show();
-                                Intent openEditTakeOut = new Intent(CardListActivity.this, EditTakeOut.class);
-                                openEditTakeOut.putExtra("R_title", rendezVousCards.get(position).getTitle());
-                                startActivity(openEditTakeOut);
+//                                if stato == invito ricevuto
+                                AsyncTask.execute(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        //TODO se premo 2 volte muore java.lang.RuntimeException: Only one Looper may be created per thread
+                                        Looper.prepare();
+                                        String state = db.databaseDAO().getInvitedState();
+                                        if(state.equals("Invited")){
+                                            Intent openEditTakeOut = new Intent(CardListActivity.this, EditTakeOut.class);
+                                            openEditTakeOut.putExtra("R_title", rendezVousCards.get(position).getTitle());
+                                            openEditTakeOut.putExtra("I_ID", rendezVousCards.get(position).getI_ID());
+                                            startActivity(openEditTakeOut);
+                                        }else if(state.equals("partecipa")){
+                                            Toast.makeText(getApplicationContext(),"Wait the others members!",Toast.LENGTH_SHORT).show();
+                                        }
+                                    }
+                                });
+
                                 break;
 
                         }

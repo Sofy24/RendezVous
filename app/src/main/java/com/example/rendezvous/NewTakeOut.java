@@ -48,14 +48,12 @@ import androidx.core.app.ActivityCompat;
 import androidx.core.util.Pair;
 
 import com.example.rendezvous.DB.Circle;
-import com.example.rendezvous.DB.Converters;
 import com.example.rendezvous.DB.Info;
 import com.example.rendezvous.DB.Invited;
 import com.example.rendezvous.DB.RendezVous;
 import com.example.rendezvous.DB.RendezVousDB;
 import com.example.rendezvous.DB.User;
 import com.example.rendezvous.ViewModel.AddViewModel;
-import com.google.android.gms.common.internal.BaseGmsClient;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationCallback;
 import com.google.android.gms.location.LocationRequest;
@@ -74,7 +72,6 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
@@ -265,7 +262,7 @@ public class NewTakeOut extends AppCompatActivity implements LocationListener {
                                         latLng == null ? 0.0 : latLng.getLatitude(),
                                         latLng == null ? 0.0 : latLng.getLongitude()
                                         ));
-                                Integer info_id = db.databaseDAO().getInfo(nameTakeOut);
+                                Integer info_id = db.databaseDAO().getInfoID(nameTakeOut);
                                for (Circle circle:
                                         selectedCircles) {
                                     db.databaseDAO().insertRendezvous(new RendezVous(circle.getC_name(), firstDay, endDay, info_id));

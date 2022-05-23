@@ -235,12 +235,12 @@ public class NewTakeOut extends AppCompatActivity implements LocationListener {
 
 
 
-        textView_location = (TextView) findViewById(R.id.location_edittext);
+        textView_location = findViewById(R.id.location);
 
         FloatingActionButton doneButton = findViewById(R.id.fab_check);
         TextInputLayout take_out_name_view = findViewById(R.id.name_new_take_out);
         TextInputLayout take_out_description_view = findViewById(R.id.description_textinput);
-        TextInputEditText take_out_location_view = findViewById(R.id.location_edittext);
+        TextView take_out_location_view = findViewById(R.id.location);
 
         doneButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -553,7 +553,7 @@ public class NewTakeOut extends AppCompatActivity implements LocationListener {
         double latitude=location.getLatitude();
         double longitude=location.getLongitude();
         String msg="Ci troviamo in coordinate ("+latitude+","+longitude+")";
-        textView_location = (TextView) findViewById(R.id.location_edittext);
+        textView_location = (TextView) findViewById(R.id.location);
         textView_location.setText(msg);
     }
 

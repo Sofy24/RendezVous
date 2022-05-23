@@ -69,9 +69,24 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/show_date" />
 
+            <TextView
+                android:id="@+id/location"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="10dp"
+                android:descendantFocusability="blocksDescendants"
+                android:focusableInTouchMode="false"
+                android:gravity="left|center"
+                android:hint="@string/click_the_gps_button_to_get_your_location"
+                android:textSize="20sp"
+                app:endIconMode="clear_text"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/button_open_calendar" />
 
-
-            <com.google.android.material.textfield.TextInputLayout
+            <!--<com.google.android.material.textfield.TextInputLayout
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -82,7 +97,7 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/button_open_calendar"
                 app:layout_constraintEnd_toEndOf="parent">
-                <!--TODO change the label-->
+
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:layout_width="match_parent"
@@ -90,7 +105,7 @@
                     android:hint="Click the gps button to get your location"
                     android:imeOptions="flagNoExtractUi"
                     android:id="@+id/location_edittext"/>
-            </com.google.android.material.textfield.TextInputLayout>
+            </com.google.android.material.textfield.TextInputLayout>-->
 
             <ImageButton
                 android:id="@+id/gps_button"

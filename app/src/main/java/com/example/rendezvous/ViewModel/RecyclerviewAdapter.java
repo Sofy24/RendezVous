@@ -32,12 +32,14 @@ public class RecyclerviewAdapter extends RecyclerView.Adapter<RecyclerviewAdapte
     private Context mContext;
     private List<RendezVousCard> taskList;
     private Location location = null;
-    private int viewPosition;
+    private float[] distance = new float[1];
+    private List<Double> allTheDistances = new ArrayList<>();
+    private List<Info> infos;
 
     public RecyclerviewAdapter(Context context){
         mContext = context;
         taskList = new ArrayList<>();
-        this.viewPosition = -1;
+        infos = new ArrayList<>();
     }
 
 
@@ -51,10 +53,57 @@ public class RecyclerviewAdapter extends RecyclerView.Adapter<RecyclerviewAdapte
     public void onBindViewHolder(@NonNull RecyclerviewAdapter.MyViewHolder holder, int position) {
         RendezVousCard task = taskList.get(position);
         holder.tvCardTitle.setText(task.getTitle());
+
         if(task.getImageUri()!=null) {
             //TODO non e' un text ma un imgView -> c'è da piangere
             //holder.tvCardUri.setText(task.getImageUri());
         }
+
+        AsyncTask.execute(new Runnable() {
+            @Override
+            public void run() {
+                //insert Info and relative RendezVous
+                RendezVousDB db = RendezVousDB.getInstance(getActivity(mContext).getBaseContext());
+                infos = db.databaseDAO().getListCardsForActiveUser();
+
+            }
+        });
+        if (!infos.isEmpty()){
+            for (Info singleInfo:
+                    infos) {
+                if(location != null ){
+                    Location.distanceBetween(location.getLatitude(), location.getLongitude(), singleInfo.getLatitude(), singleInfo.getLongitude() , distance);
+                    allTheDistances.add((double) distance[0]);
+                } else {
+                    allTheDistances.add(0.0);
+                }
+            }
+            holder.distanceCard.setText(String.format("%smetri", allTheDistances.get(position).toString()));
+            //holder.distanceCard.setText(allTheDistances.get(position).toString());
+        } else {
+            holder.distanceCard.setText(R.string.loading);
+        }
+    }
+
+    public Activity getActivity(Context context)
+    {
+        if (context == null)
+        {
+            return null;
+        }
+        else if (context instanceof ContextWrapper)
+        {
+            if (context instanceof Activity)
+            {
+                return (Activity) context;
+            }
+            else
+            {
+                return getActivity(((ContextWrapper) context).getBaseContext());
+            }
+        }
+
+        return null;
     }
 
 
@@ -64,6 +113,8 @@ public class RecyclerviewAdapter extends RecyclerView.Adapter<RecyclerviewAdapte
         //View view = LayoutInflater.from(mContext).inflate(R.layout.task_item,parent,false);
         //View view = LayoutInflater.from(mContext).inflate(R.layout.rendezvous_card,parent,false);
         View view = LayoutInflater.from(mContext).inflate(R.layout.card_details,parent,false);
+
+
 
         CardView cardView = view.findViewById(R.id.base_cardview);
         LinearLayout hiddenView = view.findViewById(R.id.hidden_view);
@@ -94,7 +145,6 @@ public class RecyclerviewAdapter extends RecyclerView.Adapter<RecyclerviewAdapte
                 arrow.setImageResource(R.drawable.ic_baseline_arrow_drop_up_24);
             }
         });
-        this.viewPosition++;
         return new MyViewHolder(view);
     }
 
@@ -117,9 +167,8 @@ public class RecyclerviewAdapter extends RecyclerView.Adapter<RecyclerviewAdapte
         private TextView tvCardTitle;
         private ImageView tvCardUri;
         private TextView distanceView;
-        private float[] distance = new float[1];
-        private List<Double> allTheDistances = new ArrayList<>();
-        private List<Info> infos;
+        private TextView distanceCard;
+
 
         public MyViewHolder(View itemView) {
             super(itemView);
@@ -127,52 +176,17 @@ public class RecyclerviewAdapter extends RecyclerView.Adapter<RecyclerviewAdapte
             System.out.println("itemView = " + itemView);
             tvCardTitle = itemView.findViewById(R.id.rendezvous_title_card);
             tvCardUri = itemView.findViewById(R.id.rendezvous_image_card);
-            AsyncTask.execute(new Runnable() {
-                @Override
-                public void run() {
-                    //insert Info and relative RendezVous
-                    RendezVousDB db = RendezVousDB.getInstance(getActivity(mContext).getBaseContext());
-                    infos = db.databaseDAO().getListCardsForActiveUser();
-                    for (Info singleInfo:
-                            infos) {
-                        if(location != null ){
-                            Location.distanceBetween(location.getLatitude(), location.getLongitude(), singleInfo.getLatitude(), singleInfo.getLongitude() , distance);
-                            allTheDistances.add((double) distance[0]);
-                        } else {
-                            allTheDistances.add(0.0);
-                        }
-                    }
-                }
-            });
+            distanceCard = itemView.findViewById(R.id.distance_card);
 
-            System.out.println("allTheDistances = " + allTheDistances);
+            //System.out.println("allTheDistances = " + allTheDistances);
             this.distanceView = itemView.findViewById(R.id.distance_card);
             /*for (Double dist : allTheDistances){
 
             }*/
-            this.distanceView.setText(itemView.getId() + " metri.");
+            this.distanceView.setText(" metri.");
         }
 
-        public Activity getActivity(Context context)
-        {
-            if (context == null)
-            {
-                return null;
-            }
-            else if (context instanceof ContextWrapper)
-            {
-                if (context instanceof Activity)
-                {
-                    return (Activity) context;
-                }
-                else
-                {
-                    return getActivity(((ContextWrapper) context).getBaseContext());
-                }
-            }
 
-            return null;
-        }
 
     }
 }

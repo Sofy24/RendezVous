@@ -41,4 +41,5 @@
     <string name="distanza_tra_me_e_il_luogo_dell_incontro">Distanza tra me e il luogo dell\'incontro</string>
     <string name="add_the_place_of_the_take_out">Add the place of the take out</string>
     <string name="check_the_distance">Check the distance</string>
+    <string name="loading">loading... waiting</string>
 </resources>

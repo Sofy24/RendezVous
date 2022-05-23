@@ -1,10 +1,13 @@
 package com.example.rendezvous.ViewModel;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.Context;
 import android.content.ContextWrapper;
+import android.content.Intent;
 import android.location.Location;
 import android.os.AsyncTask;
+import android.provider.Settings;
 import android.transition.AutoTransition;
 import android.transition.TransitionManager;
 import android.view.LayoutInflater;
@@ -121,6 +124,9 @@ public class RecyclerviewAdapter extends RecyclerView.Adapter<RecyclerviewAdapte
         LinearLayout hiddenView = view.findViewById(R.id.hidden_view);
         ImageButton arrow = (ImageButton)  view.findViewById(R.id.arrow_button);
         arrow.setOnClickListener(view1 -> {
+            if(location == null){
+                showDialog(getActivity(mContext));
+            }
             RecyclerviewAdapter.this.notifyDataSetChanged();
             // If the CardView is already expanded, set its visibility
             // to gone and change the expand less icon to expand more.
@@ -161,6 +167,15 @@ public class RecyclerviewAdapter extends RecyclerView.Adapter<RecyclerviewAdapte
 
     public void setCurrentLocation(Location value){
         this.location = value;
+    }
+
+    private void showDialog(Activity activity) {
+        new AlertDialog.Builder(activity)
+                .setMessage("Click on the gps button to see the distance between you and your take out into the card!.")
+                .setCancelable(false)
+                .setNeutralButton("OK", ((dialogInterface, i) -> dialogInterface.cancel()))
+                .create()
+                .show();
     }
 
 

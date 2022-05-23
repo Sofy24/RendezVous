@@ -53,7 +53,8 @@
                 android:id="@+id/fixed_layout"
                 android:layout_width="match_parent"
                 android:layout_height="150dp"
-                app:layout_constraintEnd_toEndOf="parent">
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
 
 
                 <ImageView
@@ -154,15 +155,6 @@
                     android:layout_height="match_parent"
                     android:orientation="horizontal">
 
-                    <ImageView
-                        android:layout_width="50dp"
-                        android:layout_height="50dp"
-                        android:layout_marginStart="20dp"
-                        android:layout_marginTop="10dp"
-                        android:layout_marginEnd="10dp"
-                        android:layout_marginBottom="10dp"
-                        android:src="@drawable/ic_baseline_near_me_24" />
-
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -171,6 +163,7 @@
                         android:text="@string/distanza_tra_me_e_il_luogo_dell_incontro"
                         android:textColor="#000000"
                         android:textSize="20sp" />
+
                 </LinearLayout>
 
                 <!--Child LinearLayout 2-->
@@ -202,29 +195,30 @@
 
 
                 <!--Child LinearLayout 3-->
-                <!-- <LinearLayout
+                <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:orientation="horizontal">
 
-                        <ImageView
-                            android:layout_width="50dp"
-                            android:layout_height="50dp"
-                            android:layout_marginStart="20dp"
-                            android:layout_marginTop="10dp"
-                            android:layout_marginEnd="10dp"
-                            android:layout_marginBottom="10dp"
-                            android:src="@drawable/ic_baseline_add_24" />
+                    <ImageView
+                        android:id="@+id/map"
+                        android:layout_width="50dp"
+                        android:layout_height="50dp"
+                        android:layout_marginStart="20dp"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginEnd="10dp"
+                        android:layout_marginBottom="10dp"
+                        android:src="@drawable/ic_baseline_map_24" />
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginStart="20dp"
                             android:layout_marginTop="20dp"
-                            android:text="Operating Systems"
+                            android:text="@string/apri_la_cartina"
                             android:textColor="#000000"
                             android:textSize="20dp" />
-                    </LinearLayout>-->
+                    </LinearLayout>
             </LinearLayout>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
@@ -267,7 +261,7 @@
                     android:layout_width="30dp"
                     android:layout_height="30dp"
                     android:layout_gravity="center"
-                    android:src="@drawable/ic_baseline_edit_24"
+                    android:src="@drawable/ic_baseline_how_to_vote_24"
                     app:tint="@android:color/white" />
             </LinearLayout>
         </RelativeLayout>

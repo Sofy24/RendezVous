@@ -6,6 +6,7 @@ import android.content.Context;
 import android.content.ContextWrapper;
 import android.content.Intent;
 import android.location.Location;
+import android.net.Uri;
 import android.os.AsyncTask;
 import android.provider.Settings;
 import android.transition.AutoTransition;
@@ -123,6 +124,7 @@ public class RecyclerviewAdapter extends RecyclerView.Adapter<RecyclerviewAdapte
         CardView cardView = view.findViewById(R.id.base_cardview);
         LinearLayout hiddenView = view.findViewById(R.id.hidden_view);
         ImageButton arrow = (ImageButton)  view.findViewById(R.id.arrow_button);
+        ImageView map = view.findViewById(R.id.map);
         arrow.setOnClickListener(view1 -> {
             if(location == null){
                 showDialog(getActivity(mContext));
@@ -151,6 +153,12 @@ public class RecyclerviewAdapter extends RecyclerView.Adapter<RecyclerviewAdapte
                 hiddenView.setVisibility(View.VISIBLE);
                 arrow.setImageResource(R.drawable.ic_baseline_arrow_drop_up_24);
             }
+        });
+        map.setOnClickListener(view1 -> {
+            Intent intent_map = new Intent(Intent.ACTION_VIEW);
+            intent_map.setData(Uri.parse("geo:47.4925,19.0513"));
+            Intent chooser = Intent.createChooser(intent_map, "Launch maps");
+            getActivity(mContext).startActivity(chooser);
         });
         return new MyViewHolder(view);
     }

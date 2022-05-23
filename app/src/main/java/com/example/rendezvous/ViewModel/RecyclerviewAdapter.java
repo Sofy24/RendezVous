@@ -5,6 +5,8 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.ContextWrapper;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.location.Location;
 import android.net.Uri;
 import android.os.AsyncTask;
@@ -26,6 +28,10 @@ import com.example.rendezvous.DB.Info;
 import com.example.rendezvous.DB.RendezVousDB;
 import com.example.rendezvous.NewTakeOut;
 import com.example.rendezvous.R;
+
+import java.io.FileNotFoundException;
+import java.io.InputStream;
+import java.net.URI;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -39,6 +45,7 @@ public class RecyclerviewAdapter extends RecyclerView.Adapter<RecyclerviewAdapte
     private float[] distance = new float[1];
     private List<Double> allTheDistances = new ArrayList<>();
     private List<Info> infos;
+    private Uri imageUri = new Uri.Builder().build();
 
     public RecyclerviewAdapter(Context context){
         mContext = context;
@@ -47,11 +54,6 @@ public class RecyclerviewAdapter extends RecyclerView.Adapter<RecyclerviewAdapte
     }
 
 
-    /** codice google maps da inserire nella card
-     *                     Intent intent_map = new Intent(Intent.ACTION_VIEW);
-     *                     intent_map.setData(Uri.parse("geo:47.4925,19.0513"));
-     *                     Intent chooser = Intent.createChooser(intent_map, "Launch maps");
-     *                     startActivity(chooser); **/
 
     @Override
     public void onBindViewHolder(@NonNull RecyclerviewAdapter.MyViewHolder holder, int position) {
@@ -125,6 +127,26 @@ public class RecyclerviewAdapter extends RecyclerView.Adapter<RecyclerviewAdapte
         LinearLayout hiddenView = view.findViewById(R.id.hidden_view);
         ImageButton arrow = (ImageButton)  view.findViewById(R.id.arrow_button);
         ImageView map = view.findViewById(R.id.map);
+        ImageView card_image = view.findViewById(R.id.rendezvous_image_card);
+        if(!infos.isEmpty()){
+            for (Info singleInfo:
+                    infos) {
+                if(singleInfo.getImageURL() != null ){
+                    imageUri = Uri.parse(singleInfo.getImageURL());
+                    System.out.println("An image was found! => "+ singleInfo.getImageURL());
+                } else {
+                    System.out.println("image null");
+                }
+            }
+        }
+        final InputStream imageStream;
+        try {
+            imageStream = getActivity(mContext).getContentResolver().openInputStream(imageUri);
+            final Bitmap selectedImage = BitmapFactory.decodeStream(imageStream);
+            card_image.setImageBitmap(selectedImage);
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
         arrow.setOnClickListener(view1 -> {
             if(location == null){
                 showDialog(getActivity(mContext));

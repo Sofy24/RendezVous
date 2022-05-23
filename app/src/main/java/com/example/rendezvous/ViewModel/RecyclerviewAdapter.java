@@ -65,21 +65,22 @@ public class RecyclerviewAdapter extends RecyclerView.Adapter<RecyclerviewAdapte
                 //insert Info and relative RendezVous
                 RendezVousDB db = RendezVousDB.getInstance(getActivity(mContext).getBaseContext());
                 infos = db.databaseDAO().getListCardsForActiveUser();
-
             }
         });
         if (!infos.isEmpty()){
+            allTheDistances.clear();
             for (Info singleInfo:
                     infos) {
                 if(location != null ){
                     Location.distanceBetween(location.getLatitude(), location.getLongitude(), singleInfo.getLatitude(), singleInfo.getLongitude() , distance);
                     allTheDistances.add((double) distance[0]);
+                    System.out.println("distances"+allTheDistances.toString());
                 } else {
+                    System.out.println(" location null");
                     allTheDistances.add(0.0);
                 }
             }
-            holder.distanceCard.setText(String.format("%smetri", allTheDistances.get(position).toString()));
-            //holder.distanceCard.setText(allTheDistances.get(position).toString());
+            holder.distanceCard.setText(String.format("%s metri", allTheDistances.get(position).toString()));
         } else {
             holder.distanceCard.setText(R.string.loading);
         }
@@ -120,7 +121,7 @@ public class RecyclerviewAdapter extends RecyclerView.Adapter<RecyclerviewAdapte
         LinearLayout hiddenView = view.findViewById(R.id.hidden_view);
         ImageButton arrow = (ImageButton)  view.findViewById(R.id.arrow_button);
         arrow.setOnClickListener(view1 -> {
-
+            RecyclerviewAdapter.this.notifyDataSetChanged();
             // If the CardView is already expanded, set its visibility
             // to gone and change the expand less icon to expand more.
             if (hiddenView.getVisibility() == View.VISIBLE) {

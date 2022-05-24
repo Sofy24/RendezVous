@@ -100,7 +100,8 @@ public class CardListActivity extends AppCompatActivity implements LocationListe
                 infos = db.databaseDAO().getListCardsForActiveUser();
                 for (Info singleInfo:
                      infos) {
-                    rendezVousCards.add(new RendezVousCard(singleInfo.getTitle(), singleInfo.getImageURL(), singleInfo.getI_ID()));
+                    rendezVousCards.add(new RendezVousCard(singleInfo.getTitle(), singleInfo.getImageURL(), singleInfo.getI_ID(), singleInfo.getDescription(),
+                            singleInfo.getLatitude(), singleInfo.getLongitude()));
                     recyclerviewAdapter.setTaskList(rendezVousCards);
                     recyclerView.setAdapter(recyclerviewAdapter);
                 }

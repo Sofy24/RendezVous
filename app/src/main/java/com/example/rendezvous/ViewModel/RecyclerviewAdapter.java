@@ -44,15 +44,11 @@ public class RecyclerviewAdapter extends RecyclerView.Adapter<RecyclerviewAdapte
     private List<RendezVousCard> taskList;
     private Location location = null;
     private float[] distance = new float[1];
-    private List<Double> allTheDistances = new ArrayList<>();
-    private List<Info> infos;
-    private Map<Integer, Uri> imageUri = new HashMap<>();//new Uri.Builder().build();
-    private Map<Integer, Integer> infoItemView = new HashMap<>();
+
 
     public RecyclerviewAdapter(Context context){
         mContext = context;
         taskList = new ArrayList<>();
-        infos = new ArrayList<>();
     }
 
 
@@ -61,6 +57,7 @@ public class RecyclerviewAdapter extends RecyclerView.Adapter<RecyclerviewAdapte
     public void onBindViewHolder(@NonNull RecyclerviewAdapter.MyViewHolder holder, int position) {
         RendezVousCard task = taskList.get(position);
         holder.tvCardTitle.setText(task.getTitle());
+        holder.description.setText(task.getDescription());
         final InputStream imageStream;
         try {
             if(task.getImageUri() != null){
@@ -72,61 +69,15 @@ public class RecyclerviewAdapter extends RecyclerView.Adapter<RecyclerviewAdapte
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
-        System.out.println(" onBind get layout= " + holder.getLayoutPosition());
 
-
-        AsyncTask.execute(new Runnable() {
-            @Override
-            public void run() {
-                //insert Info and relative RendezVous
-                RendezVousDB db = RendezVousDB.getInstance(getActivity(mContext).getBaseContext());
-                infos = db.databaseDAO().getListCardsForActiveUser();
-            }
-        });
-        if (!infos.isEmpty()){
-            allTheDistances.clear();
-            for (Info singleInfo:
-                    infos) {
-                if(location != null ){
-                    Location.distanceBetween(location.getLatitude(), location.getLongitude(), singleInfo.getLatitude(), singleInfo.getLongitude() , distance);
-                    allTheDistances.add((double) distance[0]);
-                    System.out.println("distances"+allTheDistances.toString());
-                } else {
-                    System.out.println(" location null");
-                    allTheDistances.add(0.0);
-                }
-            }
-            holder.distanceCard.setText(String.format("%s metri", allTheDistances.get(position).toString()));
+        if(location != null ){
+            Location.distanceBetween(location.getLatitude(), location.getLongitude(), task.getLatitude(), task.getLongitude() , distance);
+            holder.distanceCard.setText(String.format("%s metres", distance[0]));
         } else {
-            holder.distanceCard.setText(R.string.loading);
+            System.out.println(" location null");
+            holder.distanceCard.setText(String.format("Click the gps button to get your location"));
         }
 
-        //card_image
-        /*if(!infos.isEmpty()){
-            System.out.println("info => "+infos.get(position).getI_ID()+ " + "+ infos.get(position).getImageURL());
-
-            for (Info singleInfo:
-                    infos) {
-                if(holder.getLayoutPosition() == position && singleInfo.getImageURL() != null){
-                    imageUri.put(position, Uri.parse(singleInfo.getImageURL()));
-                    System.out.println("position " + position + " An image was found! => "+ singleInfo.getImageURL() );
-                } else {
-                    System.out.println("image null");
-                }
-
-            }
-        }*/
-        /*final InputStream imageStream;
-        try {
-            if(imageUri.get(position) != null){
-                imageStream = getActivity(mContext).getContentResolver().openInputStream(imageUri.get(position));
-                final Bitmap selectedImage = BitmapFactory.decodeStream(imageStream);
-                holder.card_image.setImageBitmap(selectedImage);
-
-            }
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        }*/
     }
 
     public Activity getActivity(Context context)
@@ -229,10 +180,9 @@ public class RecyclerviewAdapter extends RecyclerView.Adapter<RecyclerviewAdapte
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
         private TextView tvCardTitle;
-        private ImageView tvCardUri;
-        private TextView distanceView;
         private TextView distanceCard;
         private ImageView card_image;
+        private TextView description;
 
 
         public MyViewHolder(View itemView) {
@@ -241,16 +191,9 @@ public class RecyclerviewAdapter extends RecyclerView.Adapter<RecyclerviewAdapte
             System.out.println("itemView = " + itemView);
             System.out.println("itemView id = " + itemView.getId());
             tvCardTitle = itemView.findViewById(R.id.rendezvous_title_card);
-            tvCardUri = itemView.findViewById(R.id.rendezvous_image_card);
             distanceCard = itemView.findViewById(R.id.distance_card);
             card_image = itemView.findViewById(R.id.rendezvous_image_card);
-
-            //System.out.println("allTheDistances = " + allTheDistances);
-            this.distanceView = itemView.findViewById(R.id.distance_card);
-            /*for (Double dist : allTheDistances){
-
-            }*/
-            this.distanceView.setText(" metri.");
+            description = itemView.findViewById(R.id.card_description);
         }
 
 

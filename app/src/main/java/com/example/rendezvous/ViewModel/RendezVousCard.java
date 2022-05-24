@@ -7,10 +7,31 @@ public class RendezVousCard {
 
     private Integer I_ID;
 
-    public RendezVousCard(String title, String imageUri, Integer i_id) {
+    private final String description;
+
+    private final Double latitude;
+
+    private final Double longitude;
+
+    public RendezVousCard(String title, String imageUri, Integer i_id, String description, Double latitude, Double longitude) {
         this.title = title;
         this.imageUri = imageUri;
         this.I_ID = i_id;
+        this.description = description;
+        this.latitude = latitude;
+        this.longitude = longitude;
+    }
+
+    public Double getLatitude(){
+        return this.latitude;
+    }
+
+    public Double getLongitude(){
+        return this.longitude;
+    }
+
+    public String getDescription(){
+        return this.description;
     }
 
     public String getTitle() {

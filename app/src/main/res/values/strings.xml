@@ -44,4 +44,5 @@
     <string name="loading">loading... waiting</string>
     <string name="apri_la_cartina">Apri la cartina</string>
     <string name="click_the_gps_button_to_get_your_location">Click the gps to get your location</string>
+    <string name="accedi_o_registrati">Accedi o Registrati</string>
 </resources>

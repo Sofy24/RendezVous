@@ -143,6 +143,8 @@ public class CardListActivity extends AppCompatActivity implements LocationListe
                                 });
                                 rendezVousCards.remove(position);
                                 recyclerviewAdapter.setTaskList(rendezVousCards);
+                                //TODO deve essere rimossa almeno la info con la quale viene caricata la card, ma bho al momento e' difficile
+                                // ci pensero' piu' avanti <3
                                 break;
                             case R.id.edit_task:
 //                                if stato == invito ricevuto
@@ -153,7 +155,7 @@ public class CardListActivity extends AppCompatActivity implements LocationListe
                                         Looper.prepare();
                                         String state = db.databaseDAO().getInvitedState();
                                         System.out.println("state" + state);
-                                        if(state.equals("Invited")){
+                                        if(state.equals("Received")){
                                             Intent openEditTakeOut = new Intent(CardListActivity.this, EditTakeOut.class);
                                             openEditTakeOut.putExtra("R_title", rendezVousCards.get(position).getTitle());
                                             openEditTakeOut.putExtra("I_ID", rendezVousCards.get(position).getI_ID());

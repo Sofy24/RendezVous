@@ -33,8 +33,9 @@ import java.io.FileNotFoundException;
 import java.io.InputStream;
 import java.net.URI;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
-
+import java.util.Map;
 
 
 public class RecyclerviewAdapter extends RecyclerView.Adapter<RecyclerviewAdapter.MyViewHolder>{
@@ -45,7 +46,8 @@ public class RecyclerviewAdapter extends RecyclerView.Adapter<RecyclerviewAdapte
     private float[] distance = new float[1];
     private List<Double> allTheDistances = new ArrayList<>();
     private List<Info> infos;
-    private Uri imageUri = new Uri.Builder().build();
+    private Map<Integer, Uri> imageUri = new HashMap<>();//new Uri.Builder().build();
+    private Map<Integer, Integer> infoItemView = new HashMap<>();
 
     public RecyclerviewAdapter(Context context){
         mContext = context;
@@ -59,11 +61,19 @@ public class RecyclerviewAdapter extends RecyclerView.Adapter<RecyclerviewAdapte
     public void onBindViewHolder(@NonNull RecyclerviewAdapter.MyViewHolder holder, int position) {
         RendezVousCard task = taskList.get(position);
         holder.tvCardTitle.setText(task.getTitle());
+        final InputStream imageStream;
+        try {
+            if(task.getImageUri() != null){
+                imageStream = getActivity(mContext).getContentResolver().openInputStream(Uri.parse(task.getImageUri()));
+                final Bitmap selectedImage = BitmapFactory.decodeStream(imageStream);
+                holder.card_image.setImageBitmap(selectedImage);
 
-        if(task.getImageUri()!=null) {
-            //TODO non e' un text ma un imgView -> c'è da piangere
-            //holder.tvCardUri.setText(task.getImageUri());
+            }
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
         }
+        System.out.println(" onBind get layout= " + holder.getLayoutPosition());
+
 
         AsyncTask.execute(new Runnable() {
             @Override
@@ -90,6 +100,33 @@ public class RecyclerviewAdapter extends RecyclerView.Adapter<RecyclerviewAdapte
         } else {
             holder.distanceCard.setText(R.string.loading);
         }
+
+        //card_image
+        /*if(!infos.isEmpty()){
+            System.out.println("info => "+infos.get(position).getI_ID()+ " + "+ infos.get(position).getImageURL());
+
+            for (Info singleInfo:
+                    infos) {
+                if(holder.getLayoutPosition() == position && singleInfo.getImageURL() != null){
+                    imageUri.put(position, Uri.parse(singleInfo.getImageURL()));
+                    System.out.println("position " + position + " An image was found! => "+ singleInfo.getImageURL() );
+                } else {
+                    System.out.println("image null");
+                }
+
+            }
+        }*/
+        /*final InputStream imageStream;
+        try {
+            if(imageUri.get(position) != null){
+                imageStream = getActivity(mContext).getContentResolver().openInputStream(imageUri.get(position));
+                final Bitmap selectedImage = BitmapFactory.decodeStream(imageStream);
+                holder.card_image.setImageBitmap(selectedImage);
+
+            }
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }*/
     }
 
     public Activity getActivity(Context context)
@@ -127,26 +164,7 @@ public class RecyclerviewAdapter extends RecyclerView.Adapter<RecyclerviewAdapte
         LinearLayout hiddenView = view.findViewById(R.id.hidden_view);
         ImageButton arrow = (ImageButton)  view.findViewById(R.id.arrow_button);
         ImageView map = view.findViewById(R.id.map);
-        ImageView card_image = view.findViewById(R.id.rendezvous_image_card);
-        if(!infos.isEmpty()){
-            for (Info singleInfo:
-                    infos) {
-                if(singleInfo.getImageURL() != null ){
-                    imageUri = Uri.parse(singleInfo.getImageURL());
-                    System.out.println("An image was found! => "+ singleInfo.getImageURL());
-                } else {
-                    System.out.println("image null");
-                }
-            }
-        }
-        final InputStream imageStream;
-        try {
-            imageStream = getActivity(mContext).getContentResolver().openInputStream(imageUri);
-            final Bitmap selectedImage = BitmapFactory.decodeStream(imageStream);
-            card_image.setImageBitmap(selectedImage);
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        }
+
         arrow.setOnClickListener(view1 -> {
             if(location == null){
                 showDialog(getActivity(mContext));
@@ -214,15 +232,18 @@ public class RecyclerviewAdapter extends RecyclerView.Adapter<RecyclerviewAdapte
         private ImageView tvCardUri;
         private TextView distanceView;
         private TextView distanceCard;
+        private ImageView card_image;
 
 
         public MyViewHolder(View itemView) {
             super(itemView);
 
             System.out.println("itemView = " + itemView);
+            System.out.println("itemView id = " + itemView.getId());
             tvCardTitle = itemView.findViewById(R.id.rendezvous_title_card);
             tvCardUri = itemView.findViewById(R.id.rendezvous_image_card);
             distanceCard = itemView.findViewById(R.id.distance_card);
+            card_image = itemView.findViewById(R.id.rendezvous_image_card);
 
             //System.out.println("allTheDistances = " + allTheDistances);
             this.distanceView = itemView.findViewById(R.id.distance_card);

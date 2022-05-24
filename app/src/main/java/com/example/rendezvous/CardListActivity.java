@@ -152,6 +152,7 @@ public class CardListActivity extends AppCompatActivity implements LocationListe
                                         //TODO se premo 2 volte muore java.lang.RuntimeException: Only one Looper may be created per thread
                                         Looper.prepare();
                                         String state = db.databaseDAO().getInvitedState();
+                                        System.out.println("state" + state);
                                         if(state.equals("Invited")){
                                             Intent openEditTakeOut = new Intent(CardListActivity.this, EditTakeOut.class);
                                             openEditTakeOut.putExtra("R_title", rendezVousCards.get(position).getTitle());

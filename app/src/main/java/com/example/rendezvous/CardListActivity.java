@@ -139,6 +139,7 @@ public class CardListActivity extends AppCompatActivity implements LocationListe
                                     @Override
                                     public void run() {
                                         db.databaseDAO().setBusy();
+                                        // qui andrebbe rimossa la info
                                     }
                                 });
                                 rendezVousCards.remove(position);

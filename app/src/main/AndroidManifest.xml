@@ -16,9 +16,9 @@
 
     <application
         android:allowBackup="true"
-        android:icon="@mipmap/ic_launcher_deadpool"
+        android:icon="@mipmap/ic_launcher_rv"
         android:label="@string/app_name"
-        android:roundIcon="@mipmap/ic_launcher_deadpool_round"
+        android:roundIcon="@mipmap/ic_launcher_rv_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.RendezVous"> <!-- android:minHeight = "100dp"-->
         <activity

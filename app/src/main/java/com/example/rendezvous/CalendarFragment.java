@@ -1,17 +1,14 @@
 package com.example.rendezvous;
 
 import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.text.Layout;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.FrameLayout;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -19,11 +16,9 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentActivity;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
-import com.example.rendezvous.DB.RendezVous;
 import com.example.rendezvous.DB.RendezVousDB;
 import com.google.android.material.appbar.MaterialToolbar;
 import com.google.android.material.navigation.NavigationView;
@@ -34,7 +29,7 @@ public class CalendarFragment extends Fragment {
     private static final String LOG_TAG = "HomeCalendarFragment";
     private Activity activity;
     private DrawerLayout dLayout;
-    Fragment frrrrr = this;
+    Fragment fragment = this;
 
     /*@Override
     public void onAttach(Context context) {
@@ -96,20 +91,25 @@ public class CalendarFragment extends Fragment {
             ((AppCompatActivity) activity).setSupportActionBar(materialToolbar);
 //            AZZARDO
 
-            materialToolbar.setNavigationOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    System.out.println("IMMA GOT CLICKED");
-                    dLayout.openDrawer(Gravity.LEFT);
-//        Workaround per impedire che il fragment diventi timido quando la navigationView esce fuori
+            if(materialToolbar != null){ //TODO non crasha con questo if ma non funziona il menù laterale perchè giustamente non entra nell'if
+                //TODO materialToolbar non dovrebbe essere null quando cambia il tema
+                //TODO #bugGrave
+                materialToolbar.setNavigationOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        System.out.println("IMMA GOT CLICKED");
+                        dLayout.openDrawer(Gravity.LEFT);
+    //        Workaround per impedire che il fragment diventi timido quando la navigationView esce fuori
 
-                    FragmentManager fragmentManager = ((AppCompatActivity) activity).getSupportFragmentManager();
-                    fragmentManager.beginTransaction().hide(frrrrr).commit();
+                        FragmentManager fragmentManager = ((AppCompatActivity) activity).getSupportFragmentManager();
+                        fragmentManager.beginTransaction().hide(fragment).commit();
 
-                }
-            });
+                    }
+                });
 
             setNavigationDrawer(activity);
+            }
+
 
         }
 
@@ -133,7 +133,7 @@ public class CalendarFragment extends Fragment {
             @Override
             public void onDrawerClosed(@NonNull View drawerView) {
                 FragmentManager fragmentManager = ((AppCompatActivity) activity).getSupportFragmentManager();
-                fragmentManager.beginTransaction().show(frrrrr).commit();
+                fragmentManager.beginTransaction().show(fragment).commit();
             }
 
             @Override

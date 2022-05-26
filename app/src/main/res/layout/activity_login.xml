@@ -53,9 +53,10 @@
         android:layout_height="wrap_content"
         android:descendantFocusability="blocksDescendants"
         android:focusableInTouchMode="false"
-        android:text="@string/accedi_o_registrati"
+        android:text="@string/action_sign_in"
         android:textSize="30sp"
         android:textStyle="bold"
+        android:textColor="@color/black"
         android:textAlignment="center"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -72,7 +73,7 @@
         android:inputType="textEmailAddress"
         android:selectAllOnFocus="true"
         android:textAlignment="center"
-
+        android:textColorHint="#757575"
 
         android:textColor="@color/black"
         app:layout_constraintEnd_toEndOf="@+id/guideline_77v"

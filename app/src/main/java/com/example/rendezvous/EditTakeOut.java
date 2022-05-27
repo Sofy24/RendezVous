@@ -96,7 +96,16 @@ public class EditTakeOut extends AppCompatActivity {
                         }
                     });
 
-                    scrollView.addView(box);
+                    runOnUiThread(new Runnable() {
+
+                        @Override
+                        public void run() {
+
+                            scrollView.addView(box);
+
+                        }
+                    });
+
                     cal.setTime(cal.getTime());
                 }
                 CheckBox box = new CheckBox(EditTakeOut.this.getBaseContext());

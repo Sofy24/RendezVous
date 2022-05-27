@@ -108,7 +108,15 @@ public class EditTakeOut extends AppCompatActivity {
                         busy = b;
                     }
                 });
-                scrollView.addView(box);
+                runOnUiThread(new Runnable() {
+
+                    @Override
+                    public void run() {
+
+                        scrollView.addView(box);
+
+                    }
+                });
 
             }
         });

@@ -1,6 +1,7 @@
 package com.example.rendezvous;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -79,6 +80,12 @@ public class CalendarFragment extends Fragment {
             Log.e(LOG_TAG, "Activity is null");
         }*/
 
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+
+    }
+
 
         @Override
         public void onCreate (@Nullable Bundle savedInstanceState){
@@ -88,8 +95,30 @@ public class CalendarFragment extends Fragment {
 //            setHasOptionsMenu(true);
 
             MaterialToolbar materialToolbar = (MaterialToolbar) activity.findViewById(R.id.toolbar);
+            System.out.println("materialToolbar = " + materialToolbar);
+            System.out.println("fragment = " + fragment);
             ((AppCompatActivity) activity).setSupportActionBar(materialToolbar);
 //            AZZARDO
+            if(materialToolbar == null){
+                materialToolbar = (MaterialToolbar) activity.findViewById(R.id.toolbar);
+                System.out.println("materialToolbar = " + materialToolbar);
+                System.out.println("fragment = " + fragment);
+                ((AppCompatActivity) activity).setSupportActionBar(materialToolbar);
+                materialToolbar.setNavigationOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        System.out.println("IMMA GOT CLICKED");
+                        dLayout.openDrawer(Gravity.LEFT);
+                        //        Workaround per impedire che il fragment diventi timido quando la navigationView esce fuori
+
+                        FragmentManager fragmentManager = ((AppCompatActivity) activity).getSupportFragmentManager();
+                        fragmentManager.beginTransaction().hide(fragment).commit();
+
+                    }
+                });
+
+                setNavigationDrawer(activity);
+            }
 
             if(materialToolbar != null){ //TODO non crasha con questo if ma non funziona il menù laterale perchè giustamente non entra nell'if
                 //TODO materialToolbar non dovrebbe essere null quando cambia il tema
@@ -108,10 +137,12 @@ public class CalendarFragment extends Fragment {
                 });
 
             setNavigationDrawer(activity);
+
             }
 
 
-        }
+
+    }
 
     private void setNavigationDrawer(AppCompatActivity activity) {
         dLayout = (DrawerLayout) activity.findViewById(R.id.drawer_layout); // initiate a DrawerLayout

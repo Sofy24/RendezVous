@@ -43,6 +43,7 @@ import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.util.Pair;
@@ -73,9 +74,11 @@ import java.io.OutputStream;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Locale;
 import java.util.Objects;
+import java.util.Set;
 
 public class NewTakeOut extends AppCompatActivity implements LocationListener {
     TextView dateRangeText;
@@ -100,7 +103,7 @@ public class NewTakeOut extends AppCompatActivity implements LocationListener {
     private final List<CheckBox> checkBoxList = new ArrayList<>();
     private List<Circle> circleList;
     private List<String> alreadyMember;
-    private List<User> invitedUsers = new ArrayList<>();
+    private Set<User> invitedUsers = new HashSet<>();
     private User activeUser;
     private Uri imageUri;
     long firstDay;
@@ -254,6 +257,7 @@ public class NewTakeOut extends AppCompatActivity implements LocationListener {
                         // title is ok
                         // groups are selected so i add data
                         AsyncTask.execute(new Runnable() {
+                            @RequiresApi(api = Build.VERSION_CODES.N)
                             @Override
                             public void run() {
                                 //insert Info and relative RendezVous
@@ -267,7 +271,6 @@ public class NewTakeOut extends AppCompatActivity implements LocationListener {
                                         selectedCircles) {
                                     db.databaseDAO().insertRendezvous(new RendezVous(circle.getC_name(), firstDay, endDay, info_id));
                                     invitedUsers.addAll(db.databaseDAO().getUsersInCircle(circle.getC_name()));
-                                   System.out.println("invitedUsers = " + invitedUsers);
                                }
                                 // Populate invited table
 
@@ -277,7 +280,6 @@ public class NewTakeOut extends AppCompatActivity implements LocationListener {
                                     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
                                         invitedUsers.stream().distinct().forEach(user -> { //TODO non va il distinct maledetti stream.....
                                                 db.databaseDAO().insertInvited(new Invited(rendezVous.getR_ID(), user.getUID(), "Received"));
-
                                         });
                                     }
                                 }

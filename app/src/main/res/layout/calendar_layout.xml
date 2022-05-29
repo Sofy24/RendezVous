@@ -8,7 +8,6 @@
         android:layout_marginTop="100dp"
     >
 
-
     <CalendarView
         android:id="@+id/calendarView2"
         android:layout_width="wrap_content"
@@ -17,7 +16,5 @@
         android:layout_marginTop="120dp"
         android:layout_marginEnd="33dp"
         />
-
-
 
 </FrameLayout>

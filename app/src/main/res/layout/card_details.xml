@@ -52,6 +52,7 @@
                 android:id="@+id/fixed_layout"
                 android:layout_width="match_parent"
                 android:layout_height="150dp"
+                android:layout_marginEnd="8dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent">
 
@@ -259,7 +260,7 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_centerInParent="true"
+                android:layout_centerVertical="true"
                 android:gravity="center"
                 android:orientation="vertical">
 
@@ -267,7 +268,7 @@
                     android:id="@+id/img_edit"
                     android:layout_width="30dp"
                     android:layout_height="30dp"
-                    android:layout_gravity="center"
+                    android:layout_gravity="left"
                     android:src="@drawable/ic_baseline_how_to_vote_24"
                     app:tint="@android:color/white" />
             </LinearLayout>
@@ -284,7 +285,7 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_centerInParent="true"
+                android:layout_centerVertical="true"
                 android:gravity="center"
                 android:orientation="vertical">
 
@@ -292,7 +293,7 @@
                     android:id="@+id/img_delete"
                     android:layout_width="30dp"
                     android:layout_height="30dp"
-                    android:layout_gravity="center"
+                    android:layout_gravity="left"
                     android:src="@drawable/ic_baseline_delete_24"
                     app:tint="@android:color/white" />
             </LinearLayout>

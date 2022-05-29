@@ -96,6 +96,7 @@ public interface DatabaseDAO {
     @Query("SELECT I_state from invited where IU_ID = (select UID from User where isActive = 1)")
     String getInvitedState();
 
+    //@Query("COUNT I_state from invited where I_state = \"received\" and  ")
     //Drop database
 //    @Query("DELETE TABLE User")
 //    public void nukeTables();

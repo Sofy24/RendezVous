@@ -127,7 +127,7 @@ public class NewTakeOut extends AppCompatActivity implements LocationListener {
                     });
             initializeLocation(NewTakeOut.this);
 
-
+            //TODO non ci sono i controlli se metti la destinazione dell'uscita senza aver attivato il gps
             //final String address = "Via San Vito, 149, 47822 Santarcangelo di Romagna RN";
             //final String address2 = "Rimini";
             findViewById(R.id.confirm_address).setOnClickListener(new View.OnClickListener() {

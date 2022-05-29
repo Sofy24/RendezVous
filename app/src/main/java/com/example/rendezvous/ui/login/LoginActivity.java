@@ -183,9 +183,8 @@ public class LoginActivity extends AppCompatActivity {
                     db.databaseDAO().insertCircleOfFriends(uni.getC_name(), db.databaseDAO().getUID(luis.getUserName()));
                     db.databaseDAO().insertCircleOfFriends(uni.getC_name(), db.databaseDAO().getUID(michi.getUserName()));
 
-                    db.databaseDAO().insertCircleOfFriends(progetto.getC_name(), db.databaseDAO().getUID(michi.getUserName()));
+                    db.databaseDAO().insertCircleOfFriends(progetto.getC_name(), db.databaseDAO().getUID(sofy.getUserName()));
                     db.databaseDAO().insertCircleOfFriends(progetto.getC_name(), db.databaseDAO().getUID(mega.getUserName()));
-                    db.databaseDAO().insertCircleOfFriends(progetto.getC_name(), db.databaseDAO().getUID(luis.getUserName()));
 
                     db.databaseDAO().insertCircleOfFriends(gym.getC_name(), db.databaseDAO().getUID(mega.getUserName()));
                     db.databaseDAO().insertCircleOfFriends(gym.getC_name(), db.databaseDAO().getUID(klevis.getUserName()));

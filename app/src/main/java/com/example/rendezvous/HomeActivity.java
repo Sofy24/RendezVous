@@ -30,54 +30,16 @@ public class HomeActivity extends AppCompatActivity {
         System.out.println("HomeActivity.this è stata creata " + HomeActivity.this);
         setContentView(R.layout.home);
 
-
         if (savedInstanceState == null){
             Utilities.insertFragment(this, new CalendarFragment(),
                     CalendarFragment.class.getSimpleName());
+        }else {
+            System.out.println(getSupportFragmentManager().findFragmentById(R.id.calendar_frame_layout));
         }
-
-
         FloatingActionButton floatingActionButton = findViewById(R.id.fab_add);
         AppCompatActivity activity = this;
 
-
-
-        RendezVousDB db = RendezVousDB.getInstance(activity.getBaseContext());
-
         floatingActionButton.setOnClickListener(view -> {
-            AsyncTask.execute(new Runnable() {
-                @Override
-                public void run() {
-//                    User mega = new User("Matteo", "Santoro", "Mega", "00000", null);
-//                    User sofy = new User("Sofia", "Tosi", "Sofy24", "123456", null);
-//                    User luis = new User("Luis", "Mi chiamo", "Lu1g1", "Ciao_sono_Luis", null);
-//                    User michi = new User("Michi", "Ferdinardo", "Clown", "Mi_piace_la_carne", null);
-//                    db.databaseDAO().insertUser(mega, sofy, luis, michi);
-//                    Circle coraggiosi = new Circle("Coraggiosi", "Rosso");
-//                    db.databaseDAO().insertCircle(coraggiosi);
-//                    Circle gym = new Circle("Gym", "Black");
-//                    db.databaseDAO().insertCircle(gym);
-//                    Circle uni = new Circle("University", "Pink");
-//                    db.databaseDAO().insertCircle(uni);
-
-
-//                    db.databaseDAO().insertCircleOfFriends(coraggiosi.getC_name(), db.databaseDAO().getUID(mega.getUserName()));
-//                    db.databaseDAO().insertCircleOfFriends(coraggiosi.getC_name(), db.databaseDAO().getUID(sofy.getUserName()));
-
-//                    RendezVous rendezVous = new RendezVous(coraggiosi.getC_name(), Converters.dateToTimestamp(new Date()), Converters.dateToTimestamp(new Date()), 2);
-//                    db.databaseDAO().insertRendezvous(rendezVous);
-//                    RendezVous rendezVous2 = new RendezVous(coraggiosi.getC_name(), Converters.dateToTimestamp(new Date()), Converters.dateToTimestamp(new Date()), 24);
-//                    db.databaseDAO().insertRendezvous(rendezVous2);
-//                    Circle cc = new Circle("cc", "Pink");
-//                    db.databaseDAO().insertCircle(cc);
-//                    db.databaseDAO().insertRendezvous(new RendezVous("cc", 1000,1000, 45));
-
-                }
-                //System.out.println("new DateTime() = "); //soutv
-            });
-
-
-            Toast.makeText(activity, "Fab pressed", Toast.LENGTH_SHORT).show();
             Intent openNewTakeOut = new Intent(HomeActivity.this, NewTakeOut.class);
             startActivity(openNewTakeOut);
         });
@@ -106,5 +68,4 @@ public class HomeActivity extends AppCompatActivity {
     public View onCreateView(@NonNull String name, @NonNull Context context, @NonNull AttributeSet attrs) {
         return super.onCreateView(name, context, attrs);
     }
-
 }

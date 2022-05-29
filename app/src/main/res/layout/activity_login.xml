@@ -95,7 +95,7 @@
         android:selectAllOnFocus="true"
         android:textAlignment="center"
         android:textColorHint="#757575"
-
+        android:elevation="20dp"
         app:layout_constraintEnd_toEndOf="@+id/guideline_77v"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/username"
@@ -108,6 +108,7 @@
         android:layout_gravity="start"
         android:background="@drawable/border_radius_shifter"
         app:srcCompat="@drawable/ic_baseline_arrow_forward_24"
+        android:elevation="20dp"
         app:layout_constraintEnd_toStartOf="@id/guideline_80v"
         app:layout_constraintBottom_toTopOf="@+id/guideline_60o"
         app:layout_constraintVertical_bias="0.2" /> <!-- android:enabled="false"-->

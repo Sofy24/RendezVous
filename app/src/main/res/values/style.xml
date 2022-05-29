@@ -2,4 +2,15 @@
 <resources>
     <style name="background"/>
     <style name="AppTheme" parent="Theme.AppCompat.DayNight"/>
+    <style name="CustomCalendarMonth" parent="TextAppearance.MaterialComponents.Caption">
+        <item name="android:textColorPrimary">@color/colorPrimaryVariant</item>
+    </style>
+
+    <style name="CustomCalendarDay" parent="TextAppearance.MaterialComponents.Caption">
+        <item name="android:textColor">@color/colorPrimaryVariant</item>
+    </style>
+
+    <style name="CustomCalendarWeek" parent="TextAppearance.MaterialComponents.Caption">
+        <item name="android:textColor">@color/colorSecondaryVariant</item>
+    </style>
 </resources>

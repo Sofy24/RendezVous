@@ -139,6 +139,7 @@ public class EditTakeOut extends AppCompatActivity {
                         @Override
                         public void run() {
                             db.databaseDAO().setBusy();
+
                         }
                     });
                 }else if(preferencies.size() == 1){
@@ -147,6 +148,7 @@ public class EditTakeOut extends AppCompatActivity {
                         @Override
                         public void run() {
                             db.databaseDAO().updateInvited(Converters.dateToTimestamp(preferencies.get(0)));
+
                         }
                     });
                 }else {

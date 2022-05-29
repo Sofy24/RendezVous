@@ -30,6 +30,7 @@ public class RendezVous {
     @NonNull
     private Integer R_infoID;
 
+
     public RendezVous(){};
 
     public RendezVous(@NonNull String r_circleName, long r_dataI, long r_dataF, @NonNull Integer r_infoID) {

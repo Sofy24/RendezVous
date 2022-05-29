@@ -130,7 +130,6 @@ public class NewTakeOut extends AppCompatActivity implements LocationListener {
                     });
             initializeLocation(NewTakeOut.this);
 
-            //TODO non ci sono i controlli se metti la destinazione dell'uscita senza aver attivato il gps
             //final String address = "Via San Vito, 149, 47822 Santarcangelo di Romagna RN";
             //final String address2 = "Rimini";
             findViewById(R.id.confirm_address).setOnClickListener(new View.OnClickListener() {
@@ -138,13 +137,23 @@ public class NewTakeOut extends AppCompatActivity implements LocationListener {
                   public void onClick(View view) {
                       final TextInputEditText take_out_location_view = findViewById(R.id.take_out_location_edittext);
                       final String address = String.valueOf(take_out_location_view.getText());
-                      latLng = getLocationFromAddress(getApplicationContext(), address);
-                      System.out.println("latLng = " + latLng); //ho ottenuto le coordinate che volevo!!!
-                      requestingLocationUpdates = true;
-                      startLocationUpdates(NewTakeOut.this);
-                      take_out_location_view.setText(Objects.requireNonNull(latLng).getLatitude() + ", " + Objects.requireNonNull(latLng).getLongitude() );
-                      Location.distanceBetween(location.getLatitude(), location.getLongitude(), latLng.getLatitude(), latLng.getLongitude() , distance);
-                      System.out.println("distance = " + distance[0]);
+                      if(location != null){
+                          latLng = getLocationFromAddress(getApplicationContext(), address);
+                          System.out.println("latLng = " + latLng); //ho ottenuto le coordinate che volevo!!!
+                          requestingLocationUpdates = true;
+                          startLocationUpdates(NewTakeOut.this);
+                          take_out_location_view.setText(Objects.requireNonNull(latLng).getLatitude() + ", " + Objects.requireNonNull(latLng).getLongitude() );
+
+                          Location.distanceBetween(location.getLatitude(), location.getLongitude(), latLng.getLatitude(), latLng.getLongitude() , distance);
+                          System.out.println("distance = " + distance[0]);
+                      } else{
+                          new AlertDialog.Builder(NewTakeOut.this)
+                                  .setMessage("Please, click the gps button")
+                                  .setCancelable(true)
+                                  .setNeutralButton("Close", ((dialogInterface, i) -> dialogInterface.cancel()))
+                                  .create()
+                                  .show();
+                      }
                   }
               });
 

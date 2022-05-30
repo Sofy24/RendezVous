@@ -58,70 +58,36 @@ public class CalendarFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        //Activity activity = getActivity();
+        AppCompatActivity activity = (AppCompatActivity) getActivity();
+//            setHasOptionsMenu(true);
+        MaterialToolbar materialToolbar = (MaterialToolbar) activity.findViewById(R.id.toolbar);
+        System.out.println("materialToolbar = " + materialToolbar);
+        System.out.println("fragment = " + fragment);
+        ((AppCompatActivity) activity).setSupportActionBar(materialToolbar);
+//            AZZARDO
+        materialToolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                System.out.println("IMMA GOT CLICKED");
+                dLayout.openDrawer(Gravity.LEFT);
+                //        Workaround per impedire che il fragment diventi timido quando la navigationView esce fuori
 
+                FragmentManager fragmentManager = ((AppCompatActivity) activity).getSupportFragmentManager();
+                fragmentManager.beginTransaction().hide(fragment).commit();
 
+            }
+        });
+        setNavigationDrawer(activity);
     }
-        /*if (activity != null) {
-            Utilities.setUpToolbar((AppCompatActivity) activity, getString(R.string.app_name));*/
-
-            //setRecyclerView(activity);
-
-            /*listViewModel = new ViewModelProvider(activity).get(ListViewModel.class);
-            listViewModel.getCardItems().observe(activity, new Observer<List<CardItem>>() {
-                @Override
-                public void onChanged(List<CardItem> cardItems) {
-                    adapter.setData(cardItems);
-                }
-            });*/
-
-
-        /*} else {
-            Log.e(LOG_TAG, "Activity is null");
-        }*/
 
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
 
     }
-
-
-
         @Override
         public void onCreate (@Nullable Bundle savedInstanceState){
             super.onCreate(savedInstanceState);
-
-            AppCompatActivity activity = (AppCompatActivity) getActivity();
-//            setHasOptionsMenu(true);
-
-            MaterialToolbar materialToolbar = (MaterialToolbar) activity.findViewById(R.id.toolbar);
-            System.out.println("materialToolbar = " + materialToolbar);
-            System.out.println("fragment = " + fragment);
-            ((AppCompatActivity) activity).setSupportActionBar(materialToolbar);
-//            AZZARDO
-
-
-            if(materialToolbar != null){ //TODO non crasha con questo if ma non funziona il menù laterale perchè giustamente non entra nell'if
-                //TODO materialToolbar non dovrebbe essere null quando cambia il tema
-                //TODO #bugGrave
-                materialToolbar.setNavigationOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        System.out.println("IMMA GOT CLICKED");
-                        dLayout.openDrawer(Gravity.LEFT);
-    //        Workaround per impedire che il fragment diventi timido quando la navigationView esce fuori
-
-                        FragmentManager fragmentManager = ((AppCompatActivity) activity).getSupportFragmentManager();
-                        fragmentManager.beginTransaction().hide(fragment).commit();
-
-                    }
-                });
-
-            setNavigationDrawer(activity);
-
-            }
-
 
 
     }

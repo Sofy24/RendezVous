@@ -236,8 +236,16 @@ public class NewTakeOut extends AppCompatActivity implements LocationListener {
                                       System.out.println("selectedCircles = " + selectedCircles);
                                   }
                               });
-                              layout.addView(box);
-                              checkBoxList.add(box);
+                              runOnUiThread(new Runnable() {
+
+                                  @Override
+                                  public void run() {
+                                      layout.addView(box);
+                                      checkBoxList.add(box);
+
+                                  }
+                              });
+
                           }
                       }
                   });

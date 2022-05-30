@@ -65,6 +65,9 @@
                 android:layout_marginTop="16dp"
                 android:text="@string/open_calendar"
                 android:textAllCaps="true"
+                android:textColor="@color/white"
+                app:backgroundTint="@null"
+                android:background="@drawable/button_state"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/show_date" />
@@ -148,11 +151,14 @@
                 android:layout_marginTop="16dp"
                 android:text="@string/confirm_the_address"
                 android:textAllCaps="true"
+                app:backgroundTint="@null"
+                android:textColor="@color/white"
+                android:background="@drawable/blue_gradient_button"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toStartOf="@+id/check_distance"
                 app:layout_constraintTop_toBottomOf="@+id/take_out_location" />
 
-
+<!--@drawable/blue_gradient_button-->
             <ImageButton
                 android:id="@+id/check_distance"
                 android:layout_width="wrap_content"
@@ -194,6 +200,9 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
                 android:text="@string/take_a_picture"
+                app:backgroundTint="@null"
+                android:textColor="@color/white"
+                android:background="@drawable/blue_gradient_button"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/description_textinput" />

@@ -144,6 +144,7 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="10dp"
                 android:id="@+id/take_out_location"
+                app:endIconMode="clear_text"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/gps_button"
                 app:layout_constraintEnd_toEndOf="parent">
@@ -172,23 +173,23 @@
                 android:textColor="@color/white"
                 android:background="@drawable/blue_gradient_button"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toStartOf="@+id/check_distance"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/take_out_location" />
 
-<!--@drawable/blue_gradient_button-->
+
             <ImageButton
                 android:id="@+id/check_distance"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
-                android:layout_marginTop="16dp"
+                android:layout_marginTop="10dp"
                 android:backgroundTint="#D3E1F3"
                 android:background="@drawable/corner_radius"
                 android:contentDescription="@string/check_the_distance"
                 android:padding="10dp"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/confirm_address"
-                app:layout_constraintTop_toBottomOf="@+id/take_out_location"
+                app:layout_constraintStart_toStartOf="@+id/guideline"
+                app:layout_constraintTop_toTopOf="@+id/take_out_location"
                 app:srcCompat="@drawable/ic_baseline_near_me_24" />
 
 

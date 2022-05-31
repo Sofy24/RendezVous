@@ -1,18 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
 <com.google.android.material.appbar.AppBarLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    android:background="@drawable/top_bar_design"
+    android:gravity="bottom">
 
     <com.google.android.material.appbar.MaterialToolbar
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
         android:id="@+id/toolbar"
-        android:theme="@style/Theme.App.Toolbar"
         app:menu="@menu/top_app_bar"
 
         app:navigationIcon="@drawable/logo"
         app:navigationContentDescription="@string/navDescription"
         android:windowTranslucentStatus="true"
         />
+
+    <!--<LinearLayout-->
+
 </com.google.android.material.appbar.AppBarLayout>
+

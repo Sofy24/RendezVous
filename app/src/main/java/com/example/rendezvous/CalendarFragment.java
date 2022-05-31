@@ -16,6 +16,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
@@ -62,7 +63,8 @@ public class CalendarFragment extends Fragment {
         AppCompatActivity activity = (AppCompatActivity) getActivity();
 //            setHasOptionsMenu(true);
         MaterialToolbar materialToolbar = (MaterialToolbar) activity.findViewById(R.id.toolbar);
-        materialToolbar.setTitle(R.string.check_the_distance);
+        //Toolbar materialToolbar = activity.findViewById(R.id.toolbar);
+        materialToolbar.setTitle(R.string.app_name);
         materialToolbar.setTitleTextColor(Color.WHITE);
         System.out.println("materialToolbar = " + materialToolbar);
         System.out.println("fragment = " + fragment);

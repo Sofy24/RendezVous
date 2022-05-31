@@ -1,7 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <style name="background"/>
-    <style name="AppTheme" parent="Theme.AppCompat.DayNight"/>
+
+    <!-- Base application theme. -->
+    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
+
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryVariant</item>
+        <item name="colorAccent">@color/colorAccent</item>
+        <item name="android:windowTranslucentStatus">true</item>
+    </style>
+
     <style name="CustomCalendarMonth" parent="TextAppearance.MaterialComponents.Caption">
         <item name="android:textColorPrimary">@color/colorPrimaryVariant</item>
     </style>
@@ -13,4 +21,5 @@
     <style name="CustomCalendarWeek" parent="TextAppearance.MaterialComponents.Caption">
         <item name="android:textColor">@color/colorSecondaryVariant</item>
     </style>
+
 </resources>

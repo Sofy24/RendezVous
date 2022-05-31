@@ -28,7 +28,6 @@ public class HomeActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        getWindow().setStatusBarColor(Color.TRANSPARENT);
         System.out.println("HomeActivity.this è stata creata " + HomeActivity.this);
         setContentView(R.layout.home);
 

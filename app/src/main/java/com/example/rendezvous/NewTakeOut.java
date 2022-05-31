@@ -219,9 +219,11 @@ public class NewTakeOut extends AppCompatActivity implements LocationListener {
                           alreadyMember = db.databaseDAO().getUserCircles(db.databaseDAO().getUID(activeUser.getUserName()));
                           ScrollView scrollView = findViewById(R.id.circle_checkbox);
                           LinearLayout layout = (LinearLayout) scrollView.getChildAt(0);
+                          //scrollView.setBackground(R.drawable.checkbox_design);
 
                           for (Circle c : circleList) {
                               CheckBox box = new CheckBox(NewTakeOut.this.getBaseContext());
+                              box.setButtonDrawable(R.drawable.checkbox_design);
                               box.setText(c.getC_name());
                               box.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT));
                               box.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {

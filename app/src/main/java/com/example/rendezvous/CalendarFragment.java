@@ -3,6 +3,7 @@ package com.example.rendezvous;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.Gravity;
@@ -61,6 +62,8 @@ public class CalendarFragment extends Fragment {
         AppCompatActivity activity = (AppCompatActivity) getActivity();
 //            setHasOptionsMenu(true);
         MaterialToolbar materialToolbar = (MaterialToolbar) activity.findViewById(R.id.toolbar);
+        materialToolbar.setTitle(R.string.check_the_distance);
+        materialToolbar.setTitleTextColor(Color.WHITE);
         System.out.println("materialToolbar = " + materialToolbar);
         System.out.println("fragment = " + fragment);
         ((AppCompatActivity) activity).setSupportActionBar(materialToolbar);

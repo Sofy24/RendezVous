@@ -82,7 +82,7 @@ import java.util.Set;
 
 public class NewTakeOut extends AppCompatActivity implements LocationListener {
     TextView dateRangeText;
-    Button calendar;
+    ImageView imageView;
     private String providerId = LocationManager.GPS_PROVIDER;
     private final LocationManager locationManager = null;
     private Location location = null;
@@ -113,6 +113,7 @@ public class NewTakeOut extends AppCompatActivity implements LocationListener {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.add_take_out);
+        this.imageView = (ImageView)findViewById(R.id.picture_displayed_imageview);
         if (NewTakeOut.this != null) {
             requestPermissionLauncher = registerForActivityResult(
                     new ActivityResultContracts.RequestPermission(),
@@ -182,7 +183,6 @@ public class NewTakeOut extends AppCompatActivity implements LocationListener {
 
         this.dateRangeText = findViewById(R.id.show_date);
 
-        this.calendar = findViewById(R.id.button_open_calendar);
         MaterialDatePicker<Pair<Long, Long>> materialDatePicker = MaterialDatePicker.Builder.dateRangePicker()
                 .setSelection(Pair.create(MaterialDatePicker.thisMonthInUtcMilliseconds(),MaterialDatePicker.todayInUtcMilliseconds()))
                 .build();
@@ -195,7 +195,7 @@ public class NewTakeOut extends AppCompatActivity implements LocationListener {
         String date = startDateString + " - " + endDateString;
 
         dateRangeText.setText(date);
-        this.calendar.setOnClickListener(new View.OnClickListener() {
+        dateRangeText.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 materialDatePicker.show(getSupportFragmentManager(), materialDatePicker.toString());
@@ -346,7 +346,7 @@ public class NewTakeOut extends AppCompatActivity implements LocationListener {
                                 final InputStream imageStream = getContentResolver().openInputStream(imageUri);
                                 final Bitmap selectedImage = BitmapFactory.decodeStream(imageStream);
 
-                                ImageView imageView = (ImageView)findViewById(R.id.picture_displayed_imageview);
+                                //imageView = (ImageView)findViewById(R.id.picture_displayed_imageview);
                                 imageView.setImageBitmap(selectedImage);
                             } catch (FileNotFoundException e) {
                                 e.printStackTrace();
@@ -359,8 +359,8 @@ public class NewTakeOut extends AppCompatActivity implements LocationListener {
                     }
                 });
 
-        Button addImageBtn = (Button) findViewById(R.id.capture_button);
-        addImageBtn.setOnClickListener(view -> {
+        //Button addImageBtn = (Button) findViewById(R.id.capture_button);
+        imageView.setOnClickListener(view -> {
             Intent photoPickerIntent = new Intent(Intent.ACTION_OPEN_DOCUMENT);
             photoPickerIntent.setType("image/*");
             someActivityResultLauncher.launch(photoPickerIntent);

@@ -2,6 +2,7 @@ package com.example.rendezvous;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.AttributeSet;
@@ -27,6 +28,7 @@ public class HomeActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        getWindow().setStatusBarColor(Color.TRANSPARENT);
         System.out.println("HomeActivity.this è stata creata " + HomeActivity.this);
         setContentView(R.layout.home);
 

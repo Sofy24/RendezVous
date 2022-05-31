@@ -21,7 +21,7 @@
     <string name="name">Name</string>
     <string name="take_a_picture">Take a picture</string>
     <string name="image_captured">image_captured</string>
-    <string name="description">description</string>
+    <string name="description">Description</string>
     <string name="take_gps_position">take gps position</string>
     <string name="location">Add a location</string>
     <string name="helper_show_date">Selected dates</string>

@@ -3,7 +3,7 @@
         <item android:drawable="@drawable/pressed_button"
             android:state_pressed="true"
             android:color="@color/black"/>
-        <!--TODO lo stato pressed del button non è accessibile -->
+
         <item android:drawable="@drawable/blue_gradient_button"
             android:state_focused="true" />
         <item android:drawable="@drawable/blue_gradient_button"

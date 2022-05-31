@@ -129,9 +129,9 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="8dp"
-                android:backgroundTint="#D3E1F3"
+                android:background="@drawable/blue_gradient_button"
                 android:contentDescription="@string/take_gps_position"
-                android:minHeight="48dp"
+                android:padding="10dp"
                 app:layout_constraintTop_toBottomOf="@+id/description_textinput"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="@id/guideline"
@@ -162,12 +162,12 @@
 
 
             <Button
-                android:id="@+id/confirm_address"
+                android:id="@+id/check_distance"
                 style="@style/ThemeOverlay.Material3.Button"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
-                android:text="@string/confirm_the_address"
+                android:text="@string/check_the_distance"
                 android:textAllCaps="true"
                 app:backgroundTint="@null"
                 android:textColor="@color/white"
@@ -178,19 +178,18 @@
 
 
             <ImageButton
-                android:id="@+id/check_distance"
+                android:id="@+id/confirm_address"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="10dp"
-                android:backgroundTint="#D3E1F3"
-                android:background="@drawable/corner_radius"
+                android:background="@drawable/blue_gradient_button"
                 android:contentDescription="@string/check_the_distance"
                 android:padding="10dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="@+id/guideline"
                 app:layout_constraintTop_toTopOf="@+id/take_out_location"
-                app:srcCompat="@drawable/ic_baseline_near_me_24" />
+                app:srcCompat="@drawable/ic_baseline_check_24" />
 
 
             <ImageView
@@ -204,7 +203,7 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="1.0"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/confirm_address" />
+                app:layout_constraintTop_toBottomOf="@id/check_distance" />
 
             <TextView
                 android:id="@+id/group_label"

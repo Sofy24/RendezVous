@@ -19,6 +19,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.rendezvous.DB.ConfirmedRendezvous;
 import com.example.rendezvous.DB.Converters;
 import com.example.rendezvous.DB.Info;
 import com.example.rendezvous.DB.RendezVous;
@@ -97,12 +98,9 @@ public class EditTakeOut extends AppCompatActivity {
                     });
 
                     runOnUiThread(new Runnable() {
-
                         @Override
                         public void run() {
-
                             scrollView.addView(box);
-
                         }
                     });
 
@@ -118,12 +116,9 @@ public class EditTakeOut extends AppCompatActivity {
                     }
                 });
                 runOnUiThread(new Runnable() {
-
                     @Override
                     public void run() {
-
                         scrollView.addView(box);
-
                     }
                 });
 
@@ -134,28 +129,35 @@ public class EditTakeOut extends AppCompatActivity {
         floatingActionButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(busy){
-                    AsyncTask.execute(new Runnable() {
-                        @Override
-                        public void run() {
-                            db.databaseDAO().setBusy();
-
+                AsyncTask.execute(new Runnable() {
+                    @Override
+                    public void run() {
+                        if (busy) {
+                                    db.databaseDAO().setBusy();
+                        } else if (preferencies.size() == 1) {
+                                    db.databaseDAO().updateInvited(Converters.dateToTimestamp(preferencies.get(0)));
+                        } else {
+                            Toast.makeText(EditTakeOut.this, "You have to chose only 1 date", Toast.LENGTH_SHORT).show();
                         }
-                    });
-                }else if(preferencies.size() == 1){
-                    System.out.println("Im running");
-                    AsyncTask.execute(new Runnable() {
-                        @Override
-                        public void run() {
-                            db.databaseDAO().updateInvited(Converters.dateToTimestamp(preferencies.get(0)));
 
+                        Integer totalInvited = db.databaseDAO().getTotalNumOfPartecipants(I_ID);
+                        Integer actualResponse = db.databaseDAO().getNumOfPartecipants(I_ID);
+
+                        if(totalInvited==actualResponse){
+//                            db.databaseDAO().insertConfirmedRendezVous(R_title, I_ID);
+                            long date = db.databaseDAO().getConfirmedDate(I_ID);
+                            List<Integer> partecipants = db.databaseDAO().getPartecipantsId(I_ID);
+
+                            for (Integer partecipant_ID:
+                                 partecipants) {
+                                db.databaseDAO().insertConfirmedRendezvous(new ConfirmedRendezvous(I_ID, date, partecipant_ID));
+                            }
                         }
-                    });
-                }else {
-                    Toast.makeText(EditTakeOut.this, "You have to chose only 1 date", Toast.LENGTH_SHORT).show();
-                }
-                Intent backHome = new Intent(EditTakeOut.this, HomeActivity.class);
-                startActivity(backHome);
+
+                        Intent backHome = new Intent(EditTakeOut.this, HomeActivity.class);
+                        startActivity(backHome);
+                    }
+            });
             }
         });
     }

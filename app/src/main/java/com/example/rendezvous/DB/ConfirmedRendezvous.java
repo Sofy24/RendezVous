@@ -3,12 +3,13 @@ package com.example.rendezvous.DB;
 import androidx.annotation.NonNull;
 import androidx.room.Entity;
 import androidx.room.ForeignKey;
+import androidx.room.PrimaryKey;
 
-@Entity(primaryKeys = {"R_ID", "C_date"},
+@Entity(
     foreignKeys = {
-            @ForeignKey(entity = RendezVous.class,
-                    parentColumns = "R_ID",
-                    childColumns = "R_ID"),
+            @ForeignKey(entity = Info.class,
+                    parentColumns = "I_ID",
+                    childColumns = "CI_ID"),
             @ForeignKey(entity = User.class,
                     parentColumns = "UID",
                     childColumns = "C_attendant")
@@ -16,29 +17,21 @@ import androidx.room.ForeignKey;
 )
 public class ConfirmedRendezvous {
     @NonNull
-    private Integer R_ID;
+    private Integer CI_ID;
 
     @NonNull
     private long C_date;
 
+    @PrimaryKey
     @NonNull
     private Integer C_attendant;
 
     public ConfirmedRendezvous() {}
 
-    public ConfirmedRendezvous(@NonNull Integer r_id, long c_date, @NonNull Integer c_attendant) {
-        R_ID = r_id;
+    public ConfirmedRendezvous(@NonNull Integer ci_id, long c_date, @NonNull Integer c_attendant) {
+        CI_ID = ci_id;
         C_date = c_date;
         C_attendant = c_attendant;
-    }
-
-    @NonNull
-    public Integer getR_ID() {
-        return R_ID;
-    }
-
-    public void setR_ID(@NonNull Integer r_ID) {
-        R_ID = r_ID;
     }
 
     public long getC_date() {
@@ -56,5 +49,14 @@ public class ConfirmedRendezvous {
 
     public void setC_attendant(@NonNull Integer c_attendant) {
         C_attendant = c_attendant;
+    }
+
+    @NonNull
+    public Integer getCI_ID() {
+        return CI_ID;
+    }
+
+    public void setCI_ID(@NonNull Integer CI_ID) {
+        this.CI_ID = CI_ID;
     }
 }

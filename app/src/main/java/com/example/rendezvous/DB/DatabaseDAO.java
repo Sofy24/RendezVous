@@ -93,8 +93,8 @@ public interface DatabaseDAO {
     @Query("UPDATE invited SET I_state = \"Busy\" where IU_ID = (select UID from User where isActive = 1)")
     void setBusy();
 
-    @Query("SELECT I_state from invited where IU_ID = (select UID from User where isActive = 1)")
-    String getInvitedState();
+    @Query("SELECT I_state from invited where IU_ID = (select UID from User where isActive = 1) and IR_ID = :IR_ID")
+    String getInvitedState(Integer IR_ID);
 
     @Query("SELECT COUNT(*)" +
             "FROM invited " +
@@ -107,6 +107,20 @@ public interface DatabaseDAO {
             "and IR_ID in (SELECT R_ID FROM rendezVous where R_infoID = :infoID)")
     int getNumOfPartecipants(Integer infoID);
 
+
+    @Query("SELECT IU_ID FROM invited WHERE IR_ID in (SELECT R_ID FROM rendezVous where R_infoID = :i_id) and I_state = \"partecipa\" ")
+    List<Integer> getPartecipantsId(Integer i_id);
+
+    @Query("SELECT I_date " +
+            "FROM invited " +
+            "WHERE IR_ID in (SELECT R_ID FROM rendezVous where R_infoID = :i_id) " +
+            "group by I_date " +
+            " order by count(*) DESC " +
+            "limit 1")
+    long getConfirmedDate(Integer i_id);
+
+    @Insert
+    void insertConfirmedRendezvous(ConfirmedRendezvous ...confirmedRendezvous);
 // Drop database
 //    @Query("DELETE TABLE User")
 //    public void nukeTables();

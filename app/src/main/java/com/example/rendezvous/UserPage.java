@@ -118,8 +118,14 @@ public class UserPage extends AppCompatActivity {
                     if(alreadyMember.contains(c.getC_name())){
                         box.setChecked(true); //non testato
                     }
-                    layout.addView(box);
-                    checkBoxList.add(box);
+                    runOnUiThread(new Runnable() {
+
+                        @Override
+                        public void run() {
+                            layout.addView(box);
+                            checkBoxList.add(box);
+                        }
+                    });
                 }
             }
         });

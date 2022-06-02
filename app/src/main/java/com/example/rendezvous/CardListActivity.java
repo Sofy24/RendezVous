@@ -22,8 +22,10 @@ import com.google.android.gms.location.LocationResult;
 import com.google.android.gms.location.LocationServices;
 import android.util.AttributeSet;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -65,6 +67,12 @@ public class CardListActivity extends AppCompatActivity implements LocationListe
     private boolean requestingLocationUpdates = false;
     private ActivityResultLauncher<String> requestPermissionLauncher;
     private Location location = null;
+    private View promptView;
+    private AlertDialog alertD;
+    private Button closeBtn;
+    private Button negativeBtn;
+    private TextView dialogTextView;
+    private LayoutInflater layoutInflater;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -219,14 +227,31 @@ public class CardListActivity extends AppCompatActivity implements LocationListe
     }
 
     private void showDialog(Activity activity) {
-        new AlertDialog.Builder(activity)
-                .setMessage("Permission denied, but needed for gps functionality.")
-                .setCancelable(false)
-                .setPositiveButton("OK", ((dialogInterface, i) ->
-                        activity.startActivity(new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS))))
-                .setNegativeButton("Cancel", ((dialogInterface, i) -> dialogInterface.cancel()))
-                .create()
-                .show();
+        layoutInflater = LayoutInflater.from(CardListActivity.this);
+        promptView = layoutInflater.inflate(R.layout.dialog_layout, null);
+        alertD = new AlertDialog.Builder(CardListActivity.this).create();
+        closeBtn = (Button) promptView.findViewById(R.id.close_btn);
+        negativeBtn = (Button) promptView.findViewById(R.id.negative_btn);
+        negativeBtn.setVisibility(View.VISIBLE);
+        dialogTextView = promptView.findViewById(R.id.text_dialog);
+        dialogTextView.setText(R.string.permission_denied);
+        closeBtn.setText(R.string.ok);
+        negativeBtn.setText(R.string.cancel);
+        closeBtn.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                activity.startActivity(new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS));
+
+            }
+        });
+        negativeBtn.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                alertD.cancel();
+
+            }
+        });
+
+        alertD.setView(promptView);
+        alertD.show();
     }
 
     private void checkStatusGPS(Activity activity) {
@@ -234,14 +259,31 @@ public class CardListActivity extends AppCompatActivity implements LocationListe
                 (LocationManager) activity.getSystemService(Context.LOCATION_SERVICE);
         //if gps is off, show the alert message
         if (locationManager != null && !locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
-            new AlertDialog.Builder(activity)
-                    .setMessage("Your GPS is off, do you want to enable it?")
-                    .setCancelable(false)
-                    .setPositiveButton("Yes", ((dialogInterface, i) ->
-                            activity.startActivity(new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS))))
-                    .setNegativeButton("No", (dialogInterface, i) -> dialogInterface.cancel())
-                    .create()
-                    .show();
+            layoutInflater = LayoutInflater.from(CardListActivity.this);
+            promptView = layoutInflater.inflate(R.layout.dialog_layout, null);
+            alertD = new AlertDialog.Builder(CardListActivity.this).create();
+            closeBtn = (Button) promptView.findViewById(R.id.close_btn);
+            negativeBtn = (Button) promptView.findViewById(R.id.negative_btn);
+            negativeBtn.setVisibility(View.VISIBLE);
+            dialogTextView = promptView.findViewById(R.id.text_dialog);
+            dialogTextView.setText(R.string.gps_is_off);
+            closeBtn.setText(R.string.yes);
+            negativeBtn.setText(R.string.no);
+            closeBtn.setOnClickListener(new View.OnClickListener() {
+                public void onClick(View v) {
+                    activity.startActivity(new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS));
+
+                }
+            });
+            negativeBtn.setOnClickListener(new View.OnClickListener() {
+                public void onClick(View v) {
+                    alertD.cancel();
+
+                }
+            });
+
+            alertD.setView(promptView);
+            alertD.show();
         }
     }
 

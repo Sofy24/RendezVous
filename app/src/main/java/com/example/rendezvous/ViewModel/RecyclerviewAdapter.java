@@ -16,6 +16,7 @@ import android.transition.TransitionManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -44,6 +45,12 @@ public class RecyclerviewAdapter extends RecyclerView.Adapter<RecyclerviewAdapte
     private List<RendezVousCard> taskList;
     private Location location = null;
     private float[] distance = new float[1];
+    private LayoutInflater layoutInflater;
+    private View promptView;
+    private AlertDialog alertD;
+    private Button closeBtn;
+    private Button negativeBtn;
+    private TextView dialogTextView;
 
 
     public RecyclerviewAdapter(Context context){
@@ -169,12 +176,25 @@ public class RecyclerviewAdapter extends RecyclerView.Adapter<RecyclerviewAdapte
     }
 
     private void showDialog(Activity activity) {
-        new AlertDialog.Builder(activity)
-                .setMessage("Click on the gps button to see the distance between you and your take out into the card!.")
-                .setCancelable(false)
-                .setNeutralButton("OK", ((dialogInterface, i) -> dialogInterface.cancel()))
-                .create()
-                .show();
+        layoutInflater = LayoutInflater.from(getActivity(mContext));
+        promptView = layoutInflater.inflate(R.layout.dialog_layout, null);
+        alertD = new AlertDialog.Builder(getActivity(mContext)).create();
+        closeBtn = (Button) promptView.findViewById(R.id.close_btn);
+        negativeBtn = (Button) promptView.findViewById(R.id.negative_btn);
+        negativeBtn.setVisibility(View.GONE);
+        dialogTextView = promptView.findViewById(R.id.text_dialog);
+        dialogTextView.setText(R.string.gps_button_to_get_distance);
+        closeBtn.setText(R.string.ok);
+        closeBtn.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                alertD.cancel();
+
+            }
+        });
+
+        alertD.setView(promptView);
+        alertD.show();
+
     }
 
 

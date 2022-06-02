@@ -8,6 +8,7 @@ import android.app.AlertDialog;
 import android.content.ContentResolver;
 import android.content.ContentValues;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
@@ -26,6 +27,7 @@ import android.provider.MediaStore;
 import android.provider.Settings;
 import android.text.format.DateFormat;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -106,8 +108,14 @@ public class NewTakeOut extends AppCompatActivity implements LocationListener {
     private Set<User> invitedUsers = new HashSet<>();
     private User activeUser;
     private Uri imageUri;
-    long firstDay;
-    long endDay;
+    private long firstDay;
+    private long endDay;
+    private LayoutInflater layoutInflater;
+    private View promptView;
+    private AlertDialog alertD;
+    private Button closeBtn;
+    private Button negativeBtn;
+    private TextView dialogTextView;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -148,12 +156,26 @@ public class NewTakeOut extends AppCompatActivity implements LocationListener {
                           Location.distanceBetween(location.getLatitude(), location.getLongitude(), latLng.getLatitude(), latLng.getLongitude() , distance);
                           System.out.println("distance = " + distance[0]);
                       } else{
-                          new AlertDialog.Builder(NewTakeOut.this)
-                                  .setMessage("Please, click the gps button")
-                                  .setCancelable(true)
-                                  .setNeutralButton("Close", ((dialogInterface, i) -> dialogInterface.cancel()))
-                                  .create()
-                                  .show();
+                          layoutInflater = LayoutInflater.from(NewTakeOut.this);
+                          promptView = layoutInflater.inflate(R.layout.dialog_layout, null);
+                          alertD = new AlertDialog.Builder(NewTakeOut.this).create();
+                          closeBtn = (Button) promptView.findViewById(R.id.close_btn);
+                          negativeBtn = (Button) promptView.findViewById(R.id.negative_btn);
+                          negativeBtn.setVisibility(View.GONE);
+                          dialogTextView = promptView.findViewById(R.id.text_dialog);
+                          dialogTextView.setText(R.string.click_the_gps);
+                          closeBtn.setText(R.string.close);
+                          closeBtn.setOnClickListener(new View.OnClickListener() {
+                              public void onClick(View v) {
+                                  alertD.cancel();
+
+                              }
+                          });
+
+                          alertD.setView(promptView);
+                          alertD.show();
+
+
                       }
                   }
               });
@@ -162,12 +184,25 @@ public class NewTakeOut extends AppCompatActivity implements LocationListener {
             findViewById(R.id.check_distance).setOnClickListener(new View.OnClickListener() {
                  @Override
                  public void onClick(View view) {
-                     new AlertDialog.Builder(NewTakeOut.this)
-                             .setMessage(distance[0] == 0 ? "Please, enter all the data" : "The distance between you and the take out is "+ distance[0] + " metres.")
-                             .setCancelable(true)
-                             .setNeutralButton("Close", ((dialogInterface, i) -> dialogInterface.cancel()))
-                             .create()
-                             .show();
+                     layoutInflater = LayoutInflater.from(NewTakeOut.this);
+                     promptView = layoutInflater.inflate(R.layout.dialog_layout, null);
+                     alertD = new AlertDialog.Builder(NewTakeOut.this).create();
+                     closeBtn = (Button) promptView.findViewById(R.id.close_btn);
+                     negativeBtn = (Button) promptView.findViewById(R.id.negative_btn);
+                     negativeBtn.setVisibility(View.GONE);
+                     dialogTextView = promptView.findViewById(R.id.text_dialog);
+                     dialogTextView.setText(distance[0] == 0 ? "Please, enter all the data" : "The distance between you and the take out is "+ distance[0] + " metres.");
+                     closeBtn.setText(R.string.close);
+                     closeBtn.setOnClickListener(new View.OnClickListener() {
+                         public void onClick(View v) {
+                             alertD.cancel();
+
+                         }
+                     });
+
+                     alertD.setView(promptView);
+                     alertD.show();
+
                  }
              });
 
@@ -447,14 +482,32 @@ public class NewTakeOut extends AppCompatActivity implements LocationListener {
     }
 
     private void showDialog(Activity activity) {
-        new AlertDialog.Builder(activity)
-                .setMessage("Permission denied, but needed for gps functionality.")
-                .setCancelable(false)
-                .setPositiveButton("OK", ((dialogInterface, i) ->
-                        activity.startActivity(new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS))))
-                .setNegativeButton("Cancel", ((dialogInterface, i) -> dialogInterface.cancel()))
-                .create()
-                .show();
+        layoutInflater = LayoutInflater.from(NewTakeOut.this);
+        promptView = layoutInflater.inflate(R.layout.dialog_layout, null);
+        alertD = new AlertDialog.Builder(NewTakeOut.this).create();
+        closeBtn = (Button) promptView.findViewById(R.id.close_btn);
+        negativeBtn = (Button) promptView.findViewById(R.id.negative_btn);
+        negativeBtn.setVisibility(View.VISIBLE);
+        dialogTextView = promptView.findViewById(R.id.text_dialog);
+        dialogTextView.setText(R.string.permission_denied);
+        closeBtn.setText(R.string.ok);
+        negativeBtn.setText(R.string.cancel);
+        closeBtn.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                activity.startActivity(new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS));
+
+            }
+        });
+        negativeBtn.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                alertD.cancel();
+
+            }
+        });
+
+        alertD.setView(promptView);
+        alertD.show();
+
     }
 
     private void startLocationUpdates(Activity activity) {
@@ -482,14 +535,33 @@ public class NewTakeOut extends AppCompatActivity implements LocationListener {
                 (LocationManager) activity.getSystemService(Context.LOCATION_SERVICE);
         //if gps is off, show the alert message
         if (locationManager != null && !locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
-            new AlertDialog.Builder(activity)
-                    .setMessage("Your GPS is off, do you want to enable it?")
-                    .setCancelable(false)
-                    .setPositiveButton("Yes", ((dialogInterface, i) ->
-                            activity.startActivity(new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS))))
-                    .setNegativeButton("No", (dialogInterface, i) -> dialogInterface.cancel())
-                    .create()
-                    .show();
+            layoutInflater = LayoutInflater.from(NewTakeOut.this);
+            promptView = layoutInflater.inflate(R.layout.dialog_layout, null);
+            alertD = new AlertDialog.Builder(NewTakeOut.this).create();
+            closeBtn = (Button) promptView.findViewById(R.id.close_btn);
+            negativeBtn = (Button) promptView.findViewById(R.id.negative_btn);
+            negativeBtn.setVisibility(View.VISIBLE);
+            dialogTextView = promptView.findViewById(R.id.text_dialog);
+            dialogTextView.setText(R.string.gps_is_off);
+            closeBtn.setText(R.string.yes);
+            negativeBtn.setText(R.string.no);
+            closeBtn.setOnClickListener(new View.OnClickListener() {
+                public void onClick(View v) {
+                    activity.startActivity(new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS));
+
+                }
+            });
+            negativeBtn.setOnClickListener(new View.OnClickListener() {
+                public void onClick(View v) {
+                    alertD.cancel();
+
+                }
+            });
+
+            alertD.setView(promptView);
+            alertD.show();
+
+
         }
     }
 

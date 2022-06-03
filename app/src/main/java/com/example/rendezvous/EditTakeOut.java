@@ -138,6 +138,7 @@ public class EditTakeOut extends AppCompatActivity {
                                     db.databaseDAO().updateInvited(Converters.dateToTimestamp(preferencies.get(0)));
                         } else {
                             Toast.makeText(EditTakeOut.this, "You have to chose only 1 date", Toast.LENGTH_SHORT).show();
+                            return;
                         }
 
                         Integer totalInvited = db.databaseDAO().getTotalNumOfPartecipants(I_ID);
@@ -154,8 +155,9 @@ public class EditTakeOut extends AppCompatActivity {
                             }
                         }
 
-                        Intent backHome = new Intent(EditTakeOut.this, HomeActivity.class);
-                        startActivity(backHome);
+//                        Intent backHome = new Intent(EditTakeOut.this, HomeActivity.class);
+//                        startActivity(backHome);
+                        EditTakeOut.this.finish();
                     }
             });
             }

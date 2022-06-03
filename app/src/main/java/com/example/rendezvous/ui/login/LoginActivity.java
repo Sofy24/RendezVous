@@ -172,6 +172,9 @@ public class LoginActivity extends AppCompatActivity {
                     User michi = new User("Michi", "Ferdinardo", "Clown", "Mi_piace_la_carne", null);
                     User klevis = new User("Klevis", "Duka", "Duca", "Veloce_come_uno_squalo", null);
                     User fede = new User("Federico", "Cobianchi", "F3d3", "passw0rd", null);
+
+                    User joe = new User("Mama", "Joe", "joeMama", "IdOnTKnOw", null);
+
                     db.databaseDAO().insertUser(mega, sofy, luis, michi, klevis);
                     Circle progetto = new Circle("Gruppo progetto", "Rosso");
                     Circle gym = new Circle("Gym", "Black");
@@ -182,12 +185,15 @@ public class LoginActivity extends AppCompatActivity {
                     db.databaseDAO().insertCircleOfFriends(uni.getC_name(), db.databaseDAO().getUID(sofy.getUserName()));
                     db.databaseDAO().insertCircleOfFriends(uni.getC_name(), db.databaseDAO().getUID(luis.getUserName()));
                     db.databaseDAO().insertCircleOfFriends(uni.getC_name(), db.databaseDAO().getUID(michi.getUserName()));
+                    db.databaseDAO().insertCircleOfFriends(uni.getC_name(), db.databaseDAO().getUID(joe.getUserName()));
 
                     db.databaseDAO().insertCircleOfFriends(progetto.getC_name(), db.databaseDAO().getUID(sofy.getUserName()));
                     db.databaseDAO().insertCircleOfFriends(progetto.getC_name(), db.databaseDAO().getUID(mega.getUserName()));
 
                     db.databaseDAO().insertCircleOfFriends(gym.getC_name(), db.databaseDAO().getUID(mega.getUserName()));
                     db.databaseDAO().insertCircleOfFriends(gym.getC_name(), db.databaseDAO().getUID(klevis.getUserName()));
+                    db.databaseDAO().insertCircleOfFriends(gym.getC_name(), db.databaseDAO().getUID(fede.getUserName()));
+                    db.databaseDAO().insertCircleOfFriends(gym.getC_name(), db.databaseDAO().getUID(joe.getUserName()));
 
 //                    RendezVous rendezVous = new RendezVous(coraggiosi.getC_name(), Converters.dateToTimestamp(new Date()), Converters.dateToTimestamp(new Date()), 2);
 //                    db.databaseDAO().insertRendezvous(rendezVous);

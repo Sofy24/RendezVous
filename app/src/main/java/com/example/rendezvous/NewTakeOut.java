@@ -345,8 +345,9 @@ public class NewTakeOut extends AppCompatActivity implements LocationListener {
                             }
                         });
 
-                        Intent backHome = new Intent(NewTakeOut.this, HomeActivity.class);
-                        startActivity(backHome);
+//                        Intent backHome = new Intent(NewTakeOut.this, HomeActivity.class);
+//                        startActivity(backHome);
+                        NewTakeOut.this.finish();
                     } else{ //nome vuoto
                         System.out.println("circleOfFriendsSelected = " + circleOfFriendsSelected);
                         Toast.makeText(NewTakeOut.this, "Inserisci almeno un gruppo !", Toast.LENGTH_SHORT).show();

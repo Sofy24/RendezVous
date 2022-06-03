@@ -639,7 +639,6 @@ public class RecyclerTouchListener implements RecyclerView.OnItemTouchListener, 
                     final View downView = touchedView; // touchedView gets null'd before animation ends
                     final int downPosition = touchedPosition;
                     ++mDismissAnimationRefCount;
-                    //TODO - speed
                     animateFG(touchedView, Animation.OPEN, ANIMATION_STANDARD);
                     bgVisible = true;
                     bgVisibleView = fgView;
@@ -654,7 +653,6 @@ public class RecyclerTouchListener implements RecyclerView.OnItemTouchListener, 
                     final int downPosition = touchedPosition;
 
                     ++mDismissAnimationRefCount;
-                    //TODO - speed
                     animateFG(touchedView, Animation.CLOSE, ANIMATION_STANDARD);
                     bgVisible = false;
                     bgVisibleView = null;

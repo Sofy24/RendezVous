@@ -30,14 +30,17 @@ public class RendezVous {
     @NonNull
     private Integer R_infoID;
 
+    @NonNull
+    private String R_author;
 
     public RendezVous(){};
 
-    public RendezVous(@NonNull String r_circleName, long r_dataI, long r_dataF, @NonNull Integer r_infoID) {
+    public RendezVous(@NonNull String r_circleName, long r_dataI, long r_dataF, @NonNull Integer r_infoID, @NonNull String r_author) {
         R_circleName = r_circleName;
         R_DataI = r_dataI;
         R_DataF = r_dataF;
         R_infoID = r_infoID;
+        R_author = r_author;
     }
 
     @NonNull
@@ -91,5 +94,14 @@ public class RendezVous {
                 ", R_DataF=" + R_DataF +
                 ", R_infoID=" + R_infoID +
                 '}';
+    }
+
+    @NonNull
+    public String getR_author() {
+        return R_author;
+    }
+
+    public void setR_author(@NonNull String r_author) {
+        R_author = r_author;
     }
 }

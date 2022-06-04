@@ -6,6 +6,7 @@
     android:layout_height="wrap_content"
     android:orientation="vertical"
     android:id="@+id/task"
+
     >
     <!--<androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -13,15 +14,21 @@
         android:background="#E4E3E3"
         tools:context=".CardListActivity">-->
 
-    <androidx.cardview.widget.CardView
+    <com.google.android.material.card.MaterialCardView
         android:id="@+id/base_cardview"
-        style="@style/Base.CardView"
+        style="@style/Widget.Material3.CardView.Elevated"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="10dp"
         android:layout_marginTop="10dp"
         android:layout_marginEnd="10dp"
         android:layout_marginBottom="10dp"
+
+        app:strokeColor="@color/colorSecondaryVariant"
+        app:strokeWidth="2dp"
+        android:backgroundTint="@color/pastelLightBlue"
+
+
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.473"
@@ -229,7 +236,7 @@
             </LinearLayout>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
-    </androidx.cardview.widget.CardView>
+    </com.google.android.material.card.MaterialCardView>
 
     <LinearLayout
         android:id="@+id/rowBG"

@@ -11,6 +11,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
+import android.widget.ExpandableListAdapter;
+import android.widget.ExpandableListView;
 import android.widget.LinearLayout;
 import android.widget.ScrollView;
 import android.widget.Toast;
@@ -24,6 +26,7 @@ import com.example.rendezvous.DB.Converters;
 import com.example.rendezvous.DB.Info;
 import com.example.rendezvous.DB.RendezVous;
 import com.example.rendezvous.DB.RendezVousDB;
+import com.example.rendezvous.ViewModel.CustomExpandableListAdapter;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.text.ParseException;
@@ -31,6 +34,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 
 
@@ -45,6 +49,9 @@ public class EditTakeOut extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.edit_take_out);
 
+
+
+
         LinearLayout scrollView = (LinearLayout) this.findViewById(R.id.dates_container);
 
         System.out.println("scrollView = " + scrollView);
@@ -57,6 +64,8 @@ public class EditTakeOut extends AppCompatActivity {
             R_title = (String) extras.get("R_title");
             I_ID = (Integer) extras.get("I_ID");
         }
+
+        setUpGUI(R_title, I_ID);
 
         String pattern = "yyyy-MM-dd";
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern);
@@ -162,6 +171,64 @@ public class EditTakeOut extends AppCompatActivity {
             });
             }
         });
+    }
+
+    ExpandableListView expandableListView;
+    ExpandableListAdapter expandableListAdapter;
+    List<String> expandableListTitle;
+    HashMap<String, List<String>> expandableListDetail = new HashMap<String, List<String>>();
+
+    private void setUpGUI(String r_title, Integer i_id) {
+        expandableListView = (ExpandableListView) findViewById(R.id.expandableListView);
+
+        List<String> cricket = new ArrayList<String>();
+        cricket.add("India");
+        cricket.add("Pakistan");
+        cricket.add("Australia");
+        cricket.add("England");
+        cricket.add("South Africa");
+        expandableListDetail.put("CRICKET TEAMS", cricket);
+        expandableListTitle = new ArrayList<>(expandableListDetail.keySet()); //qui tutto testing.....
+        expandableListAdapter = new CustomExpandableListAdapter(this, expandableListTitle, expandableListDetail);
+
+        expandableListView.setAdapter(expandableListAdapter);
+        expandableListView.setOnGroupExpandListener(new ExpandableListView.OnGroupExpandListener() {
+
+            @Override
+            public void onGroupExpand(int groupPosition) {
+                Toast.makeText(getApplicationContext(),
+                        expandableListTitle.get(groupPosition) + " List Expanded.",
+                        Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        expandableListView.setOnGroupCollapseListener(new ExpandableListView.OnGroupCollapseListener() {
+
+            @Override
+            public void onGroupCollapse(int groupPosition) {
+                Toast.makeText(getApplicationContext(),
+                        expandableListTitle.get(groupPosition) + " List Collapsed.",
+                        Toast.LENGTH_SHORT).show();
+
+            }
+        });
+
+        expandableListView.setOnChildClickListener(new ExpandableListView.OnChildClickListener() {
+            @Override
+            public boolean onChildClick(ExpandableListView parent, View v,
+                                        int groupPosition, int childPosition, long id) {
+                Toast.makeText(
+                        getApplicationContext(),
+                        expandableListTitle.get(groupPosition)
+                                + " -> "
+                                + expandableListDetail.get(
+                                expandableListTitle.get(groupPosition)).get(
+                                childPosition), Toast.LENGTH_SHORT
+                ).show();
+                return false;
+            }
+        });
+        return;
     }
 
 

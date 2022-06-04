@@ -8,7 +8,6 @@ import android.app.AlertDialog;
 import android.content.ContentResolver;
 import android.content.ContentValues;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
@@ -323,7 +322,7 @@ public class NewTakeOut extends AppCompatActivity implements LocationListener {
                                 Integer info_id = db.databaseDAO().getInfoID(nameTakeOut);
                                for (Circle circle:
                                         selectedCircles) {
-                                    db.databaseDAO().insertRendezvous(new RendezVous(circle.getC_name(), firstDay, endDay, info_id));
+                                 db.databaseDAO().insertRendezvous(new RendezVous(circle.getC_name(), firstDay, endDay, info_id, activeUser.getUserName()));
                                     invitedUsers.addAll(db.databaseDAO().getUsersInCircle(circle.getC_name()));
                                }
                                 // Populate invited table

@@ -77,14 +77,16 @@
                     android:id="@+id/rendezvous_title_card"
                     android:layout_width="139dp"
                     android:layout_height="66dp"
+                    android:layout_marginStart="20dp"
                     android:layout_marginEnd="96dp"
                     android:text="@string/name"
                     android:textColor="@color/colorPrimaryVariant"
                     android:textSize="25sp"
                     android:textStyle="bold"
                     app:layout_constraintBottom_toBottomOf="@+id/fixed_layout"
-                    app:layout_constraintStart_toEndOf="@id/rendezvous_image_card"
                     app:layout_constraintEnd_toEndOf="@+id/fixed_layout"
+                    app:layout_constraintHorizontal_bias="0.0"
+                    app:layout_constraintStart_toEndOf="@id/rendezvous_image_card"
                     app:layout_constraintTop_toTopOf="@+id/fixed_layout"
                     app:layout_constraintVertical_bias="0.19" />
 
@@ -97,10 +99,10 @@
                     android:src="@drawable/ic_baseline_arrow_drop_down_24"
                     app:layout_constraintBottom_toBottomOf="@id/fixed_layout"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="0.36"
-                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintHorizontal_bias="0.069"
+                    app:layout_constraintStart_toEndOf="@id/rendezvous_image_card"
                     app:layout_constraintTop_toBottomOf="@+id/rendezvous_title_card"
-                    app:layout_constraintVertical_bias="1.0" />
+                    app:layout_constraintVertical_bias="0.7" />
 
                 <TextView
                     android:id="@+id/textView2"
@@ -142,7 +144,7 @@
                         android:layout_marginStart="20dp"
                         android:layout_marginTop="20dp"
                         android:hint="@string/description"
-                        android:textColor="#000000"
+                        android:textColor="@color/colorPrimaryVariant"
                         android:textSize="20sp" />
 
                 </LinearLayout>
@@ -159,7 +161,7 @@
                         android:layout_marginStart="20dp"
                         android:layout_marginTop="20dp"
                         android:text="@string/distanza_tra_me_e_il_luogo_dell_incontro"
-                        android:textColor="#000000"
+                        android:textColor="@color/colorPrimaryVariant"
                         android:textSize="20sp" />
 
                 </LinearLayout>
@@ -187,7 +189,7 @@
                         android:layout_marginStart="20dp"
                         android:layout_marginTop="20dp"
                         android:text="@string/check_the_distance"
-                        android:textColor="#000000"
+                        android:textColor="@color/colorPrimaryVariant"
                         android:textSize="20sp" />
                 </LinearLayout>
 
@@ -214,8 +216,8 @@
                         android:layout_marginStart="20dp"
                         android:layout_marginTop="20dp"
                         android:text="@string/apri_la_cartina"
-                        android:textColor="#000000"
-                        android:textSize="20dp" />
+                        android:textColor="@color/colorPrimaryVariant"
+                        android:textSize="20sp" />
                 </LinearLayout>
             </LinearLayout>
 
@@ -226,7 +228,6 @@
         android:id="@+id/rowBG"
         android:layout_width="149dp"
         android:layout_height="149dp"
-
         android:layout_alignTop="@id/base_cardview"
         android:layout_alignEnd="@+id/base_cardview"
         android:layout_marginStart="281dp"

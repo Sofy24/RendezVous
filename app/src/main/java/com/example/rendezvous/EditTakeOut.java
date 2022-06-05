@@ -248,7 +248,7 @@ public class EditTakeOut extends AppCompatActivity {
 
                 expandableListDetail.put("Partecipants to the event", new ArrayList<>(peopleInvited.keySet()));
                 expandableListTitle = new ArrayList<>(expandableListDetail.keySet()); //qui tutto testing.....
-                expandableListAdapter = new CustomExpandableListAdapter(EditTakeOut.this, expandableListTitle, expandableListDetail);
+                expandableListAdapter = new CustomExpandableListAdapter(EditTakeOut.this, expandableListTitle, expandableListDetail, peopleInvited);
                 expandableListView.setAdapter(expandableListAdapter);
 
             }

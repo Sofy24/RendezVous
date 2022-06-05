@@ -3,6 +3,7 @@ package com.example.rendezvous.ViewModel;
 import java.util.HashMap;
 import java.util.List;
 import android.content.Context;
+import android.graphics.Color;
 import android.graphics.Typeface;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -17,12 +18,15 @@ public class CustomExpandableListAdapter extends BaseExpandableListAdapter {
     private Context context;
     private List<String> expandableListTitle;
     private HashMap<String, List<String>> expandableListDetail;
-
+    HashMap<String, String> peopleWithState;
     public CustomExpandableListAdapter(Context context, List<String> expandableListTitle,
-                                       HashMap<String, List<String>> expandableListDetail) {
+                                       HashMap<String, List<String>> expandableListDetail,
+        HashMap<String, String> peopleWithState
+    ) {
         this.context = context;
         this.expandableListTitle = expandableListTitle;
         this.expandableListDetail = expandableListDetail;
+        this.peopleWithState = peopleWithState;
     }
 
     @Override
@@ -48,6 +52,18 @@ public class CustomExpandableListAdapter extends BaseExpandableListAdapter {
         TextView expandedListTextView = (TextView) convertView
                 .findViewById(R.id.expandedListItem);
         expandedListTextView.setText(expandedListText);
+        System.out.println("expandedListText = " + expandedListText);
+        System.out.println("peopleWithState = " + peopleWithState.get(expandedListText));
+        switch (peopleWithState.get(expandedListText)){
+            case "Received" : expandedListTextView.setTextColor(Color.parseColor("#bcbcbc")); // grigino, non si sa
+            break;
+            case "partecipa" : expandedListTextView.setTextColor(Color.parseColor("#8fce00")); // verde
+                break;
+            case "Busy" : expandedListTextView.setTextColor(Color.parseColor("#f44336")); //rosso
+                break;
+            default: expandedListTextView.setTextColor(Color.parseColor("#674ea7")); // viola -> qualcosa e' andato storto
+                break;
+        }
         return convertView;
     }
 

@@ -10,8 +10,10 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.content.res.ColorStateList;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Color;
 import android.location.Address;
 import android.location.Geocoder;
 import android.location.Location;
@@ -260,6 +262,7 @@ public class NewTakeOut extends AppCompatActivity implements LocationListener {
                               box.setButtonDrawable(R.drawable.checkbox_design);
                               box.setText(c.getC_name());
                               box.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT));
+                              box.setButtonTintList(ColorStateList.valueOf(Color.parseColor(c.getC_color())));
                               box.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
                                   @Override
                                   public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
@@ -269,7 +272,6 @@ public class NewTakeOut extends AppCompatActivity implements LocationListener {
                                       }else {
                                           selectedCircles.remove(c);
                                       }
-                                      System.out.println("selectedCircles = " + selectedCircles);
                                   }
                               });
                               runOnUiThread(new Runnable() {

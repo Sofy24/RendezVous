@@ -66,55 +66,57 @@
 
                 <ImageView
                     android:id="@+id/rendezvous_image_card"
-                    android:layout_width="150dp"
-                    android:layout_height="150dp"
+                    android:layout_width="112dp"
+                    android:layout_height="149dp"
                     app:layout_constraintBottom_toBottomOf="@+id/fixed_layout"
                     app:layout_constraintEnd_toEndOf="@+id/fixed_layout"
-                    app:layout_constraintHorizontal_bias="0.0"
+                    app:layout_constraintHorizontal_bias="0.003"
                     app:layout_constraintStart_toStartOf="@+id/fixed_layout"
                     app:layout_constraintTop_toTopOf="@+id/fixed_layout"
                     app:layout_constraintVertical_bias="1.0"
+                    android:scaleType="centerCrop"
+                    android:adjustViewBounds="true"
                     tools:srcCompat="@tools:sample/backgrounds/scenic" />
+
+                <!--This is ImageButton for the expansion icon.-->
 
                 <TextView
                     android:id="@+id/rendezvous_title_card"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_width="139dp"
+                    android:layout_height="66dp"
                     android:text="@string/name"
                     android:textColor="#006600"
                     android:textSize="25dp"
                     android:textStyle="bold"
                     app:layout_constraintBottom_toBottomOf="@+id/fixed_layout"
                     app:layout_constraintEnd_toEndOf="@+id/fixed_layout"
-                    app:layout_constraintHorizontal_bias="0.501"
-                    app:layout_constraintStart_toStartOf="@+id/fixed_layout"
+                    app:layout_constraintHorizontal_bias="0.075"
+                    app:layout_constraintStart_toEndOf="@+id/rendezvous_image_card"
                     app:layout_constraintTop_toTopOf="@+id/fixed_layout"
-                    app:layout_constraintVertical_bias="0.137" />
-
-                <!--This is ImageButton for the expansion icon.-->
+                    app:layout_constraintVertical_bias="0.19" />
 
                 <TextView
                     android:id="@+id/more_info"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="20dp"
                     android:layout_marginBottom="58dp"
                     android:text="@string/more_info"
                     android:textSize="20sp"
                     app:layout_constraintBottom_toBottomOf="@+id/fixed_layout"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="0.562"
+                    app:layout_constraintHorizontal_bias="0.58"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/rendezvous_title_card"
-                    app:layout_constraintVertical_bias="1.0" />
+                    app:layout_constraintVertical_bias="0.0" />
 
                 <ImageButton
                     android:id="@+id/arrow_button"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
                     android:src="@drawable/ic_baseline_arrow_drop_down_24"
                     app:layout_constraintBottom_toBottomOf="@id/fixed_layout"
                     app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.36"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/more_info"
                     app:layout_constraintVertical_bias="1.0" />
@@ -124,11 +126,11 @@
                     android:layout_width="89dp"
                     android:layout_height="35dp"
                     android:layout_marginStart="2dp"
-                    android:layout_marginTop="16dp"
+                    android:layout_marginTop="96dp"
                     android:layout_marginEnd="8dp"
                     android:text="@string/swipe_to_select_a_day_or_delete"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="0.873"
+                    app:layout_constraintHorizontal_bias="1.0"
                     app:layout_constraintStart_toEndOf="@+id/rendezvous_title_card"
                     app:layout_constraintTop_toTopOf="@+id/fixed_layout" />
 

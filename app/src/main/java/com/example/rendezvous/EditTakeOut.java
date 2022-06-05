@@ -26,6 +26,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.LiveData;
 
+import com.amrdeveloper.lottiedialog.LottieDialog;
 import com.example.rendezvous.DB.ConfirmedRendezvous;
 import com.example.rendezvous.DB.Converters;
 import com.example.rendezvous.DB.Info;
@@ -174,11 +175,23 @@ public class EditTakeOut extends AppCompatActivity {
                             }
                         }
 
+
 //                        Intent backHome = new Intent(EditTakeOut.this, HomeActivity.class);
 //                        startActivity(backHome);
-                        EditTakeOut.this.finish();
                     }
             });
+                LottieDialog dialog = new LottieDialog(EditTakeOut.this)
+                        .setAnimation(R.raw.message_sent)
+                        .setAnimationRepeatCount(1)
+                        .setAutoPlayAnimation(true)
+                        .setMessage("Your reply has been sent, hope you said yes you shut-in NEET")
+                        .setOnDismissListener(x -> {
+                            EditTakeOut.this.finish();
+                        });
+
+                dialog.show();
+
+
             }
         });
     }

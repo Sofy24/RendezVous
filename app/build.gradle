@@ -45,6 +45,9 @@ dependencies {
 
     //lottie animation
     implementation "com.airbnb.android:lottie:$lottieVersion"
+    implementation 'io.github.amrdeveloper:lottiedialog:1.0.0'
+
+
 
     implementation "androidx.room:room-runtime:$room_version"
     annotationProcessor "androidx.room:room-compiler:$room_version"

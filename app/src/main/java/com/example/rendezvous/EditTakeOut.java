@@ -1,10 +1,13 @@
 package com.example.rendezvous;
 
 import android.content.Context;
-import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.icu.util.LocaleData;
+import android.media.Image;
+import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.text.format.DateUtils;
 import android.util.AttributeSet;
 import android.view.Menu;
 import android.view.View;
@@ -13,22 +16,28 @@ import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.ExpandableListAdapter;
 import android.widget.ExpandableListView;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.ScrollView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.LiveData;
 
 import com.example.rendezvous.DB.ConfirmedRendezvous;
 import com.example.rendezvous.DB.Converters;
 import com.example.rendezvous.DB.Info;
+import com.example.rendezvous.DB.Invited;
 import com.example.rendezvous.DB.RendezVous;
 import com.example.rendezvous.DB.RendezVousDB;
+import com.example.rendezvous.DB.User;
 import com.example.rendezvous.ViewModel.CustomExpandableListAdapter;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
+import java.io.FileNotFoundException;
+import java.io.InputStream;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -44,6 +53,8 @@ public class EditTakeOut extends AppCompatActivity {
     private Integer I_ID;
     private List<Date> preferencies = new ArrayList<>();
     private boolean busy = false;
+    String pattern = "yyyy-MM-dd";
+    SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern);
 
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -67,8 +78,7 @@ public class EditTakeOut extends AppCompatActivity {
 
         setUpGUI(R_title, I_ID);
 
-        String pattern = "yyyy-MM-dd";
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern);
+
         AsyncTask.execute(new Runnable() {
             @Override
             public void run() {
@@ -181,17 +191,69 @@ public class EditTakeOut extends AppCompatActivity {
     private void setUpGUI(String r_title, Integer i_id) {
         expandableListView = (ExpandableListView) findViewById(R.id.expandableListView);
 
-        List<String> cricket = new ArrayList<String>();
-        cricket.add("India");
-        cricket.add("Pakistan");
-        cricket.add("Australia");
-        cricket.add("England");
-        cricket.add("South Africa");
-        expandableListDetail.put("CRICKET TEAMS", cricket);
-        expandableListTitle = new ArrayList<>(expandableListDetail.keySet()); //qui tutto testing.....
-        expandableListAdapter = new CustomExpandableListAdapter(this, expandableListTitle, expandableListDetail);
+        RendezVousDB db = RendezVousDB.getInstance(EditTakeOut.this.getBaseContext());
 
-        expandableListView.setAdapter(expandableListAdapter);
+        AsyncTask.execute(new Runnable() {
+            @Override
+            public void run() {
+                Info takeOutInfo = db.databaseDAO().getInfo(r_title);
+                RendezVous rendezVous = db.databaseDAO().getRendezVousFromInfo(i_id);
+
+                //name
+                TextView name = (TextView) findViewById(R.id.name_rendez_vous);
+                name.setText(takeOutInfo.getTitle());
+
+                //message description
+                TextView descr = (TextView) findViewById(R.id.descriptionMessage);
+                System.out.println("takeOutInfo.getDescription() = " + takeOutInfo.getDescription());
+
+                Calendar cal1 = Calendar.getInstance();
+                cal1.setTime(Converters.fromTimestamp(rendezVous.getR_DataF()));
+                Calendar cal2 = Calendar.getInstance();
+                cal2.setTime(Converters.fromTimestamp(rendezVous.getR_DataI()));
+                String pricelessDescription =  "You have been invited to partecipate to " + takeOutInfo.getTitle() + "." +
+                            "\nWe'll meet in a day beetween " + cal1.get(Calendar.YEAR) + "-" + cal1.get(Calendar.MONTH) + "-" + cal1.get(Calendar.DAY_OF_MONTH) +
+                            " and " + cal2.get(Calendar.YEAR) + "-" + cal2.get(Calendar.MONTH) + "-" + cal2.get(Calendar.DAY_OF_MONTH) +
+                            "\nLet me know when you are available!";
+                descr.setText(takeOutInfo.getDescription().isEmpty() ? pricelessDescription : pricelessDescription + "\n" + takeOutInfo.getDescription());
+
+                //avatar author
+                User author = db.databaseDAO().getUser(rendezVous.getR_authorID());
+                TextView userAuthor = (TextView) findViewById(R.id.authorUsername);
+                userAuthor.setText(author.getUserName() + " \n AKA \n" + author.getNome() + " " + author.getCognome());
+
+                if(author.getURIavatar()!= null){
+                    Uri imageUri = Uri.parse(author.getURIavatar().toString());
+                    final InputStream imageStream;
+                    try {
+                        imageStream = getContentResolver().openInputStream(imageUri);
+                        final Bitmap selectedImage = BitmapFactory.decodeStream(imageStream);
+                        ImageView avatarAuthor = (ImageView) findViewById(R.id.authorImage);
+                        avatarAuthor .setImageBitmap(selectedImage);
+                    } catch (FileNotFoundException e) {
+                        e.printStackTrace();
+                    }
+                }
+
+
+                HashMap<String, String> peopleInvited = new HashMap<>();
+                List<Invited> invitedList = db.databaseDAO().getInvited(i_id);
+                for (Invited guest:
+                     invitedList) {
+                    User human = db.databaseDAO().getGuestNameSurname(guest.getIU_ID());
+                    String concatRoom = human.getNome() + " " + human.getCognome();
+                    // Busy -> testo rosso, impegnato | Partecipa -> testo verde | Invited -> grigio ?
+                    peopleInvited.put(concatRoom, guest.getI_state() );
+                }
+
+                expandableListDetail.put("Partecipants to the event", new ArrayList<>(peopleInvited.keySet()));
+                expandableListTitle = new ArrayList<>(expandableListDetail.keySet()); //qui tutto testing.....
+                expandableListAdapter = new CustomExpandableListAdapter(EditTakeOut.this, expandableListTitle, expandableListDetail);
+                expandableListView.setAdapter(expandableListAdapter);
+
+            }
+        });
+
         expandableListView.setOnGroupExpandListener(new ExpandableListView.OnGroupExpandListener() {
 
             @Override

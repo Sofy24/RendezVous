@@ -8,6 +8,7 @@ import androidx.room.Query;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Objects;
 
 @Dao
 public interface DatabaseDAO {
@@ -65,6 +66,9 @@ public interface DatabaseDAO {
     @Query("SELECT u.* FROM circleoffriends join User u on (COF_UID = u.UID) where COF_C_name = :circleName")
     List<User> getUsersInCircle(String circleName);
 
+    @Query("select * from User where UID = :uid")
+    User getUser(Integer uid);
+
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     void insertRendezvous(RendezVous ...rendezVous);
 
@@ -95,6 +99,13 @@ public interface DatabaseDAO {
 
     @Query("SELECT I_state from invited where IU_ID = (select UID from User where isActive = 1) and IR_ID = :IR_ID")
     String getInvitedState(Integer IR_ID);
+
+
+    @Query("SELECT * from invited join User on (IU_ID = UID) WHERE IR_ID in (SELECT R_ID FROM rendezVous where R_infoID = :infoID)")
+    List<Invited> getInvited(Integer infoID);
+
+    @Query("SELECT * FROM User where UID = :id")
+    User getGuestNameSurname(Integer id);
 
     @Query("SELECT COUNT(*)" +
             "FROM invited " +

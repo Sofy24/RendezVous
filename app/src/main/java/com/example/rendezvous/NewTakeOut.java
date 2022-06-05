@@ -322,7 +322,7 @@ public class NewTakeOut extends AppCompatActivity implements LocationListener {
                                 Integer info_id = db.databaseDAO().getInfoID(nameTakeOut);
                                for (Circle circle:
                                         selectedCircles) {
-                                 db.databaseDAO().insertRendezvous(new RendezVous(circle.getC_name(), firstDay, endDay, info_id, activeUser.getUserName()));
+                                 db.databaseDAO().insertRendezvous(new RendezVous(circle.getC_name(), firstDay, endDay, info_id, activeUser.getUID()));
                                     invitedUsers.addAll(db.databaseDAO().getUsersInCircle(circle.getC_name()));
                                }
                                 // Populate invited table

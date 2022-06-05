@@ -110,7 +110,6 @@ public class UserPage extends AppCompatActivity {
                     CheckBox box = new CheckBox(UserPage.this.getBaseContext());
                     box.setText(c.getC_name());
                     box.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT));
-                    box.setButtonTintList(ColorStateList.valueOf(Color.parseColor(c.getC_color())));
                     box.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
                         @Override
                         public void onCheckedChanged(CompoundButton compoundButton, boolean b) {

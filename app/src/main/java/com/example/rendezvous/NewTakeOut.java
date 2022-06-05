@@ -262,7 +262,6 @@ public class NewTakeOut extends AppCompatActivity implements LocationListener {
                               box.setButtonDrawable(R.drawable.checkbox_design);
                               box.setText(c.getC_name());
                               box.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT));
-                              box.setButtonTintList(ColorStateList.valueOf(Color.parseColor(c.getC_color())));
                               box.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
                                   @Override
                                   public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
@@ -357,6 +356,7 @@ public class NewTakeOut extends AppCompatActivity implements LocationListener {
                     Toast.makeText(NewTakeOut.this, "Inserisci il nome dell'uscita", Toast.LENGTH_SHORT).show();
                 }
 
+                //Animations
             }
         });
 

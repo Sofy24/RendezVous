@@ -8,11 +8,6 @@
     android:id="@+id/task"
 
     >
-    <!--<androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="#E4E3E3"
-        tools:context=".CardListActivity">-->
 
     <com.google.android.material.card.MaterialCardView
         android:id="@+id/base_cardview"
@@ -23,18 +18,17 @@
         android:layout_marginTop="10dp"
         android:layout_marginEnd="10dp"
         android:layout_marginBottom="10dp"
-
-        app:strokeColor="@color/colorSecondaryVariant"
-        app:strokeWidth="2dp"
-        android:backgroundTint="@color/pastelLightBlue"
-
-
+        app:cardElevation="10dp"
+        app:cardUseCompatPadding="true"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.473"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.021">
+        <!--app:strokeColor="@color/colorSecondaryVariant"
+        app:strokeWidth="2dp"
+        android:backgroundTint="@color/pastelLightBlue"-->
 
         <!--This is a ConstraintLayout for the entire CardView
                     including the expandable portion-->
@@ -68,57 +62,47 @@
                     android:id="@+id/rendezvous_image_card"
                     android:layout_width="112dp"
                     android:layout_height="149dp"
+                    android:adjustViewBounds="true"
+                    android:scaleType="centerCrop"
                     app:layout_constraintBottom_toBottomOf="@+id/fixed_layout"
-                    app:layout_constraintEnd_toEndOf="@+id/fixed_layout"
+
                     app:layout_constraintHorizontal_bias="0.003"
-                    app:layout_constraintStart_toStartOf="@+id/fixed_layout"
+                    app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="@+id/fixed_layout"
                     app:layout_constraintVertical_bias="1.0"
-                    android:scaleType="centerCrop"
-                    android:adjustViewBounds="true"
                     tools:srcCompat="@tools:sample/backgrounds/scenic" />
 
-                <!--This is ImageButton for the expansion icon.-->
+                <!--This is ImageButton for the expansion icon.
+                                    app:layout_constraintStart_toEndOf="@+id/rendezvous_image_card"-->
+
 
                 <TextView
                     android:id="@+id/rendezvous_title_card"
                     android:layout_width="139dp"
                     android:layout_height="66dp"
+                    android:layout_marginEnd="96dp"
                     android:text="@string/name"
-                    android:textColor="#006600"
-                    android:textSize="25dp"
+                    android:textColor="@color/colorPrimaryVariant"
+                    android:textSize="25sp"
                     android:textStyle="bold"
                     app:layout_constraintBottom_toBottomOf="@+id/fixed_layout"
+                    app:layout_constraintStart_toEndOf="@id/rendezvous_image_card"
                     app:layout_constraintEnd_toEndOf="@+id/fixed_layout"
-                    app:layout_constraintHorizontal_bias="0.075"
-                    app:layout_constraintStart_toEndOf="@+id/rendezvous_image_card"
                     app:layout_constraintTop_toTopOf="@+id/fixed_layout"
                     app:layout_constraintVertical_bias="0.19" />
-
-                <TextView
-                    android:id="@+id/more_info"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="58dp"
-                    android:text="@string/more_info"
-                    android:textSize="20sp"
-                    app:layout_constraintBottom_toBottomOf="@+id/fixed_layout"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="0.58"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/rendezvous_title_card"
-                    app:layout_constraintVertical_bias="0.0" />
 
                 <ImageButton
                     android:id="@+id/arrow_button"
                     android:layout_width="48dp"
                     android:layout_height="48dp"
+                    android:layout_margin="8dp"
+                    android:background="@drawable/arrow_drop_down_up"
                     android:src="@drawable/ic_baseline_arrow_drop_down_24"
                     app:layout_constraintBottom_toBottomOf="@id/fixed_layout"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0.36"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/more_info"
+                    app:layout_constraintTop_toBottomOf="@+id/rendezvous_title_card"
                     app:layout_constraintVertical_bias="1.0" />
 
                 <TextView
@@ -128,6 +112,7 @@
                     android:layout_marginStart="2dp"
                     android:layout_marginTop="96dp"
                     android:layout_marginEnd="8dp"
+                    android:textColor="@color/colorPrimaryVariant"
                     android:text="@string/swipe_to_select_a_day_or_delete"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="1.0"
@@ -250,12 +235,12 @@
         android:layout_marginStart="281dp"
         android:layout_marginEnd="8dp"
         android:layout_marginBottom="10dp"
-        android:background="#d65819"
+        android:background="@color/colorAccent"
         android:orientation="horizontal"
         android:padding="10dp"
         app:layout_constraintBottom_toBottomOf="@id/base_cardview"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintTop_toTopOf="@id/base_cardview"
         tools:ignore="NotSibling">
 
         <RelativeLayout

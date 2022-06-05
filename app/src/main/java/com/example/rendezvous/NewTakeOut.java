@@ -51,6 +51,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.util.Pair;
 
+import com.airbnb.lottie.LottieDrawable;
+import com.amrdeveloper.lottiedialog.LottieDialog;
 import com.example.rendezvous.DB.Circle;
 import com.example.rendezvous.DB.Info;
 import com.example.rendezvous.DB.Invited;
@@ -262,7 +264,6 @@ public class NewTakeOut extends AppCompatActivity implements LocationListener {
                               box.setButtonDrawable(R.drawable.checkbox_design);
                               box.setText(c.getC_name());
                               box.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT));
-                              box.setButtonTintList(ColorStateList.valueOf(Color.parseColor(c.getC_color())));
                               box.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
                                   @Override
                                   public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
@@ -348,7 +349,18 @@ public class NewTakeOut extends AppCompatActivity implements LocationListener {
 
 //                        Intent backHome = new Intent(NewTakeOut.this, HomeActivity.class);
 //                        startActivity(backHome);
-                        NewTakeOut.this.finish();
+
+                        LottieDialog dialog = new LottieDialog(NewTakeOut.this)
+                                .setAnimation(R.raw.message_sent_successfully_plane_blue)
+                                .setAnimationRepeatCount(1)
+                                .setAutoPlayAnimation(true)
+                                .setMessage("The invite to your friends has been sent")
+                                .setOnDismissListener(x -> {
+                                    NewTakeOut.this.finish();
+                                });
+
+                        dialog.show();
+
                     } else{ //nome vuoto
                         System.out.println("circleOfFriendsSelected = " + circleOfFriendsSelected);
                         Toast.makeText(NewTakeOut.this, "Inserisci almeno un gruppo !", Toast.LENGTH_SHORT).show();
@@ -356,6 +368,8 @@ public class NewTakeOut extends AppCompatActivity implements LocationListener {
                 } else{ //nome vuoto
                     Toast.makeText(NewTakeOut.this, "Inserisci il nome dell'uscita", Toast.LENGTH_SHORT).show();
                 }
+
+                //Animations
 
             }
         });

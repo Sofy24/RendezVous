@@ -15,6 +15,8 @@ import android.os.Looper;
 import android.provider.Settings;
 import android.transition.AutoTransition;
 import android.transition.TransitionManager;
+
+import com.airbnb.lottie.LottieAnimationView;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationCallback;
 import com.google.android.gms.location.LocationRequest;
@@ -106,13 +108,19 @@ public class CardListActivity extends AppCompatActivity implements LocationListe
             @Override
             public void run() {
                 infos = db.databaseDAO().getListCardsForActiveUser();
-                for (Info singleInfo:
-                     infos) {
-                    rendezVousCards.add(new RendezVousCard(singleInfo.getTitle(), singleInfo.getImageURL(), singleInfo.getI_ID(), singleInfo.getDescription(),
-                            singleInfo.getLatitude(), singleInfo.getLongitude()));
-                    recyclerviewAdapter.setTaskList(rendezVousCards);
-                    recyclerView.setAdapter(recyclerviewAdapter);
+                if(!infos.isEmpty()) {
+                    TextView emptyText = (TextView) findViewById(R.id.empty_text);
+                    emptyText.setVisibility(View.INVISIBLE);
+                    LottieAnimationView empty = (LottieAnimationView) findViewById(R.id.empty_animation);
+                    empty.setVisibility(View.INVISIBLE);
                 }
+                    for (Info singleInfo :
+                            infos) {
+                        rendezVousCards.add(new RendezVousCard(singleInfo.getTitle(), singleInfo.getImageURL(), singleInfo.getI_ID(), singleInfo.getDescription(),
+                                singleInfo.getLatitude(), singleInfo.getLongitude()));
+                        recyclerviewAdapter.setTaskList(rendezVousCards);
+                        recyclerView.setAdapter(recyclerviewAdapter);
+                    }
             }
         });
 

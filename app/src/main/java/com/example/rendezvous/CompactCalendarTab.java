@@ -1,7 +1,6 @@
 package com.example.rendezvous;
 
 import android.graphics.Color;
-import android.media.metrics.Event;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;

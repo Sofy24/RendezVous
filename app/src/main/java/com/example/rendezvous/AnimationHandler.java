@@ -3,10 +3,13 @@ package com.example.rendezvous;
 
 import android.animation.Animator;
 import android.animation.ValueAnimator;
-import android.support.annotation.NonNull;
 import android.view.animation.AccelerateDecelerateInterpolator;
 import android.view.animation.Animation;
 import android.view.animation.OvershootInterpolator;
+
+import androidx.annotation.NonNull;
+
+import com.example.rendezvous.ViewModel.AnimatorListener;
 
 class AnimationHandler {
 

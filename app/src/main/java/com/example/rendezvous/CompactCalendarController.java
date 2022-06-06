@@ -1,5 +1,9 @@
 package com.example.rendezvous;
 
+import static com.example.rendezvous.CompactCalendarView.FILL_LARGE_INDICATOR;
+import static com.example.rendezvous.CompactCalendarView.NO_FILL_LARGE_INDICATOR;
+import static com.example.rendezvous.CompactCalendarView.SMALL_INDICATOR;
+
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.graphics.Canvas;
@@ -15,17 +19,12 @@ import android.view.MotionEvent;
 import android.view.VelocityTracker;
 import android.view.ViewConfiguration;
 import android.widget.OverScroller;
-import com.github.sundeepk.compactcalendarview.domain.Event;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 import java.util.TimeZone;
 
-import static com.github.sundeepk.compactcalendarview.CompactCalendarView.CompactCalendarViewListener;
-import static com.github.sundeepk.compactcalendarview.CompactCalendarView.FILL_LARGE_INDICATOR;
-import static com.github.sundeepk.compactcalendarview.CompactCalendarView.NO_FILL_LARGE_INDICATOR;
-import static com.github.sundeepk.compactcalendarview.CompactCalendarView.SMALL_INDICATOR;
 
 
 class CompactCalendarController {
@@ -80,7 +79,7 @@ class CompactCalendarController {
     private boolean shouldSelectFirstDayOfMonthOnScroll = true;
     private boolean isRtl = false;
 
-    private CompactCalendarViewListener listener;
+    private CompactCalendarView.CompactCalendarViewListener listener;
     private VelocityTracker velocityTracker = null;
     private Direction currentDirection = Direction.NONE;
     private Date currentDate = new Date();
@@ -297,7 +296,7 @@ class CompactCalendarController {
         return width;
     }
 
-    void setListener(CompactCalendarViewListener listener) {
+    void setListener(CompactCalendarView.CompactCalendarViewListener listener) {
         this.listener = listener;
     }
 
@@ -417,7 +416,7 @@ class CompactCalendarController {
         bigCircleIndicatorRadius = getInterpolatedBigCircleIndicator();
 
         // scale the selected day indicators slightly so that event indicators can be drawn below
-        bigCircleIndicatorRadius = shouldDrawIndicatorsBelowSelectedDays && eventIndicatorStyle == CompactCalendarView.SMALL_INDICATOR ? bigCircleIndicatorRadius * 0.85f : bigCircleIndicatorRadius;
+        bigCircleIndicatorRadius = shouldDrawIndicatorsBelowSelectedDays && eventIndicatorStyle == SMALL_INDICATOR ? bigCircleIndicatorRadius * 0.85f : bigCircleIndicatorRadius;
     }
 
     //assume square around each day of width and height = heightPerDay and get diagonal line length

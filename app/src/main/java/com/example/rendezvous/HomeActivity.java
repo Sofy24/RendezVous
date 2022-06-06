@@ -13,6 +13,8 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+import androidx.viewpager.widget.ViewPager;
 
 import com.example.rendezvous.DB.Circle;
 import com.example.rendezvous.DB.Converters;
@@ -24,6 +26,12 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import java.util.Date;
 
 public class HomeActivity extends AppCompatActivity {
+    private Toolbar toolbar;
+    private ViewPager pager;
+    private ViewPagerAdapter adapter;
+    private SlidingTabLayout tabs;
+    private CharSequence titles[]= {"Home","Events"};
+    private int numberOfTabs = 2;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,14 +39,47 @@ public class HomeActivity extends AppCompatActivity {
         System.out.println("HomeActivity.this è stata creata " + HomeActivity.this);
         setContentView(R.layout.home);
 
-        if (savedInstanceState == null){
-            Utilities.insertFragment(this, new CalendarFragment(),
-                    CalendarFragment.class.getSimpleName());
-        }else {
-            System.out.println(getSupportFragmentManager().findFragmentById(R.id.calendar_frame_layout));
-        }
+        toolbar = (Toolbar) findViewById(R.id.tool_bar);
+        setSupportActionBar(toolbar);
+        System.out.println("toolbar = " + toolbar);
+        getSupportActionBar().setDisplayShowTitleEnabled(true);
+
+        // Creating The ViewPagerAdapter and Passing Fragment Manager, Titles fot the Tabs and Number Of Tabs.
+        adapter =  new ViewPagerAdapter(getSupportFragmentManager(), titles, numberOfTabs);
+
+        System.out.println("adapter = " + adapter);
+        // Assigning ViewPager View and setting the adapter
+        pager = (ViewPager) findViewById(R.id.pager);
+        pager.setAdapter(adapter);
+
+        System.out.println("pager = " + pager);
+        // Assiging the Sliding Tab Layout View
+        tabs = (SlidingTabLayout) findViewById(R.id.tabs);
+        tabs.setDistributeEvenly(true); // To make the Tabs Fixed set this true, This makes the tabs Space Evenly in Available width
+
+        System.out.println("tabs = " + tabs);
+        // Setting Custom Color for the Scroll bar indicator of the Tab View
+        tabs.setCustomTabColorizer(new SlidingTabLayout.TabColorizer() {
+            @Override
+            public int getIndicatorColor(int position) {
+                return getResources().getColor(R.color.black);
+            }
+        });
+
+        // Setting the ViewPager For the SlidingTabsLayout
+        tabs.setViewPager(pager);
+
+//
+//
+//        if (savedInstanceState == null){
+//            Utilities.insertFragment(this, new CalendarFragment(),
+//                    CalendarFragment.class.getSimpleName());
+//        }else {
+//            System.out.println(getSupportFragmentManager().findFragmentById(R.id.calendar_frame_layout));
+//        }
         FloatingActionButton floatingActionButton = findViewById(R.id.fab_add);
         AppCompatActivity activity = this;
+
 
         floatingActionButton.setOnClickListener(view -> {
             Intent openNewTakeOut = new Intent(HomeActivity.this, NewTakeOut.class);
@@ -56,6 +97,7 @@ public class HomeActivity extends AppCompatActivity {
         getMenuInflater().inflate(R.menu.top_app_bar, menu);
         return true;
     }
+
 
     /**
      *

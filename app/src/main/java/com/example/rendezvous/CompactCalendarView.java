@@ -5,7 +5,6 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Rect;
-import android.media.metrics.Event;
 
 import android.util.AttributeSet;
 import android.view.GestureDetector;

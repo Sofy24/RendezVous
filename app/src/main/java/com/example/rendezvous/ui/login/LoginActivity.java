@@ -175,7 +175,7 @@ public class LoginActivity extends AppCompatActivity {
 
                     User joe = new User("Mama", "Joe", "joeMama", "IdOnTKnOw", null);
 
-                    db.databaseDAO().insertUser(mega, sofy, luis, michi, klevis);
+                    db.databaseDAO().insertUser(mega, sofy, luis, michi, klevis, joe, fede);
                     Circle progetto = new Circle("Gruppo progetto", "Rosso");
                     Circle gym = new Circle("Gym", "Black");
                     Circle uni = new Circle("University", "Pink");

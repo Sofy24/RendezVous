@@ -5,7 +5,6 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/task_item"
-    android:background="@drawable/blurred_less_satur_oran_blue"
     >
 
     <TextView

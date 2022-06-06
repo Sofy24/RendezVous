@@ -21,8 +21,6 @@
         <entry key="..\:/Users/Matteo/Desktop/Università/sofia/RendezVous/app/src/main/res/layout/home.xml" value="0.18" />
         <entry key="..\:/Users/Matteo/Desktop/Università/sofia/RendezVous/app/src/main/res/layout/list_card_layout.xml" value="0.14583333333333334" />
         <entry key="..\:/Users/Matteo/Desktop/Università/sofia/RendezVous/app/src/main/res/layout/list_item_home.xml" value="0.14447463768115942" />
-        <entry key="..\:/Users/Matteo/Desktop/Università/sofia/RendezVous/app/src/main/res/layout/list_take_out.xml" value="0.37395833333333334" />
-        <entry key="..\:/Users/Matteo/Desktop/Università/sofia/RendezVous/app/src/main/res/layout/personal_page_layout.xml" value="0.33" />
         <entry key="..\:/Users/Matteo/Desktop/Università/sofia/RendezVous/app/src/main/res/layout/list_take_out.xml" value="0.25" />
         <entry key="..\:/Users/Matteo/Desktop/Università/sofia/RendezVous/app/src/main/res/layout/personal_page_layout.xml" value="0.1762917933130699" />
         <entry key="..\:/Users/Matteo/Desktop/Università/sofia/RendezVous/app/src/main/res/layout/rendezvous_card.xml" value="0.5103626943005182" />
@@ -40,15 +38,23 @@
         <entry key="..\:/Users/Sofia/AndroidStudioProjects/RendezVous/app/src/main/res/drawable/button_state.xml" value="0.2075" />
         <entry key="..\:/Users/Sofia/AndroidStudioProjects/RendezVous/app/src/main/res/drawable/calendar_design.xml" value="0.224" />
         <entry key="..\:/Users/Sofia/AndroidStudioProjects/RendezVous/app/src/main/res/drawable/checkbox_design.xml" value="0.153" />
+        <entry key="..\:/Users/Sofia/AndroidStudioProjects/RendezVous/app/src/main/res/drawable/checkbox_design_user_page.xml" value="0.237" />
         <entry key="..\:/Users/Sofia/AndroidStudioProjects/RendezVous/app/src/main/res/drawable/corner_radius.xml" value="0.153" />
         <entry key="..\:/Users/Sofia/AndroidStudioProjects/RendezVous/app/src/main/res/drawable/dialog.xml" value="0.153" />
         <entry key="..\:/Users/Sofia/AndroidStudioProjects/RendezVous/app/src/main/res/drawable/edit_text_email_login.xml" value="0.153" />
         <entry key="..\:/Users/Sofia/AndroidStudioProjects/RendezVous/app/src/main/res/drawable/edit_text_login.xml" value="0.119" />
         <entry key="..\:/Users/Sofia/AndroidStudioProjects/RendezVous/app/src/main/res/drawable/edit_text_password_login.xml" value="0.224" />
+        <entry key="..\:/Users/Sofia/AndroidStudioProjects/RendezVous/app/src/main/res/drawable/edit_text_user_page.xml" value="0.2035" />
+        <entry key="..\:/Users/Sofia/AndroidStudioProjects/RendezVous/app/src/main/res/drawable/edittext_login.xml" value="0.2035" />
+        <entry key="..\:/Users/Sofia/AndroidStudioProjects/RendezVous/app/src/main/res/drawable/fab_user_page.xml" value="0.237" />
+        <entry key="..\:/Users/Sofia/AndroidStudioProjects/RendezVous/app/src/main/res/drawable/ic_baseline_account_box_24.xml" value="0.176" />
         <entry key="..\:/Users/Sofia/AndroidStudioProjects/RendezVous/app/src/main/res/drawable/ic_baseline_add_24.xml" value="0.2265" />
+        <entry key="..\:/Users/Sofia/AndroidStudioProjects/RendezVous/app/src/main/res/drawable/ic_baseline_add_a_photo_24.xml" value="0.237" />
         <entry key="..\:/Users/Sofia/AndroidStudioProjects/RendezVous/app/src/main/res/drawable/ic_baseline_arrow_drop_down_24.xml" value="0.207" />
         <entry key="..\:/Users/Sofia/AndroidStudioProjects/RendezVous/app/src/main/res/drawable/ic_baseline_arrow_drop_up_24.xml" value="0.207" />
         <entry key="..\:/Users/Sofia/AndroidStudioProjects/RendezVous/app/src/main/res/drawable/ic_baseline_check_24.xml" value="0.153" />
+        <entry key="..\:/Users/Sofia/AndroidStudioProjects/RendezVous/app/src/main/res/drawable/ic_baseline_check_box_24.xml" value="0.237" />
+        <entry key="..\:/Users/Sofia/AndroidStudioProjects/RendezVous/app/src/main/res/drawable/ic_baseline_check_box_outline_blank_24.xml" value="0.237" />
         <entry key="..\:/Users/Sofia/AndroidStudioProjects/RendezVous/app/src/main/res/drawable/ic_baseline_crop_square_24.xml" value="0.153" />
         <entry key="..\:/Users/Sofia/AndroidStudioProjects/RendezVous/app/src/main/res/drawable/ic_baseline_delete_24.xml" value="0.153" />
         <entry key="..\:/Users/Sofia/AndroidStudioProjects/RendezVous/app/src/main/res/drawable/ic_baseline_edit_24.xml" value="0.207" />
@@ -59,6 +65,7 @@
         <entry key="..\:/Users/Sofia/AndroidStudioProjects/RendezVous/app/src/main/res/drawable/mcv_action_previous.xml" value="0.153" />
         <entry key="..\:/Users/Sofia/AndroidStudioProjects/RendezVous/app/src/main/res/drawable/my_selector.xml" value="0.153" />
         <entry key="..\:/Users/Sofia/AndroidStudioProjects/RendezVous/app/src/main/res/drawable/pressed_button.xml" value="0.212" />
+        <entry key="..\:/Users/Sofia/AndroidStudioProjects/RendezVous/app/src/main/res/drawable/text_edit_user_page.xml" value="0.2035" />
         <entry key="..\:/Users/Sofia/AndroidStudioProjects/RendezVous/app/src/main/res/drawable/text_input_design.xml" value="0.224" />
         <entry key="..\:/Users/Sofia/AndroidStudioProjects/RendezVous/app/src/main/res/drawable/textview_design.xml" value="0.153" />
         <entry key="..\:/Users/Sofia/AndroidStudioProjects/RendezVous/app/src/main/res/drawable/top_bar_design.xml" value="0.153" />
@@ -82,7 +89,7 @@
         <entry key="..\:/Users/Sofia/AndroidStudioProjects/RendezVous/app/src/main/res/layout/list_group.xml" value="0.2128623188405797" />
         <entry key="..\:/Users/Sofia/AndroidStudioProjects/RendezVous/app/src/main/res/layout/list_take_out.xml" value="0.264" />
         <entry key="..\:/Users/Sofia/AndroidStudioProjects/RendezVous/app/src/main/res/layout/main_tab.xml" value="0.4" />
-        <entry key="..\:/Users/Sofia/AndroidStudioProjects/RendezVous/app/src/main/res/layout/personal_page_layout.xml" value="0.165625" />
+        <entry key="..\:/Users/Sofia/AndroidStudioProjects/RendezVous/app/src/main/res/layout/personal_page_layout.xml" value="0.264" />
         <entry key="..\:/Users/Sofia/AndroidStudioProjects/RendezVous/app/src/main/res/layout/rendezvous_card.xml" value="0.1" />
         <entry key="..\:/Users/Sofia/AndroidStudioProjects/RendezVous/app/src/main/res/layout/tab_2.xml" value="0.2" />
         <entry key="..\:/Users/Sofia/AndroidStudioProjects/RendezVous/app/src/main/res/layout/task.xml" value="0.15" />

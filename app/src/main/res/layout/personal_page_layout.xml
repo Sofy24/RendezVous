@@ -5,27 +5,36 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:id="@+id/user_page_view"
+    android:background="@drawable/orange_user"
     >
 
     <ImageView
         android:id="@+id/avatar_image"
         android:layout_width="145dp"
-        android:layout_height="143dp"
-        android:layout_marginStart="50dp"
-        android:layout_marginTop="50dp"
-        app:layout_constraintStart_toStartOf="parent"
+        android:layout_height="145dp"
+        android:layout_marginTop="40dp"
+        android:layout_marginEnd="32dp"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        tools:srcCompat="@tools:sample/avatars" />
+        app:srcCompat="@drawable/ic_baseline_account_box_24" />
 
     <TextView
         android:id="@+id/usernamePersonalPage"
         android:layout_width="143dp"
         android:layout_height="38dp"
-        android:layout_marginStart="50dp"
-        android:layout_marginTop="152dp"
-        android:text="TextView"
-        app:layout_constraintStart_toEndOf="@+id/avatar_image"
+        android:layout_marginStart="28dp"
+        android:layout_marginTop="80dp"
+        android:text=""
+        android:textColor="@color/black"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline_user_50o"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.5" />
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/name_active_user"
@@ -33,13 +42,15 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="10dp"
-        android:layout_marginTop="250dp"
+        android:layout_marginEnd="10dp"
         android:hint="@string/name"
+
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toTopOf="@id/guideline_user_50o">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/name_active_user_edit"
+            android:background="@drawable/text_edit_user_page"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
 
@@ -51,13 +62,16 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="10dp"
-        android:layout_marginTop="325dp"
+        android:layout_marginEnd="10dp"
+        android:layout_marginTop="8dp"
         android:hint="@string/surname"
+
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toBottomOf="@id/name_active_user">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/surname_active_user_edit"
+            android:background="@drawable/text_edit_user_page"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
 
@@ -67,26 +81,29 @@
         android:id="@+id/done_insert_info"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="289dp"
-        android:layout_marginTop="230dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginBottom="20dp"
         android:clickable="true"
         android:contentDescription="@string/compiled_user_page"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/surname_active_user"
+        android:focusable="true"
+        app:backgroundTint="@color/colorPrimary"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:srcCompat="@drawable/ic_baseline_check_24" />
 
     <ScrollView
         android:id="@+id/circle_checkbox"
-        android:layout_width="393dp"
-        android:layout_height="194dp"
-        android:layout_marginStart="60dp"
-        android:layout_marginTop="24dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="8dp"
         android:layout_marginEnd="20dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/surname_active_user"
+        android:background="@drawable/text_edit_user_page"
         android:contentDescription="@string/container_for_group_circles"
-        >
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.806"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/surname_active_user">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -101,9 +118,11 @@
         android:layout_marginStart="-40dp"
         android:layout_marginTop="-45dp"
         android:clickable="true"
+        app:backgroundTint="@color/colorPrimary"
         android:contentDescription="@string/click_to_change_avatar_image"
         app:layout_constraintStart_toEndOf="@+id/avatar_image"
         app:layout_constraintTop_toBottomOf="@+id/avatar_image"
-        app:srcCompat="@drawable/ic_baseline_add_a_photo_24" />
+        app:srcCompat="@drawable/ic_baseline_add_a_photo_24"
+        android:focusable="true" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

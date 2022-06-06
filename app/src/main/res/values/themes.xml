@@ -26,4 +26,5 @@
         <item name="android:background">@drawable/top_bar_design</item>
         <item name="android:windowTranslucentStatus">true</item>
     </style>
+
 </resources>

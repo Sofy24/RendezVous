@@ -6,7 +6,6 @@
     android:layout_height="wrap_content"
     android:orientation="vertical"
     android:id="@+id/task"
-
     >
 
     <com.google.android.material.card.MaterialCardView

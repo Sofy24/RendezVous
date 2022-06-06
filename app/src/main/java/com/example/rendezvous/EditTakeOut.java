@@ -235,18 +235,24 @@ public class EditTakeOut extends AppCompatActivity {
                 TextView userAuthor = (TextView) findViewById(R.id.authorUsername);
                 userAuthor.setText(author.getUserName() + " \n AKA \n" + author.getNome() + " " + author.getCognome());
 
-                if(author.getURIavatar()!= null){
-                    Uri imageUri = Uri.parse(author.getURIavatar().toString());
-                    final InputStream imageStream;
-                    try {
-                        imageStream = getContentResolver().openInputStream(imageUri);
-                        final Bitmap selectedImage = BitmapFactory.decodeStream(imageStream);
-                        ImageView avatarAuthor = (ImageView) findViewById(R.id.authorImage);
-                        avatarAuthor .setImageBitmap(selectedImage);
-                    } catch (FileNotFoundException e) {
-                        e.printStackTrace();
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        if(author.getURIavatar()!= null){
+                            Uri imageUri = Uri.parse(author.getURIavatar().toString());
+                            final InputStream imageStream;
+                            try {
+                                imageStream = getContentResolver().openInputStream(imageUri);
+                                final Bitmap selectedImage = BitmapFactory.decodeStream(imageStream);
+                                ImageView avatarAuthor = (ImageView) findViewById(R.id.authorImage);
+                                avatarAuthor.setImageBitmap(selectedImage);
+                            } catch (FileNotFoundException e) {
+                                e.printStackTrace();
+                            }
+                        }
+
                     }
-                }
+                });
 
 
                 HashMap<String, String> peopleInvited = new HashMap<>();

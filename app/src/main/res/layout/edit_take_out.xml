@@ -13,10 +13,10 @@
         android:descendantFocusability="blocksDescendants"
         android:focusableInTouchMode="false"
         android:text="@string/name"
-        android:minHeight = "30dp"
-        android:layout_marginStart="12dp"
+        android:minHeight="30dp"
+        android:layout_marginStart="10dp"
         android:layout_marginTop="70dp"
-        android:layout_marginEnd="8dp"
+        android:layout_marginEnd="10dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -25,9 +25,9 @@
         android:id="@+id/GUIinfo"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="48dp"
+        android:layout_marginTop="12dp"
         android:orientation="vertical"
-        app:layout_constraintTop_toTopOf="@+id/name_rendez_vous"
+        app:layout_constraintTop_toBottomOf="@+id/name_rendez_vous"
         tools:layout_editor_absoluteX="0dp">
 
         <LinearLayout
@@ -85,22 +85,23 @@
 
     <TextView
         android:id="@+id/dates"
+        style="@style/TextAppearance.Material3.TitleSmall"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:text="DATES"
-        style="@style/TextAppearance.Material3.TitleSmall"
-        app:layout_constraintBottom_toBottomOf="@+id/GUIinfo"
+        android:layout_margin="10dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="4dp"
+        android:text="@string/dates"
+        android:textColor="@color/black"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/GUIinfo"
-        app:layout_constraintVertical_bias="0.0"
-        />
+        app:layout_constraintTop_toBottomOf="@id/GUIinfo"
+        app:layout_constraintBottom_toTopOf="@id/scrollView" />
 
     <ScrollView
         android:id="@+id/scrollView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="48dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/GUIinfo">
 
@@ -108,7 +109,9 @@
             android:id="@+id/dates_container"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical" />
+            android:orientation="vertical">
+
+        </LinearLayout>
 
     </ScrollView>
 
@@ -121,6 +124,8 @@
         android:layout_marginBottom="16dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
+
+
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

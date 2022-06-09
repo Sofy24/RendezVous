@@ -97,6 +97,7 @@ public class EditTakeOut extends AppCompatActivity {
                     CheckBox box = new CheckBox(EditTakeOut.this.getBaseContext());
                     box.setText(cal.get(Calendar.YEAR) + "-" + cal.get(Calendar.MONTH) + "-" + cal.get(Calendar.DAY_OF_MONTH));
                     box.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT));
+                    box.setPadding(20, 20, 20, 20);
                     box.setButtonDrawable(R.drawable.checkbox_design_user_page);
                     box.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
                         @Override
@@ -130,6 +131,7 @@ public class EditTakeOut extends AppCompatActivity {
                 }
                 CheckBox box = new CheckBox(EditTakeOut.this.getBaseContext());
                 box.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT));
+                box.setPadding(20, 20, 20, 20);
                 box.setText("I'm a busy person");
                 box.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
                     @Override

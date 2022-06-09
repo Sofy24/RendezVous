@@ -30,6 +30,7 @@ import com.google.android.material.appbar.MaterialToolbar;
 import com.google.android.material.navigation.NavigationView;
 
 import java.util.Calendar;
+import java.util.Date;
 import java.util.Objects;
 
 public class CalendarFragment extends Fragment {
@@ -37,6 +38,7 @@ public class CalendarFragment extends Fragment {
     private Activity activity;
     private DrawerLayout dLayout;
     Fragment fragment = this;
+    Long date;
 
     /*@Override
     public void onAttach(Context context) {
@@ -58,11 +60,22 @@ public class CalendarFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.calendar_layout, container, false);
+//        return inflater.inflate(R.layout.calendar_layout, container, false);
 
-//        View view = inflater.inflate(R.layout.calendar_layout, container, false);
+        View view = inflater.inflate(R.layout.calendar_layout, container, false);
+
+        CalendarView calendar = (CalendarView) view.findViewById(R.id.calendarView2);
+        date = calendar.getDate();
 
 
+        calendar.setOnDateChangeListener(new CalendarView.OnDateChangeListener() {
+            @Override
+            public void onSelectedDayChange(@NonNull CalendarView calendarView, int i, int i1, int i2) {
+
+                    Toast.makeText(getActivity(),"y = " + i + ", m = " + i1 + ", d = " + i2,Toast.LENGTH_SHORT).show();
+            }
+        });
+        return view;
     }
 
     @Override
@@ -90,6 +103,11 @@ public class CalendarFragment extends Fragment {
 
             }
         });
+
+
+
+
+
         setNavigationDrawer(activity);
     }
 

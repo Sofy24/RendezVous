@@ -3,6 +3,7 @@ package com.example.rendezvous;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Color;
 import android.icu.util.LocaleData;
 import android.media.Image;
 import android.net.Uri;
@@ -96,6 +97,8 @@ public class EditTakeOut extends AppCompatActivity {
                     CheckBox box = new CheckBox(EditTakeOut.this.getBaseContext());
                     box.setText(cal.get(Calendar.YEAR) + "-" + cal.get(Calendar.MONTH) + "-" + cal.get(Calendar.DAY_OF_MONTH));
                     box.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT));
+                    box.setPadding(20, 20, 20, 20);
+                    box.setButtonDrawable(R.drawable.checkbox_design_user_page);
                     box.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
                         @Override
                         public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
@@ -128,6 +131,7 @@ public class EditTakeOut extends AppCompatActivity {
                 }
                 CheckBox box = new CheckBox(EditTakeOut.this.getBaseContext());
                 box.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT));
+                box.setPadding(20, 20, 20, 20);
                 box.setText("I'm a busy person");
                 box.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
                     @Override
@@ -146,6 +150,7 @@ public class EditTakeOut extends AppCompatActivity {
         });
 
         FloatingActionButton floatingActionButton = findViewById(R.id.fab_edit);
+        floatingActionButton.setBackgroundColor(Color.parseColor("#0da6f9"));
         floatingActionButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -235,18 +240,24 @@ public class EditTakeOut extends AppCompatActivity {
                 TextView userAuthor = (TextView) findViewById(R.id.authorUsername);
                 userAuthor.setText(author.getUserName() + " \n AKA \n" + author.getNome() + " " + author.getCognome());
 
-                if(author.getURIavatar()!= null){
-                    Uri imageUri = Uri.parse(author.getURIavatar().toString());
-                    final InputStream imageStream;
-                    try {
-                        imageStream = getContentResolver().openInputStream(imageUri);
-                        final Bitmap selectedImage = BitmapFactory.decodeStream(imageStream);
-                        ImageView avatarAuthor = (ImageView) findViewById(R.id.authorImage);
-                        avatarAuthor .setImageBitmap(selectedImage);
-                    } catch (FileNotFoundException e) {
-                        e.printStackTrace();
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        if(author.getURIavatar()!= null){
+                            Uri imageUri = Uri.parse(author.getURIavatar().toString());
+                            final InputStream imageStream;
+                            try {
+                                imageStream = getContentResolver().openInputStream(imageUri);
+                                final Bitmap selectedImage = BitmapFactory.decodeStream(imageStream);
+                                ImageView avatarAuthor = (ImageView) findViewById(R.id.authorImage);
+                                avatarAuthor.setImageBitmap(selectedImage);
+                            } catch (FileNotFoundException e) {
+                                e.printStackTrace();
+                            }
+                        }
+
                     }
-                }
+                });
 
 
                 HashMap<String, String> peopleInvited = new HashMap<>();

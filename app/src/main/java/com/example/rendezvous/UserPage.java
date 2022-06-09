@@ -108,6 +108,7 @@ public class UserPage extends AppCompatActivity {
 
                 for (Circle c: circleList) {
                     CheckBox box = new CheckBox(UserPage.this.getBaseContext());
+                    box.setButtonDrawable(R.drawable.checkbox_design_user_page);
                     box.setText(c.getC_name());
                     box.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT));
                     box.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {

@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.net.Uri;
 import android.os.AsyncTask;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -18,6 +19,7 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.drawerlayout.widget.DrawerLayout;
@@ -29,6 +31,7 @@ import com.example.rendezvous.DB.RendezVousDB;
 import com.google.android.material.appbar.MaterialToolbar;
 import com.google.android.material.navigation.NavigationView;
 
+import java.time.LocalDate;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Objects;
@@ -69,10 +72,13 @@ public class CalendarFragment extends Fragment {
 
 
         calendar.setOnDateChangeListener(new CalendarView.OnDateChangeListener() {
+            @RequiresApi(api = Build.VERSION_CODES.O)
             @Override
-            public void onSelectedDayChange(@NonNull CalendarView calendarView, int i, int i1, int i2) {
+            public void onSelectedDayChange(@NonNull CalendarView calendarView, int year, int month, int day) {
+                    LocalDate currentDay = LocalDate.of(year, month, day);
+                    Toast.makeText(getActivity(),"y = " + year + ", m = " + month + ", d = " + day,Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getActivity(), "" + currentDay,Toast.LENGTH_SHORT).show();
 
-                    Toast.makeText(getActivity(),"y = " + i + ", m = " + i1 + ", d = " + i2,Toast.LENGTH_SHORT).show();
             }
         });
         return view;

@@ -55,4 +55,7 @@
     <string name="no">No</string>
     <string name="gps_button_to_get_distance">Click on the gps button to see the distance between you and your take out into the card!</string>
     <string name="dates">Dates</string>
+    <string name="personal_account">Personal Account</string>
+    <string name="close_log_out">Close/Log Out</string>
+    <string name="logo">logo</string>
 </resources>

@@ -20,7 +20,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent" />
     </LinearLayout>
-    <!--
+    <!--"#2D2E30"031842
          Navigation view to show the menu items
     -->
     <com.google.android.material.navigation.NavigationView
@@ -29,6 +29,11 @@
         android:layout_height="match_parent"
         android:layout_gravity="start"
         android:translationZ="4dp"
+        android:background="#2D2E30"
+        app:itemTextColor="@color/white"
+        app:itemIconTint="@color/white"
+        app:elevation="5dp"
+        app:headerLayout="@layout/nav_header"
         app:menu="@menu/nav_items" />
 
 </androidx.drawerlayout.widget.DrawerLayout>

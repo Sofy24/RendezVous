@@ -39,10 +39,10 @@ public class HomeActivity extends AppCompatActivity {
         System.out.println("HomeActivity.this è stata creata " + HomeActivity.this);
         setContentView(R.layout.home);
 
-        toolbar = (Toolbar) findViewById(R.id.tool_bar);
+        /*toolbar = (Toolbar) findViewById(R.id.tool_bar);
         setSupportActionBar(toolbar);
         System.out.println("toolbar = " + toolbar);
-        getSupportActionBar().setDisplayShowTitleEnabled(true);
+        getSupportActionBar().setDisplayShowTitleEnabled(true);*/
 
         // Creating The ViewPagerAdapter and Passing Fragment Manager, Titles fot the Tabs and Number Of Tabs.
         adapter =  new ViewPagerAdapter(getSupportFragmentManager(), titles, numberOfTabs);

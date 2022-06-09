@@ -85,8 +85,8 @@ public class CompactCalendarTab extends Fragment {
         // compactCalendarView.setShouldShowMondayAsFirstDay(false);
 
         //set initial title
-        toolbar = ((AppCompatActivity) getActivity()).getSupportActionBar();
-        toolbar.setTitle(dateFormatForMonth.format(compactCalendarView.getFirstDayOfCurrentMonth()));
+        /*toolbar = ((AppCompatActivity) getActivity()).getSupportActionBar();
+        toolbar.setTitle(dateFormatForMonth.format(compactCalendarView.getFirstDayOfCurrentMonth()));*/
 
         //set title on calendar scroll
         compactCalendarView.setListener(new CompactCalendarView.CompactCalendarViewListener() {
@@ -229,7 +229,7 @@ public class CompactCalendarTab extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
-        toolbar.setTitle(dateFormatForMonth.format(compactCalendarView.getFirstDayOfCurrentMonth()));
+        //toolbar.setTitle(dateFormatForMonth.format(compactCalendarView.getFirstDayOfCurrentMonth()));
         // Set to current day on resume to set calendar to latest day
         // toolbar.setTitle(dateFormatForMonth.format(new Date()));
     }

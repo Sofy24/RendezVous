@@ -3,6 +3,7 @@ package com.example.rendezvous;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Color;
 import android.icu.util.LocaleData;
 import android.media.Image;
 import android.net.Uri;
@@ -96,6 +97,7 @@ public class EditTakeOut extends AppCompatActivity {
                     CheckBox box = new CheckBox(EditTakeOut.this.getBaseContext());
                     box.setText(cal.get(Calendar.YEAR) + "-" + cal.get(Calendar.MONTH) + "-" + cal.get(Calendar.DAY_OF_MONTH));
                     box.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT));
+                    box.setButtonDrawable(R.drawable.checkbox_design_user_page);
                     box.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
                         @Override
                         public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
@@ -146,6 +148,7 @@ public class EditTakeOut extends AppCompatActivity {
         });
 
         FloatingActionButton floatingActionButton = findViewById(R.id.fab_edit);
+        floatingActionButton.setBackgroundColor(Color.parseColor("#0da6f9"));
         floatingActionButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

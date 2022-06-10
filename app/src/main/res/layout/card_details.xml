@@ -7,27 +7,24 @@
     android:orientation="vertical"
     android:id="@+id/task"
     >
-    <!--<androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="#E4E3E3"
-        tools:context=".CardListActivity">-->
 
-    <androidx.cardview.widget.CardView
+    <com.google.android.material.card.MaterialCardView
         android:id="@+id/base_cardview"
-        style="@style/Base.CardView"
+        style="@style/Widget.Material3.CardView.Elevated"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="10dp"
-        android:layout_marginTop="10dp"
-        android:layout_marginEnd="10dp"
-        android:layout_marginBottom="10dp"
+        android:layout_margin="10dp"
+        app:cardElevation="10dp"
+        app:cardUseCompatPadding="true"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.473"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.021">
+        <!--app:strokeColor="@color/colorSecondaryVariant"
+        app:strokeWidth="2dp"
+        android:backgroundTint="@color/pastelLightBlue"-->
 
         <!--This is a ConstraintLayout for the entire CardView
                     including the expandable portion-->
@@ -59,69 +56,64 @@
 
                 <ImageView
                     android:id="@+id/rendezvous_image_card"
-                    android:layout_width="150dp"
-                    android:layout_height="150dp"
+                    android:layout_width="112dp"
+                    android:layout_height="149dp"
+                    android:adjustViewBounds="true"
+                    android:scaleType="centerCrop"
                     app:layout_constraintBottom_toBottomOf="@+id/fixed_layout"
-                    app:layout_constraintEnd_toEndOf="@+id/fixed_layout"
-                    app:layout_constraintHorizontal_bias="0.0"
-                    app:layout_constraintStart_toStartOf="@+id/fixed_layout"
+
+                    app:layout_constraintHorizontal_bias="0.003"
+                    app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="@+id/fixed_layout"
                     app:layout_constraintVertical_bias="1.0"
                     tools:srcCompat="@tools:sample/backgrounds/scenic" />
 
+                <!--This is ImageButton for the expansion icon.
+                                    app:layout_constraintStart_toEndOf="@+id/rendezvous_image_card"-->
+
+
                 <TextView
                     android:id="@+id/rendezvous_title_card"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_width="139dp"
+                    android:layout_height="66dp"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginEnd="96dp"
                     android:text="@string/name"
-                    android:textColor="#006600"
-                    android:textSize="25dp"
+                    android:textColor="@color/colorPrimaryVariant"
+                    android:textSize="25sp"
                     android:textStyle="bold"
                     app:layout_constraintBottom_toBottomOf="@+id/fixed_layout"
                     app:layout_constraintEnd_toEndOf="@+id/fixed_layout"
-                    app:layout_constraintHorizontal_bias="0.501"
-                    app:layout_constraintStart_toStartOf="@+id/fixed_layout"
+                    app:layout_constraintHorizontal_bias="0.0"
+                    app:layout_constraintStart_toEndOf="@id/rendezvous_image_card"
                     app:layout_constraintTop_toTopOf="@+id/fixed_layout"
-                    app:layout_constraintVertical_bias="0.137" />
-
-                <!--This is ImageButton for the expansion icon.-->
-
-                <TextView
-                    android:id="@+id/more_info"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="20dp"
-                    android:layout_marginBottom="58dp"
-                    android:text="@string/more_info"
-                    android:textSize="20sp"
-                    app:layout_constraintBottom_toBottomOf="@+id/fixed_layout"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="0.562"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/rendezvous_title_card"
-                    app:layout_constraintVertical_bias="1.0" />
+                    app:layout_constraintVertical_bias="0.19" />
 
                 <ImageButton
                     android:id="@+id/arrow_button"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
+                    android:layout_margin="8dp"
+                    android:background="@drawable/arrow_drop_down_up"
                     android:src="@drawable/ic_baseline_arrow_drop_down_24"
                     app:layout_constraintBottom_toBottomOf="@id/fixed_layout"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/more_info"
-                    app:layout_constraintVertical_bias="1.0" />
+                    app:layout_constraintHorizontal_bias="0.069"
+                    app:layout_constraintStart_toEndOf="@id/rendezvous_image_card"
+                    app:layout_constraintTop_toBottomOf="@+id/rendezvous_title_card"
+                    app:layout_constraintVertical_bias="0.7" />
 
                 <TextView
                     android:id="@+id/textView2"
                     android:layout_width="89dp"
                     android:layout_height="35dp"
                     android:layout_marginStart="2dp"
-                    android:layout_marginTop="16dp"
+                    android:layout_marginTop="96dp"
                     android:layout_marginEnd="8dp"
+                    android:textColor="@color/colorPrimaryVariant"
                     android:text="@string/swipe_to_select_a_day_or_delete"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="0.873"
+                    app:layout_constraintHorizontal_bias="1.0"
                     app:layout_constraintStart_toEndOf="@+id/rendezvous_title_card"
                     app:layout_constraintTop_toTopOf="@+id/fixed_layout" />
 
@@ -151,7 +143,7 @@
                         android:layout_marginStart="20dp"
                         android:layout_marginTop="20dp"
                         android:hint="@string/description"
-                        android:textColor="#000000"
+                        android:textColor="@color/colorPrimaryVariant"
                         android:textSize="20sp" />
 
                 </LinearLayout>
@@ -168,7 +160,7 @@
                         android:layout_marginStart="20dp"
                         android:layout_marginTop="20dp"
                         android:text="@string/distanza_tra_me_e_il_luogo_dell_incontro"
-                        android:textColor="#000000"
+                        android:textColor="@color/colorPrimaryVariant"
                         android:textSize="20sp" />
 
                 </LinearLayout>
@@ -196,7 +188,7 @@
                         android:layout_marginStart="20dp"
                         android:layout_marginTop="20dp"
                         android:text="@string/check_the_distance"
-                        android:textColor="#000000"
+                        android:textColor="@color/colorPrimaryVariant"
                         android:textSize="20sp" />
                 </LinearLayout>
 
@@ -223,30 +215,30 @@
                         android:layout_marginStart="20dp"
                         android:layout_marginTop="20dp"
                         android:text="@string/apri_la_cartina"
-                        android:textColor="#000000"
-                        android:textSize="20dp" />
+                        android:textColor="@color/colorPrimaryVariant"
+                        android:textSize="20sp" />
                 </LinearLayout>
             </LinearLayout>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
-    </androidx.cardview.widget.CardView>
+    </com.google.android.material.card.MaterialCardView>
 
     <LinearLayout
         android:id="@+id/rowBG"
         android:layout_width="149dp"
         android:layout_height="149dp"
-
         android:layout_alignTop="@id/base_cardview"
         android:layout_alignEnd="@+id/base_cardview"
-        android:layout_marginStart="281dp"
-        android:layout_marginEnd="8dp"
+        android:layout_marginStart="235dp"
+        android:layout_marginTop="17dp"
+        android:layout_marginEnd="12dp"
         android:layout_marginBottom="10dp"
-        android:background="#d65819"
+        android:background="@color/colorAccent"
         android:orientation="horizontal"
         android:padding="10dp"
         app:layout_constraintBottom_toBottomOf="@id/base_cardview"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintTop_toTopOf="@id/base_cardview"
         tools:ignore="NotSibling">
 
         <RelativeLayout

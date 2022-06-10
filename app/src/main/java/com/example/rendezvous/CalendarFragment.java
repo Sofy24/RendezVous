@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.net.Uri;
 import android.os.AsyncTask;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -18,6 +19,7 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.drawerlayout.widget.DrawerLayout;
@@ -29,7 +31,9 @@ import com.example.rendezvous.DB.RendezVousDB;
 import com.google.android.material.appbar.MaterialToolbar;
 import com.google.android.material.navigation.NavigationView;
 
+import java.time.LocalDate;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.Objects;
 
 public class CalendarFragment extends Fragment {
@@ -37,6 +41,7 @@ public class CalendarFragment extends Fragment {
     private Activity activity;
     private DrawerLayout dLayout;
     Fragment fragment = this;
+    Long date;
 
     /*@Override
     public void onAttach(Context context) {
@@ -58,11 +63,24 @@ public class CalendarFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.calendar_layout, container, false);
+//        return inflater.inflate(R.layout.calendar_layout, container, false);
 
-//        View view = inflater.inflate(R.layout.calendar_layout, container, false);
+        View view = inflater.inflate(R.layout.calendar_layout, container, false);
+
+        CalendarView calendar = (CalendarView) view.findViewById(R.id.calendarView2);
+        date = calendar.getDate();
 
 
+        calendar.setOnDateChangeListener(new CalendarView.OnDateChangeListener() {
+            @RequiresApi(api = Build.VERSION_CODES.O)
+            @Override
+            public void onSelectedDayChange(@NonNull CalendarView calendarView, int year, int month, int day) {
+                    LocalDate currentDay = LocalDate.of(year, month, day);
+                    Toast.makeText(getActivity(),"y = " + year + ", m = " + month + ", d = " + day,Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getActivity(), "" + currentDay,Toast.LENGTH_SHORT).show();
+            }
+        });
+        return view;
     }
 
     @Override
@@ -90,6 +108,11 @@ public class CalendarFragment extends Fragment {
 
             }
         });
+
+
+
+
+
         setNavigationDrawer(activity);
     }
 
@@ -230,7 +253,6 @@ public class CalendarFragment extends Fragment {
         dLayout = (DrawerLayout) activity.findViewById(R.id.drawer_layout); // initiate a DrawerLayout
         NavigationView navView = (NavigationView) activity.findViewById(R.id.navigation); // initiate a Navigation View
 // implement setNavigationItemSelectedListener event on NavigationView
-
 //        Workaround per impedire che il fragment diventi timido quando la navigationView esce fuori
         dLayout.addDrawerListener(new DrawerLayout.DrawerListener() {
             @Override

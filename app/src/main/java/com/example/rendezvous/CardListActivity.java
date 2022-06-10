@@ -5,6 +5,7 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.graphics.Color;
 import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.AsyncTask;
@@ -15,6 +16,8 @@ import android.os.Looper;
 import android.provider.Settings;
 import android.transition.AutoTransition;
 import android.transition.TransitionManager;
+
+import com.airbnb.lottie.LottieAnimationView;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationCallback;
 import com.google.android.gms.location.LocationRequest;
@@ -38,6 +41,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.app.ActivityCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -106,13 +110,21 @@ public class CardListActivity extends AppCompatActivity implements LocationListe
             @Override
             public void run() {
                 infos = db.databaseDAO().getListCardsForActiveUser();
-                for (Info singleInfo:
-                     infos) {
-                    rendezVousCards.add(new RendezVousCard(singleInfo.getTitle(), singleInfo.getImageURL(), singleInfo.getI_ID(), singleInfo.getDescription(),
-                            singleInfo.getLatitude(), singleInfo.getLongitude()));
-                    recyclerviewAdapter.setTaskList(rendezVousCards);
-                    recyclerView.setAdapter(recyclerviewAdapter);
+                ConstraintLayout back = (ConstraintLayout) findViewById(R.id.task_item);
+                if(!infos.isEmpty()) {
+                    TextView emptyText = (TextView) findViewById(R.id.empty_text);
+                    emptyText.setVisibility(View.INVISIBLE);
+                    LottieAnimationView empty = (LottieAnimationView) findViewById(R.id.empty_animation);
+                    back.setBackground(getDrawable(R.drawable.blurred_less_satur_oran_blue));
+                    empty.setVisibility(View.INVISIBLE);
                 }
+                    for (Info singleInfo :
+                            infos) {
+                        rendezVousCards.add(new RendezVousCard(singleInfo.getTitle(), singleInfo.getImageURL(), singleInfo.getI_ID(), singleInfo.getDescription(),
+                                singleInfo.getLatitude(), singleInfo.getLongitude()));
+                        recyclerviewAdapter.setTaskList(rendezVousCards);
+                        recyclerView.setAdapter(recyclerviewAdapter);
+                    }
             }
         });
 

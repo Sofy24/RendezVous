@@ -3,8 +3,10 @@ package com.example.rendezvous;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.content.res.ColorStateList;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Color;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -46,7 +48,9 @@ import java.io.FileNotFoundException;
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class UserPage extends AppCompatActivity {
     private User activeUser;
@@ -56,6 +60,7 @@ public class UserPage extends AppCompatActivity {
     private final List<Circle> selectedCircles = new ArrayList<>();
     private List<String> alreadyMember;
     private final List<CheckBox> checkBoxList = new ArrayList<>();
+
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -103,6 +108,7 @@ public class UserPage extends AppCompatActivity {
 
                 for (Circle c: circleList) {
                     CheckBox box = new CheckBox(UserPage.this.getBaseContext());
+                    box.setButtonDrawable(R.drawable.checkbox_design_user_page);
                     box.setText(c.getC_name());
                     box.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT));
                     box.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {

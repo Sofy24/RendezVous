@@ -35,13 +35,18 @@ dependencies {
     implementation 'com.google.firebase:protolite-well-known-types:18.0.0'
     def room_version = "2.4.2"
     def nav_version = "2.4.2"
-
+    def lottieVersion = "5.2.0"
     // Drawer per il menu laterale
     implementation "androidx.navigation:navigation-fragment:$nav_version"
     implementation "androidx.navigation:navigation-ui:$nav_version"
 
     // Drawer per il menu laterale
     implementation "androidx.drawerlayout:drawerlayout:1.1.1"
+
+    //lottie animation
+    implementation "com.airbnb.android:lottie:$lottieVersion"
+    implementation 'io.github.amrdeveloper:lottiedialog:1.0.0'
+
 
 
     implementation "androidx.room:room-runtime:$room_version"

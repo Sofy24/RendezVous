@@ -8,11 +8,12 @@ import android.app.AlertDialog;
 import android.content.ContentResolver;
 import android.content.ContentValues;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.content.res.ColorStateList;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Color;
 import android.location.Address;
 import android.location.Geocoder;
 import android.location.Location;
@@ -50,6 +51,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.util.Pair;
 
+import com.airbnb.lottie.LottieDrawable;
+import com.amrdeveloper.lottiedialog.LottieDialog;
 import com.example.rendezvous.DB.Circle;
 import com.example.rendezvous.DB.Info;
 import com.example.rendezvous.DB.Invited;
@@ -270,7 +273,6 @@ public class NewTakeOut extends AppCompatActivity implements LocationListener {
                                       }else {
                                           selectedCircles.remove(c);
                                       }
-                                      System.out.println("selectedCircles = " + selectedCircles);
                                   }
                               });
                               runOnUiThread(new Runnable() {
@@ -323,7 +325,7 @@ public class NewTakeOut extends AppCompatActivity implements LocationListener {
                                 Integer info_id = db.databaseDAO().getInfoID(nameTakeOut);
                                for (Circle circle:
                                         selectedCircles) {
-                                    db.databaseDAO().insertRendezvous(new RendezVous(circle.getC_name(), firstDay, endDay, info_id));
+                                 db.databaseDAO().insertRendezvous(new RendezVous(circle.getC_name(), firstDay, endDay, info_id, activeUser.getUID()));
                                     invitedUsers.addAll(db.databaseDAO().getUsersInCircle(circle.getC_name()));
                                }
                                 // Populate invited table
@@ -347,7 +349,18 @@ public class NewTakeOut extends AppCompatActivity implements LocationListener {
 
 //                        Intent backHome = new Intent(NewTakeOut.this, HomeActivity.class);
 //                        startActivity(backHome);
-                        NewTakeOut.this.finish();
+
+                        LottieDialog dialog = new LottieDialog(NewTakeOut.this)
+                                .setAnimation(R.raw.message_sent_successfully_plane_blue)
+                                .setAnimationRepeatCount(1)
+                                .setAutoPlayAnimation(true)
+                                .setMessage("The invite to your friends has been sent")
+                                .setOnDismissListener(x -> {
+                                    NewTakeOut.this.finish();
+                                });
+
+                        dialog.show();
+
                     } else{ //nome vuoto
                         System.out.println("circleOfFriendsSelected = " + circleOfFriendsSelected);
                         Toast.makeText(NewTakeOut.this, "Inserisci almeno un gruppo !", Toast.LENGTH_SHORT).show();
@@ -355,6 +368,8 @@ public class NewTakeOut extends AppCompatActivity implements LocationListener {
                 } else{ //nome vuoto
                     Toast.makeText(NewTakeOut.this, "Inserisci il nome dell'uscita", Toast.LENGTH_SHORT).show();
                 }
+
+                //Animations
 
             }
         });
@@ -397,65 +412,12 @@ public class NewTakeOut extends AppCompatActivity implements LocationListener {
                     }
                 });
 
-        //Button addImageBtn = (Button) findViewById(R.id.capture_button);
         imageView.setOnClickListener(view -> {
             Intent photoPickerIntent = new Intent(Intent.ACTION_OPEN_DOCUMENT);
             photoPickerIntent.setType("image/*");
             someActivityResultLauncher.launch(photoPickerIntent);
         });
 
-//        findViewById(R.id.capture_button).setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//
-//                Intent takePicture = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-//
-//                if (takePicture.resolveActivity(activity.getPackageManager()) != null) {
-//                    activity.startActivityForResult(takePicture, REQUEST_IMAGE_CAPTURE);
-//                }
-//            }
-//        });
-//
-        //addViewModel = new ViewModelProvider((ViewModelStoreOwner) activity).get(AddViewModel.class);
-//        ImageView imageView = findViewById(R.id.picture_displayed_imageview);
-
-        /*addViewModel.getImageBitmap().observe(this, new Observer<Bitmap>() {
-            @Override
-            public void onChanged(Bitmap bitmap) {
-                imageView.setImageBitmap(bitmap);
-            }
-        });*/
-
-
-        /*findViewById(R.id.fab_add).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Bitmap
-                        bitmap = addViewModel.getImageBitmap().getValue();
-
-                String imageUriString;
-                try {
-                    if (bitmap != null) {
-                        imageUriString = String.valueOf(saveImage(bitmap, activity));
-                    } else {
-                        imageUriString = "ic_baseline_insert_photo_24";
-                    }
-                    /*if (placeTIET.getText() != null && descriptionTIET.getText() != null
-                            && dateTIET.getText() != null) {
-
-                        addViewModel.addCardItem(new CardItem(imageUriString,
-                                placeTIET.getText().toString(), descriptionTIET.getText().toString(),
-                                dateTIET.getText().toString()));
-
-                        //addViewModel.setImageBitmap(null);
-
-                        //((AppCompatActivity) activity).getSupportFragmentManager().popBackStack();
-                    }
-                } catch (FileNotFoundException e) {
-                    e.printStackTrace();
-                }
-            }
-        });*/
 
     }
 

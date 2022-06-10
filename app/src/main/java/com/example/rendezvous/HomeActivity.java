@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.util.AttributeSet;
 import android.view.Menu;
 import android.view.View;
+import android.widget.CalendarView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -44,6 +45,11 @@ public class HomeActivity extends AppCompatActivity {
             Intent openNewTakeOut = new Intent(HomeActivity.this, NewTakeOut.class);
             startActivity(openNewTakeOut);
         });
+
+
+
+        CalendarView calendar = (CalendarView) findViewById(R.id.calendarView2);
+        System.out.println("calendar = " + calendar);
     }
 
     /**

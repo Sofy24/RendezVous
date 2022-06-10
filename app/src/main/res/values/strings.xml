@@ -58,4 +58,5 @@
     <string name="personal_account">Personal Account</string>
     <string name="close_log_out">Close/Log Out</string>
     <string name="logo">logo</string>
+    <string name="address_not_correct">The address is not correct</string>
 </resources>

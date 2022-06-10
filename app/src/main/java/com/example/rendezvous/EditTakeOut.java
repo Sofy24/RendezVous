@@ -169,7 +169,7 @@ public class EditTakeOut extends AppCompatActivity {
                         Integer totalInvited = db.databaseDAO().getTotalNumOfPartecipants(I_ID);
                         Integer actualResponse = db.databaseDAO().getNumOfPartecipants(I_ID);
 
-                        if(totalInvited==actualResponse){
+                        if(totalInvited.equals(actualResponse)){
 //                            db.databaseDAO().insertConfirmedRendezVous(R_title, I_ID);
                             long date = db.databaseDAO().getConfirmedDate(I_ID);
                             List<Integer> partecipants = db.databaseDAO().getPartecipantsId(I_ID);
@@ -178,6 +178,8 @@ public class EditTakeOut extends AppCompatActivity {
                                  partecipants) {
                                 db.databaseDAO().insertConfirmedRendezvous(new ConfirmedRendezvous(I_ID, date, partecipant_ID));
                             }
+                            RendezVous confirmedRV = db.databaseDAO().getRendezVousFromInfo(I_ID);
+                            db.databaseDAO().deleteRV(confirmedRV);
                         }
 
 

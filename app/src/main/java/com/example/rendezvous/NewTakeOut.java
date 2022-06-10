@@ -154,10 +154,32 @@ public class NewTakeOut extends AppCompatActivity implements LocationListener {
                           System.out.println("latLng = " + latLng); //ho ottenuto le coordinate che volevo!!!
                           requestingLocationUpdates = true;
                           startLocationUpdates(NewTakeOut.this);
-                          take_out_location_view.setText(Objects.requireNonNull(latLng).getLatitude() + ", " + Objects.requireNonNull(latLng).getLongitude() );
+                          if(latLng != null){
+                            take_out_location_view.setText(Objects.requireNonNull(latLng).getLatitude() + ", " + Objects.requireNonNull(latLng).getLongitude() );
+                              Location.distanceBetween(location.getLatitude(), location.getLongitude(), latLng.getLatitude(), latLng.getLongitude() , distance);
+                              System.out.println("distance = " + distance[0]);
+                          } else{
+                              layoutInflater = LayoutInflater.from(NewTakeOut.this);
+                              promptView = layoutInflater.inflate(R.layout.dialog_layout, null);
+                              alertD = new AlertDialog.Builder(NewTakeOut.this).create();
+                              closeBtn = (Button) promptView.findViewById(R.id.close_btn);
+                              negativeBtn = (Button) promptView.findViewById(R.id.negative_btn);
+                              negativeBtn.setVisibility(View.GONE);
+                              dialogTextView = promptView.findViewById(R.id.text_dialog);
+                              dialogTextView.setText(R.string.address_not_correct);
+                              closeBtn.setText(R.string.close);
+                              closeBtn.setOnClickListener(new View.OnClickListener() {
+                                  public void onClick(View v) {
+                                      alertD.cancel();
 
-                          Location.distanceBetween(location.getLatitude(), location.getLongitude(), latLng.getLatitude(), latLng.getLongitude() , distance);
-                          System.out.println("distance = " + distance[0]);
+                                  }
+                              });
+
+                              alertD.setView(promptView);
+                              alertD.show();
+                          }
+
+
                       } else{
                           layoutInflater = LayoutInflater.from(NewTakeOut.this);
                           promptView = layoutInflater.inflate(R.layout.dialog_layout, null);

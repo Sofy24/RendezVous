@@ -2,6 +2,7 @@ package com.example.rendezvous.DB;
 
 import androidx.core.util.Pair;
 import androidx.room.Dao;
+import androidx.room.Delete;
 import androidx.room.Insert;
 import androidx.room.OnConflictStrategy;
 import androidx.room.Query;
@@ -87,6 +88,9 @@ public interface DatabaseDAO {
 
     @Query("SELECT * from RendezVous where R_infoID = :info_id;")
     RendezVous getRendezVousFromInfo(Integer info_id);
+
+    @Delete
+    void deleteRV(RendezVous rendezVous);
 
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     void insertInvited(Invited ...inviteds);

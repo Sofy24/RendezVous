@@ -73,7 +73,9 @@ public interface DatabaseDAO {
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     void insertRendezvous(RendezVous ...rendezVous);
 
-    @Query("SELECT DISTINCT o.* FROM RendezVous join Info o on (R_infoID = I_ID) join CircleOfFriends on (R_circleName = COF_C_name) join User on (COF_UID = UID) where isActive = 1 ;")
+    //TODO modificare questa e confirmedRendezvous per il foreign constraint di cacca
+    // SELECT DISTINCT o.* FROM RendezVous join Info o on (R_infoID = I_ID) join CircleOfFriends on (R_circleName = COF_C_name) join User on (COF_UID = UID) where isActive = 1 and o.I_ID not in (select * from ConfirmedRendezvous where C_infoID = o.I_ID)
+    @Query("SELECT DISTINCT o.* FROM RendezVous join Info o on (R_infoID = I_ID) join CircleOfFriends on (R_circleName = COF_C_name) join User on (COF_UID = UID) where isActive = 1 and o.I_ID not in (select C_infoID from ConfirmedRendezvous where C_infoID = o.I_ID)")
     List<Info> getListCardsForActiveUser();
 
     @Query("SELECT I_ID from Info where title = :title")
@@ -87,8 +89,10 @@ public interface DatabaseDAO {
     List<RendezVous> getRendezVous(long firstDay, long endDay, Integer info_id);
 
     @Query("SELECT * from RendezVous where R_infoID = :info_id;")
-    RendezVous getRendezVousFromInfo(Integer info_id);
+    List<RendezVous> getRendezVousFromInfo(Integer info_id);
 
+//    @Query("DELETE from RendezVous where R_infoID = :RID")
+//void deleteRV(Integer RID);
     @Delete
     void deleteRV(RendezVous rendezVous);
 
@@ -136,6 +140,9 @@ public interface DatabaseDAO {
 
     @Insert
     void insertConfirmedRendezvous(ConfirmedRendezvous ...confirmedRendezvous);
+
+    @Query("SELECT * from RendezVous where R_infoID = :i_id;")
+    RendezVous getSingleRendezVousFromInfo(Integer i_id);
 // Drop database
 //    @Query("DELETE TABLE User")
 //    public void nukeTables();

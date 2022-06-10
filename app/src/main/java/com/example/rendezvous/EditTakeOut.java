@@ -4,8 +4,6 @@ import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
-import android.icu.util.LocaleData;
-import android.media.Image;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -25,7 +23,6 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.lifecycle.LiveData;
 
 import com.amrdeveloper.lottiedialog.LottieDialog;
 import com.example.rendezvous.DB.ConfirmedRendezvous;
@@ -85,7 +82,7 @@ public class EditTakeOut extends AppCompatActivity {
             @Override
             public void run() {
                 Calendar cal = Calendar.getInstance();
-                RendezVous rendezVous = db.databaseDAO().getRendezVousFromInfo(I_ID);
+                RendezVous rendezVous = db.databaseDAO().getSingleRendezVousFromInfo(I_ID);
                 cal.setTime(Converters.fromTimestamp(rendezVous.getR_DataI()));
                 Date endDate = Converters.fromTimestamp(rendezVous.getR_DataF());
 
@@ -176,10 +173,10 @@ public class EditTakeOut extends AppCompatActivity {
 
                             for (Integer partecipant_ID:
                                  partecipants) {
-                                db.databaseDAO().insertConfirmedRendezvous(new ConfirmedRendezvous(I_ID, date, partecipant_ID));
+                                db.databaseDAO().insertConfirmedRendezvous(new ConfirmedRendezvous(I_ID, date, partecipant_ID, I_ID));
                             }
-                            RendezVous confirmedRV = db.databaseDAO().getRendezVousFromInfo(I_ID);
-                            db.databaseDAO().deleteRV(confirmedRV);
+
+
                         }
 
 
@@ -195,10 +192,7 @@ public class EditTakeOut extends AppCompatActivity {
                         .setOnDismissListener(x -> {
                             EditTakeOut.this.finish();
                         });
-
                 dialog.show();
-
-
             }
         });
     }
@@ -217,7 +211,7 @@ public class EditTakeOut extends AppCompatActivity {
             @Override
             public void run() {
                 Info takeOutInfo = db.databaseDAO().getInfo(r_title);
-                RendezVous rendezVous = db.databaseDAO().getRendezVousFromInfo(i_id);
+                RendezVous rendezVous = db.databaseDAO().getSingleRendezVousFromInfo(i_id);
 
                 //name
                 TextView name = (TextView) findViewById(R.id.name_rendez_vous);

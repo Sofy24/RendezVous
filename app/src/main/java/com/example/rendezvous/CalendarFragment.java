@@ -9,6 +9,7 @@ import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
@@ -27,13 +28,16 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
+import com.applandeo.materialcalendarview.EventDay;
 import com.example.rendezvous.DB.RendezVousDB;
 import com.google.android.material.appbar.MaterialToolbar;
 import com.google.android.material.navigation.NavigationView;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 import java.util.Objects;
 
 public class CalendarFragment extends Fragment {
@@ -64,22 +68,38 @@ public class CalendarFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 //        return inflater.inflate(R.layout.calendar_layout, container, false);
+        View view;
+        try {
+            view = inflater.inflate(R.layout.calendar_layout, container, false);
+            // ... rest of body of onCreateView() ...
+        } catch (Exception e) {
+            Log.e("calendarFrag", "onCreateView", e);
+            throw e;
+        }
 
-        View view = inflater.inflate(R.layout.calendar_layout, container, false);
+        com.applandeo.materialcalendarview.CalendarView calendar = (com.applandeo.materialcalendarview.CalendarView) view.findViewById(R.id.calendarView2);
+        System.out.println("calendar = " + calendar);
 
-        CalendarView calendar = (CalendarView) view.findViewById(R.id.calendarView2);
-        date = calendar.getDate();
+        List<EventDay> events = new ArrayList<>();
+
+        Calendar calendar1 = Calendar.getInstance();
+        events.add(new EventDay(calendar1, R.drawable.brand));
+        calendar.setEvents(events);
 
 
-        calendar.setOnDateChangeListener(new CalendarView.OnDateChangeListener() {
-            @RequiresApi(api = Build.VERSION_CODES.O)
-            @Override
-            public void onSelectedDayChange(@NonNull CalendarView calendarView, int year, int month, int day) {
-                    LocalDate currentDay = LocalDate.of(year, month, day);
-                    Toast.makeText(getActivity(),"y = " + year + ", m = " + month + ", d = " + day,Toast.LENGTH_SHORT).show();
-                    Toast.makeText(getActivity(), "" + currentDay,Toast.LENGTH_SHORT).show();
-            }
-        });
+//        calendar.setOnDateChangeListener(new CalendarView.OnDateChangeListener() {
+//            @RequiresApi(api = Build.VERSION_CODES.O)
+//            @Override
+//            public void onSelectedDayChange(@NonNull CalendarView calendarView, int year, int month, int day) {
+//                    LocalDate currentDay = LocalDate.of(year, month, day);
+//                    Toast.makeText(getActivity(),"y = " + year + ", m = " + month + ", d = " + day,Toast.LENGTH_SHORT).show();
+//                    Toast.makeText(getActivity(), "" + currentDay,Toast.LENGTH_SHORT).show();
+
+//            }
+//        });
+
+//    calendar.adddecorator
+
         return view;
     }
 
@@ -108,11 +128,6 @@ public class CalendarFragment extends Fragment {
 
             }
         });
-
-
-
-
-
         setNavigationDrawer(activity);
     }
 

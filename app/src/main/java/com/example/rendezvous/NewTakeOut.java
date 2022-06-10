@@ -142,8 +142,6 @@ public class NewTakeOut extends AppCompatActivity implements LocationListener {
                     });
             initializeLocation(NewTakeOut.this);
 
-            //final String address = "Via San Vito, 149, 47822 Santarcangelo di Romagna RN";
-            //final String address2 = "Rimini";
             findViewById(R.id.confirm_address).setOnClickListener(new View.OnClickListener() {
                   @Override
                   public void onClick(View view) {

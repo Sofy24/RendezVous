@@ -18,6 +18,7 @@
         android:layout_marginStart="10dp"
         android:layout_marginTop="70dp"
         android:layout_marginEnd="10dp"
+        android:padding="10dp"
         android:textAlignment="center"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -41,7 +42,10 @@
                 android:id="@+id/authorImage"
                 android:layout_width="79dp"
                 android:layout_height="86dp"
-                android:layout_margin="50dp"
+                android:layout_marginStart="30dp"
+                android:layout_marginEnd="30dp"
+                android:padding="10dp"
+                android:background="@drawable/border"
                 app:srcCompat="@drawable/brand" />
 
             <TextView
@@ -52,9 +56,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:layout_marginTop="30dp"
                 android:layout_marginEnd="30dp"
-                android:text="TextView" />
+                android:padding="30dp"
+                android:text="" />
         </LinearLayout>
 
         <Space
@@ -77,8 +81,8 @@
             android:paddingTop="8dp"
             android:paddingBottom="8dp"
             android:text=""
-            android:layout_marginEnd="8dp"
-            android:layout_marginStart="150dp"
+            android:layout_marginEnd="10dp"
+            android:layout_marginStart="10dp"
             android:textColor="@color/black"
             app:layout_constrainedWidth="true" />
 
@@ -99,7 +103,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="10dp"
-        android:layout_marginStart="8dp"
+        android:layout_marginStart="10dp"
         android:layout_marginTop="4dp"
         android:text="@string/dates"
         android:textColor="@color/black"
@@ -110,10 +114,14 @@
     <ScrollView
         android:id="@+id/scrollView"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="500dp"
         android:layout_marginTop="48dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="10dp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/GUIinfo">
+        app:layout_constraintTop_toBottomOf="@+id/GUIinfo"
+        app:layout_constraintVertical_bias="0.0"
+        app:layout_constraintHorizontal_bias="0.0">
 
         <LinearLayout
             android:id="@+id/dates_container"

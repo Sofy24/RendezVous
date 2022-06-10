@@ -8,7 +8,12 @@ import androidx.room.Entity;
 import androidx.room.ForeignKey;
 import androidx.room.PrimaryKey;
 
-@Entity
+@Entity(foreignKeys = {
+        @ForeignKey(entity = Circle.class,
+                parentColumns = "C_name",
+                childColumns = "R_circleName",
+                onDelete = NO_ACTION)
+})
 public class RendezVous {
     @NonNull
     private String R_circleName;

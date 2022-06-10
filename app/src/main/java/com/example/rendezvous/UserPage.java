@@ -82,8 +82,14 @@ public class UserPage extends AppCompatActivity {
                     try {
                         imageStream = getContentResolver().openInputStream(imageUri);
                         final Bitmap selectedImage = BitmapFactory.decodeStream(imageStream);
-                        ImageView imageView = (ImageView)findViewById(R.id.avatar_image);
-                        imageView.setImageBitmap(selectedImage);
+                        runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                ImageView imageView = (ImageView)findViewById(R.id.avatar_image);
+                                imageView.setImageBitmap(selectedImage);
+
+                            }
+                        });
                     } catch (FileNotFoundException e) {
                         e.printStackTrace();
                     }

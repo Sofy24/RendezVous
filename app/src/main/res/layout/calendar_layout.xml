@@ -6,31 +6,27 @@
     android:id="@+id/calendar_frame_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_marginTop="100dp"
+    android:layout_marginTop="130dp"
+    android:layout_marginStart="20dp"
+    android:layout_marginEnd="20dp"
     >
 
-
+    <!--#0072c6-->
 
     <com.applandeo.materialcalendarview.CalendarView
         android:id="@+id/calendarView2"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        app:headerColor="@color/colorPrimaryVariant"
+        app:abbreviationsBarColor="@color/brillantBlue"
+        app:pagesColor="@color/pastelLightBlue"
+        app:datePicker="true"
+        app:anotherMonthsDaysLabelsColor="@color/colorSecondaryVariant"
+        app:abbreviationsLabelsColor="@color/white"
+        app:daysLabelsColor="@color/black"
+        app:selectionColor="@color/colorPrimaryVariant"
         />
 
-
-<!--    <com.applandeo.materialcalendarview.CalendarView-->
-<!--        android:id="@+id/calendarView2"-->
-<!--        android:layout_width="wrap_content"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:layout_marginStart="30dp"-->
-<!--        android:layout_marginTop="60dp"-->
-<!--        android:layout_marginEnd="33dp"-->
-<!--        android:background="@drawable/calendar_design"-->
-<!--        android:dateTextAppearance="@style/CustomCalendarDay"-->
-<!--        android:theme="@style/CustomCalendarMonth"-->
-<!--        android:weekDayTextAppearance="@style/CustomCalendarWeek"-->
-<!--        android:elevation="5dp"-->
-<!--        />-->
 
 
 </FrameLayout>

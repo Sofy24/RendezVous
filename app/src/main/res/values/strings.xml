@@ -17,7 +17,7 @@
     <string name="logoDescr">Logo for RendezVous</string>
     <string name="navDescription">Navigation Button</string>
     <string name="take_out_cards">Take Out Cards</string>
-    <string name="calendar_take_out">Calendar take out</string>
+    <string name="calendar_take_out">Calendar Take Out</string>
     <string name="name">Name</string>
     <string name="take_a_picture">Take a picture</string>
     <string name="image_captured">image_captured</string>
@@ -55,4 +55,7 @@
     <string name="no">No</string>
     <string name="gps_button_to_get_distance">Click on the gps button to see the distance between you and your take out into the card!</string>
     <string name="dates">Dates</string>
+    <string name="personal_account">Personal Account</string>
+    <string name="close_log_out">Close/Log Out</string>
+    <string name="logo">logo</string>
 </resources>

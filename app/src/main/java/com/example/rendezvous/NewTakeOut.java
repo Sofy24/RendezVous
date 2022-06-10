@@ -412,65 +412,12 @@ public class NewTakeOut extends AppCompatActivity implements LocationListener {
                     }
                 });
 
-        //Button addImageBtn = (Button) findViewById(R.id.capture_button);
         imageView.setOnClickListener(view -> {
             Intent photoPickerIntent = new Intent(Intent.ACTION_OPEN_DOCUMENT);
             photoPickerIntent.setType("image/*");
             someActivityResultLauncher.launch(photoPickerIntent);
         });
 
-//        findViewById(R.id.capture_button).setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//
-//                Intent takePicture = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-//
-//                if (takePicture.resolveActivity(activity.getPackageManager()) != null) {
-//                    activity.startActivityForResult(takePicture, REQUEST_IMAGE_CAPTURE);
-//                }
-//            }
-//        });
-//
-        //addViewModel = new ViewModelProvider((ViewModelStoreOwner) activity).get(AddViewModel.class);
-//        ImageView imageView = findViewById(R.id.picture_displayed_imageview);
-
-        /*addViewModel.getImageBitmap().observe(this, new Observer<Bitmap>() {
-            @Override
-            public void onChanged(Bitmap bitmap) {
-                imageView.setImageBitmap(bitmap);
-            }
-        });*/
-
-
-        /*findViewById(R.id.fab_add).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Bitmap
-                        bitmap = addViewModel.getImageBitmap().getValue();
-
-                String imageUriString;
-                try {
-                    if (bitmap != null) {
-                        imageUriString = String.valueOf(saveImage(bitmap, activity));
-                    } else {
-                        imageUriString = "ic_baseline_insert_photo_24";
-                    }
-                    /*if (placeTIET.getText() != null && descriptionTIET.getText() != null
-                            && dateTIET.getText() != null) {
-
-                        addViewModel.addCardItem(new CardItem(imageUriString,
-                                placeTIET.getText().toString(), descriptionTIET.getText().toString(),
-                                dateTIET.getText().toString()));
-
-                        //addViewModel.setImageBitmap(null);
-
-                        //((AppCompatActivity) activity).getSupportFragmentManager().popBackStack();
-                    }
-                } catch (FileNotFoundException e) {
-                    e.printStackTrace();
-                }
-            }
-        });*/
 
     }
 

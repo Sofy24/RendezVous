@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<menu xmlns:android="http://schemas.android.com/apk/res/android">
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
     <group android:checkableBehavior="single">
         <!--
                 Add menu items here
@@ -16,10 +17,10 @@
         <item
             android:id="@+id/third"
             android:icon="@drawable/logo"
-            android:title="Personal Account" />
+            android:title="@string/personal_account" />
         <item
             android:id="@+id/fourth"
             android:icon="@drawable/ic_baseline_remove_circle_outline_24"
-            android:title="Close/Log Out" />
+            android:title="@string/close_log_out" />
     </group>
 </menu>

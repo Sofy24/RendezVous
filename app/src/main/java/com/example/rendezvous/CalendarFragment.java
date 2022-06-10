@@ -268,7 +268,6 @@ public class CalendarFragment extends Fragment {
         dLayout = (DrawerLayout) activity.findViewById(R.id.drawer_layout); // initiate a DrawerLayout
         NavigationView navView = (NavigationView) activity.findViewById(R.id.navigation); // initiate a Navigation View
 // implement setNavigationItemSelectedListener event on NavigationView
-
 //        Workaround per impedire che il fragment diventi timido quando la navigationView esce fuori
         dLayout.addDrawerListener(new DrawerLayout.DrawerListener() {
             @Override

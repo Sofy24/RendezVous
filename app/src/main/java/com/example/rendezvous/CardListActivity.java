@@ -172,8 +172,10 @@ public class CardListActivity extends AppCompatActivity implements LocationListe
                                 AsyncTask.execute(new Runnable() {
                                     @Override
                                     public void run() {
-                                        //TODO se premo 2 volte muore java.lang.RuntimeException: Only one Looper may be created per thread
-                                        Looper.prepare();
+                                        if (Looper.myLooper() == null)
+                                        {
+                                            Looper.prepare();
+                                        }
                                         String state = db.databaseDAO().getInvitedState(rendezVousCards.get(position).getI_ID());
                                         System.out.println("state " + state);
                                         if(state.equals("Received")){

@@ -1,6 +1,7 @@
 package com.example.rendezvous.DB;
 
 import static androidx.room.ForeignKey.CASCADE;
+import static androidx.room.ForeignKey.NO_ACTION;
 
 import androidx.annotation.NonNull;
 import androidx.room.Entity;
@@ -11,7 +12,7 @@ import androidx.room.PrimaryKey;
         @ForeignKey(entity = Circle.class,
                 parentColumns = "C_name",
                 childColumns = "R_circleName",
-                onDelete = CASCADE)
+                onDelete = NO_ACTION)
 })
 public class RendezVous {
     @NonNull

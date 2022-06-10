@@ -6,6 +6,7 @@ import androidx.room.Delete;
 import androidx.room.Insert;
 import androidx.room.OnConflictStrategy;
 import androidx.room.Query;
+import androidx.room.Update;
 
 import java.util.Date;
 import java.util.List;
@@ -71,6 +72,7 @@ public interface DatabaseDAO {
     User getUser(Integer uid);
 
     @Insert(onConflict = OnConflictStrategy.IGNORE)
+    //@Update
     void insertRendezvous(RendezVous ...rendezVous);
 
     @Query("SELECT DISTINCT o.* FROM RendezVous join Info o on (R_infoID = I_ID) join CircleOfFriends on (R_circleName = COF_C_name) join User on (COF_UID = UID) where isActive = 1 ;")

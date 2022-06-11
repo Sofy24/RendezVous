@@ -160,40 +160,52 @@ public class EditTakeOut extends AppCompatActivity {
                         } else if (preferencies.size() == 1) {
                                     db.databaseDAO().updateInvited(Converters.dateToTimestamp(preferencies.get(0)));
                         } else {
-                            Toast.makeText(EditTakeOut.this, "You have to chose only 1 date", Toast.LENGTH_SHORT).show();
-                            return;
+                            EditTakeOut.this.runOnUiThread(
+                                    new Runnable() {
+                                        @Override
+                                        public void run() {
+                                            Toast.makeText(EditTakeOut.this, "You have to chose only 1 date", Toast.LENGTH_SHORT).show();
+                                        }
+                                    }
+                            );
                         }
+                        if (busy || preferencies.size() == 1) {
+                            db.databaseDAO().updateInvited(Converters.dateToTimestamp(preferencies.get(0)));
 
-                        Integer totalInvited = db.databaseDAO().getTotalNumOfPartecipants(I_ID);
-                        Integer actualResponse = db.databaseDAO().getNumOfPartecipants(I_ID);
+                            Integer totalInvited = db.databaseDAO().getTotalNumOfPartecipants(I_ID);
+                            Integer actualResponse = db.databaseDAO().getNumOfPartecipants(I_ID);
 
-                        if(totalInvited.equals(actualResponse)){
+                            if (totalInvited.equals(actualResponse)) {
 //                            db.databaseDAO().insertConfirmedRendezVous(R_title, I_ID);
-                            long date = db.databaseDAO().getConfirmedDate(I_ID);
-                            List<Integer> partecipants = db.databaseDAO().getPartecipantsId(I_ID);
+                                long date = db.databaseDAO().getConfirmedDate(I_ID);
+                                List<Integer> partecipants = db.databaseDAO().getPartecipantsId(I_ID);
 
-                            for (Integer partecipant_ID:
-                                 partecipants) {
-                                db.databaseDAO().insertConfirmedRendezvous(new ConfirmedRendezvous(I_ID, date, partecipant_ID, I_ID));
+                                for (Integer partecipant_ID :
+                                        partecipants) {
+                                    db.databaseDAO().insertConfirmedRendezvous(new ConfirmedRendezvous(I_ID, date, partecipant_ID, I_ID));
+                                }
+
+
                             }
 
-
-                        }
+                       }
 
 
 //                        Intent backHome = new Intent(EditTakeOut.this, HomeActivity.class);
 //                        startActivity(backHome);
-                    }
+                }
             });
-                LottieDialog dialog = new LottieDialog(EditTakeOut.this)
-                        .setAnimation(R.raw.message_sent)
-                        .setAnimationRepeatCount(1)
-                        .setAutoPlayAnimation(true)
-                        .setMessage("Your reply has been sent, hope you said yes you shut-in NEET")
-                        .setOnDismissListener(x -> {
-                            EditTakeOut.this.finish();
-                        });
-                dialog.show();
+                if (busy || preferencies.size() == 1) {
+                    LottieDialog dialog = new LottieDialog(EditTakeOut.this)
+                            .setAnimation(R.raw.message_sent)
+                            .setAnimationRepeatCount(1)
+                            .setAutoPlayAnimation(true)
+                            .setMessage("Your reply has been sent, hope you said yes you shut-in NEET")
+                            .setOnDismissListener(x -> {
+                                EditTakeOut.this.finish();
+                            });
+                    dialog.show();
+                }
             }
         });
     }

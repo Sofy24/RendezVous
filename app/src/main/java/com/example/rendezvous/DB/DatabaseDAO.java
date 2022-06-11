@@ -77,7 +77,7 @@ public interface DatabaseDAO {
 
     //TODO modificare questa e confirmedRendezvous per il foreign constraint di cacca
     // SELECT DISTINCT o.* FROM RendezVous join Info o on (R_infoID = I_ID) join CircleOfFriends on (R_circleName = COF_C_name) join User on (COF_UID = UID) where isActive = 1 and o.I_ID not in (select * from ConfirmedRendezvous where C_infoID = o.I_ID)
-    @Query("SELECT DISTINCT o.* FROM RendezVous join Info o on (R_infoID = I_ID) join CircleOfFriends on (R_circleName = COF_C_name) join User on (COF_UID = UID) where isActive = 1 and o.I_ID not in (select C_infoID from ConfirmedRendezvous where C_infoID = o.I_ID)")
+    @Query(" SELECT DISTINCT o.* FROM RendezVous join Info o on (R_infoID = I_ID) join CircleOfFriends on (R_circleName = COF_C_name) join User on (COF_UID = UID) , Invited where isActive = 1 and IU_ID = UID and R_ID = IR_ID and I_state != \"Busy\" and o.I_ID not in (select C_infoID from ConfirmedRendezvous where C_infoID = o.I_ID)")
     List<Info> getListCardsForActiveUser();
 
     @Query("SELECT I_ID from Info where title = :title")

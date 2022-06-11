@@ -79,7 +79,6 @@ public class CalendarFragment extends Fragment {
 
         com.applandeo.materialcalendarview.CalendarView calendar = (com.applandeo.materialcalendarview.CalendarView) view.findViewById(R.id.calendarView2);
         System.out.println("calendar = " + calendar);
-
         List<EventDay> events = new ArrayList<>();
 
         Calendar calendar1 = Calendar.getInstance();

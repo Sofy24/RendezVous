@@ -182,6 +182,7 @@ public class CardListActivity extends AppCompatActivity implements LocationListe
                                             openEditTakeOut.putExtra("R_title", rendezVousCards.get(position).getTitle());
                                             openEditTakeOut.putExtra("I_ID", rendezVousCards.get(position).getI_ID());
                                             startActivity(openEditTakeOut);
+                                            CardListActivity.this.finish();
                                         }else if(state.equals("partecipa")){
                                             Toast.makeText(getApplicationContext(),"Wait the others members!",Toast.LENGTH_SHORT).show();
                                         }

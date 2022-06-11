@@ -296,6 +296,7 @@ public class CalendarFragment extends Fragment {
                      */
 //                    frag = new CalendarFragment();
                     startActivity(new Intent(activity, HomeActivity.class));
+                    getActivity().finish();
                 }
                 else if (itemId == R.id.third) {
                     startActivity(new Intent(activity, UserPage.class));
@@ -305,10 +306,11 @@ public class CalendarFragment extends Fragment {
                         @Override
                         public void run() {
                             db.databaseDAO().setUserLoggedOut();
+                            System.exit(0);
                         }
                     });
-                    System.exit(0);
                 }
+
 // display a toast message with menu item's title
                 Toast.makeText(activity.getApplicationContext(), menuItem.getTitle(), Toast.LENGTH_SHORT).show();
 

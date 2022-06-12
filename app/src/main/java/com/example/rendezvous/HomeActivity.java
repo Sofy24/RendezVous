@@ -82,7 +82,7 @@ public class HomeActivity extends AppCompatActivity {
 
         NotificationCompat.Builder builder = new NotificationCompat.Builder(this, CHANNEL_ID)
                 .setSmallIcon(R.drawable.logo_alpha)
-                .setColor(ContextCompat.getColor(HomeActivity.this, colorPrimary))
+                .setColor(ContextCompat.getColor(HomeActivity.this, R.color.colorPrimary))
                 .setLargeIcon(largeIcon)
                 .setContentTitle("Welcome")
                 .setContentText("Your login has been successful")

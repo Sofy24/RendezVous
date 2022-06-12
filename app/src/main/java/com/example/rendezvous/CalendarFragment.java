@@ -118,14 +118,6 @@ public class CalendarFragment extends Fragment {
     }
 
 
-    /*@Override
-    public void onAttach(Context context) {
-        super.onAttach(context);
-
-        if (context instanceof Activity){
-            activity = (FragmentActivity) context;
-        }
-    }*/
 
     /**
      * Called to have the fragment instantiate its user interface view.

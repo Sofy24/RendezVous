@@ -225,7 +225,7 @@
 
     <LinearLayout
         android:id="@+id/rowBG"
-        android:layout_width="149dp"
+        android:layout_width="100dp"
         android:layout_height="149dp"
         android:layout_alignTop="@id/base_cardview"
         android:layout_alignEnd="@+id/base_cardview"
@@ -240,10 +240,10 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="@id/base_cardview"
         tools:ignore="NotSibling">
-
+<!--android:layout_width="48dp" relative, match parent linear-->
         <RelativeLayout
             android:id="@+id/edit_task"
-            android:layout_width="48dp"
+            android:layout_width="50dp"
             android:layout_height="match_parent"
             android:clickable="true"
             android:focusable="true"
@@ -268,7 +268,7 @@
 
         <RelativeLayout
             android:id="@+id/delete_task"
-            android:layout_width="48dp"
+            android:layout_width="50dp"
             android:layout_height="match_parent"
             android:clickable="true"
             android:focusable="true"
@@ -293,7 +293,5 @@
 
     </LinearLayout>
 
-        <!--Base CardView-->
 
-    <!--</androidx.constraintlayout.widget.ConstraintLayout>-->
 </RelativeLayout>

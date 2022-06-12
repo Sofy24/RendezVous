@@ -1,31 +1,25 @@
 package com.example.rendezvous;
 
 import android.app.Activity;
-import android.app.AsyncNotedAppOp;
 import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.net.Uri;
 import android.os.AsyncTask;
-import android.os.Build;
 import android.os.Bundle;
-import android.os.Looper;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.CalendarView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
@@ -41,10 +35,8 @@ import com.example.rendezvous.DB.RendezVousDB;
 import com.google.android.material.appbar.MaterialToolbar;
 import com.google.android.material.navigation.NavigationView;
 
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Objects;
@@ -66,7 +58,7 @@ public class CalendarFragment extends Fragment {
         com.applandeo.materialcalendarview.CalendarView calendar = (com.applandeo.materialcalendarview.CalendarView) root.findViewById(R.id.calendarView2);
         System.out.println("calendar resume = " + calendar);
 
-        TextView txt = root.findViewById(R.id.textView3);
+        TextView txt = root.findViewById(R.id.event_text);
         calendar.setOnDayClickListener(new OnDayClickListener() {
             @Override
             public void onDayClick(EventDay eventDay) {
@@ -76,7 +68,15 @@ public class CalendarFragment extends Fragment {
                         public void run() {
                             Info i = db.databaseDAO().getConfirmedInfo(Converters.dateToTimestamp(eventDay.getCalendar().getTime()));
                             System.out.println("i = " + i.toString());
-                            txt.setText(i.getTitle());
+                            getActivity().runOnUiThread(new Runnable() {
+
+                                @Override
+                                public void run() {
+                                    txt.setText(i.getTitle());
+
+                                }
+                            });
+
                         }
                     });
 

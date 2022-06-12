@@ -26,10 +26,12 @@
         app:selectionColor="@color/colorPrimaryVariant" />
 
     <TextView
-        android:id="@+id/textView3"
-        android:layout_width="107dp"
-        android:layout_height="41dp"
-        android:text="TextView"
+        android:id="@+id/event_text"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text=""
+        android:padding="1dp"
+        android:textAlignment="center"
         android:textColor="@color/white" />
 
 

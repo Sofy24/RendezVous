@@ -16,7 +16,7 @@
             android:title="@string/calendar_take_out" />
         <item
             android:id="@+id/third"
-            android:icon="@drawable/logo"
+            android:icon="@drawable/ic_baseline_account_circle_24"
             android:title="@string/personal_account" />
         <item
             android:id="@+id/fourth"

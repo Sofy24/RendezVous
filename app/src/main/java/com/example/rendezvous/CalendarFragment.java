@@ -1,6 +1,7 @@
 package com.example.rendezvous;
 
 import android.app.Activity;
+import android.app.AsyncNotedAppOp;
 import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
@@ -9,6 +10,7 @@ import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Looper;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -16,6 +18,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CalendarView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -29,6 +32,11 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
 import com.applandeo.materialcalendarview.EventDay;
+import com.applandeo.materialcalendarview.exceptions.OutOfDateRangeException;
+import com.applandeo.materialcalendarview.listeners.OnDayClickListener;
+import com.example.rendezvous.DB.ConfirmedRendezvous;
+import com.example.rendezvous.DB.Converters;
+import com.example.rendezvous.DB.Info;
 import com.example.rendezvous.DB.RendezVousDB;
 import com.google.android.material.appbar.MaterialToolbar;
 import com.google.android.material.navigation.NavigationView;
@@ -37,6 +45,7 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Objects;
 
@@ -45,7 +54,64 @@ public class CalendarFragment extends Fragment {
     private Activity activity;
     private DrawerLayout dLayout;
     Fragment fragment = this;
+    View root;
     Long date;
+    HashSet<EventDay> takeOuts = new HashSet<>();
+
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        RendezVousDB db = RendezVousDB.getInstance(getActivity().getBaseContext());
+        com.applandeo.materialcalendarview.CalendarView calendar = (com.applandeo.materialcalendarview.CalendarView) root.findViewById(R.id.calendarView2);
+        System.out.println("calendar resume = " + calendar);
+
+        TextView txt = root.findViewById(R.id.textView3);
+        calendar.setOnDayClickListener(new OnDayClickListener() {
+            @Override
+            public void onDayClick(EventDay eventDay) {
+                if(takeOuts.contains(eventDay)){
+                    AsyncTask.execute(new Runnable() {
+                        @Override
+                        public void run() {
+                            Info i = db.databaseDAO().getConfirmedInfo(Converters.dateToTimestamp(eventDay.getCalendar().getTime()));
+                            System.out.println("i = " + i.toString());
+                            txt.setText(i.getTitle());
+                        }
+                    });
+
+                }
+            }
+        });
+
+
+        AsyncTask.execute(new Runnable() {
+            @Override
+            public void run() {
+                List<ConfirmedRendezvous> confirmedRendezvousList = db.databaseDAO().getConfirmedRendezVous();
+                for (ConfirmedRendezvous confirmedRendezvous :
+                confirmedRendezvousList) {
+                    System.out.println("confirmedRendezvous = " + confirmedRendezvous);
+                    try {
+                        calendar.setDate(Calendar.getInstance().getTime());
+                    } catch (OutOfDateRangeException e) {
+                        e.printStackTrace();
+                    }
+                    try {
+                        Calendar eventDay = Calendar.getInstance();
+                        eventDay.setTime(Converters.fromTimestamp(confirmedRendezvous.getC_date()));
+                        System.out.println("eventDay = " + eventDay.toString());
+                        takeOuts.add(new EventDay(eventDay ,R.drawable.brand));
+                        calendar.setEvents(new ArrayList<>(takeOuts));
+                    } catch (Exception e){
+                        e.printStackTrace();
+                    }
+                }
+            }
+        });
+
+    }
+
 
     /*@Override
     public void onAttach(Context context) {
@@ -68,23 +134,13 @@ public class CalendarFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 //        return inflater.inflate(R.layout.calendar_layout, container, false);
-        View view;
         try {
-            view = inflater.inflate(R.layout.calendar_layout, container, false);
+            root = inflater.inflate(R.layout.calendar_layout, container, false);
             // ... rest of body of onCreateView() ...
         } catch (Exception e) {
             Log.e("calendarFrag", "onCreateView", e);
             throw e;
         }
-
-        com.applandeo.materialcalendarview.CalendarView calendar = (com.applandeo.materialcalendarview.CalendarView) view.findViewById(R.id.calendarView2);
-        System.out.println("calendar = " + calendar);
-        List<EventDay> events = new ArrayList<>();
-
-        Calendar calendar1 = Calendar.getInstance();
-        events.add(new EventDay(calendar1, R.drawable.brand));
-        calendar.setEvents(events);
-
 
 //        calendar.setOnDateChangeListener(new CalendarView.OnDateChangeListener() {
 //            @RequiresApi(api = Build.VERSION_CODES.O)
@@ -99,7 +155,7 @@ public class CalendarFragment extends Fragment {
 
 //    calendar.adddecorator
 
-        return view;
+        return root;
     }
 
     @Override

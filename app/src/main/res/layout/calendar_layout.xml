@@ -11,21 +11,26 @@
     android:layout_marginEnd="20dp"
     >
 
+<!--    app:datePicker="true"-->
 
     <com.applandeo.materialcalendarview.CalendarView
         android:id="@+id/calendarView2"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        app:headerColor="@color/colorPrimaryVariant"
+        android:layout_height="wrap_content"
         app:abbreviationsBarColor="@color/brillantBlue"
-        app:pagesColor="@color/pastelLightBlue"
-        app:datePicker="true"
-        app:anotherMonthsDaysLabelsColor="#645E5E"
         app:abbreviationsLabelsColor="@color/white"
+        app:anotherMonthsDaysLabelsColor="#645E5E"
         app:daysLabelsColor="@color/black"
-        app:selectionColor="@color/colorPrimaryVariant"
-        />
+        app:headerColor="@color/colorPrimaryVariant"
+        app:pagesColor="@color/pastelLightBlue"
+        app:selectionColor="@color/colorPrimaryVariant" />
 
+    <TextView
+        android:id="@+id/textView3"
+        android:layout_width="107dp"
+        android:layout_height="41dp"
+        android:text="TextView"
+        android:textColor="@color/white" />
 
 
 </FrameLayout>

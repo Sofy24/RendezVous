@@ -71,4 +71,16 @@ public class Info {
     public void setI_ID(@NonNull Integer i_ID) {
         I_ID = i_ID;
     }
+
+    @Override
+    public String toString() {
+        return "Info{" +
+                "I_ID=" + I_ID +
+                ", title='" + title + '\'' +
+                ", description='" + description + '\'' +
+                ", imageURL='" + imageURL + '\'' +
+                ", latitude=" + latitude +
+                ", longitude=" + longitude +
+                '}';
+    }
 }

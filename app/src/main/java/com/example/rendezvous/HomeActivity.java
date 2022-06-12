@@ -1,9 +1,12 @@
 package com.example.rendezvous;
 
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.AsyncTask;
+import android.os.Build;
 import android.os.Bundle;
 import android.util.AttributeSet;
 import android.view.Menu;
@@ -14,8 +17,11 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.NotificationCompat;
+import androidx.core.app.NotificationManagerCompat;
 
 import com.example.rendezvous.DB.Circle;
+import com.example.rendezvous.DB.ConfirmedRendezvous;
 import com.example.rendezvous.DB.Converters;
 import com.example.rendezvous.DB.RendezVous;
 import com.example.rendezvous.DB.RendezVousDB;
@@ -23,8 +29,16 @@ import com.example.rendezvous.DB.User;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.Date;
+import java.util.List;
 
 public class HomeActivity extends AppCompatActivity {
+    final static String CHANNEL_ID = "1";
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,10 +60,41 @@ public class HomeActivity extends AppCompatActivity {
             startActivity(openNewTakeOut);
         });
 
+        createNotificationChannel();
+
+        NotificationCompat.Builder builder = new NotificationCompat.Builder(this, CHANNEL_ID)
+                .setSmallIcon(R.drawable.brand)
+                .setContentTitle("My notification")
+                .setContentText("Much longer text that cannot fit one line...")
+                .setStyle(new NotificationCompat.BigTextStyle()
+                        .bigText("Much longer text that cannot fit one line..."))
+                .setPriority(NotificationCompat.PRIORITY_DEFAULT);
+
+        NotificationManagerCompat notificationManager = NotificationManagerCompat.from(this);
+
+// notificationId is a unique int for each notification that you must define
+        notificationManager.notify(69, builder.build());
 
 
-        CalendarView calendar = (CalendarView) findViewById(R.id.calendarView2);
-        System.out.println("calendar = " + calendar);
+    }
+
+
+    private void createNotificationChannel() {
+        // Create the NotificationChannel, but only on API 26+ because
+        // the NotificationChannel class is new and not in the support library
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+//            CharSequence name = getString(R.string.channel_name);
+            CharSequence name = "nome canale";
+            String description = "descrizione canale";
+//            String description = getString(R.string.channel_description);
+            int importance = NotificationManager.IMPORTANCE_DEFAULT;
+            NotificationChannel channel = new NotificationChannel(CHANNEL_ID, name, importance);
+            channel.setDescription(description);
+            // Register the channel with the system; you can't change the importance
+            // or other notification behaviors after this
+            NotificationManager notificationManager = getSystemService(NotificationManager.class);
+            notificationManager.createNotificationChannel(channel);
+        }
     }
 
     /**

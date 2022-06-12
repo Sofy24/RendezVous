@@ -145,6 +145,12 @@ public interface DatabaseDAO {
 
     @Query("SELECT * from RendezVous where R_infoID = :i_id;")
     RendezVous getSingleRendezVousFromInfo(Integer i_id);
+
+    @Query("SELECT * FROM ConfirmedRendezvous where C_attendant = (SELECT UID FROM User where isActive = 1)")
+    List<ConfirmedRendezvous> getConfirmedRendezVous();
+
+    @Query("SELECT i.* FROM confirmedrendezvous join Info i on (C_infoID = I_ID) where C_date = :dateToTimestamp")
+    Info getConfirmedInfo(Long dateToTimestamp);
 // Drop database
 //    @Query("DELETE TABLE User")
 //    public void nukeTables();

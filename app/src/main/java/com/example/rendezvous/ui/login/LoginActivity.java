@@ -156,7 +156,6 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     private void updateUiWithUser(LoggedInUserView model) {
-//        String welcome = getString(R.string.welcome) + model.getDisplayName();
         String welcome = getString(R.string.welcome) + binding.username.getText().toString();
 
 
@@ -195,13 +194,6 @@ public class LoginActivity extends AppCompatActivity {
                     db.databaseDAO().insertCircleOfFriends(gym.getC_name(), db.databaseDAO().getUID(fede.getUserName()));
                     db.databaseDAO().insertCircleOfFriends(gym.getC_name(), db.databaseDAO().getUID(joe.getUserName()));
 
-//                    RendezVous rendezVous = new RendezVous(coraggiosi.getC_name(), Converters.dateToTimestamp(new Date()), Converters.dateToTimestamp(new Date()), 2);
-//                    db.databaseDAO().insertRendezvous(rendezVous);
-//                    RendezVous rendezVous2 = new RendezVous(coraggiosi.getC_name(), Converters.dateToTimestamp(new Date()), Converters.dateToTimestamp(new Date()), 24);
-//                    db.databaseDAO().insertRendezvous(rendezVous2);
-//                    Circle cc = new Circle("cc", "Pink");
-//                    db.databaseDAO().insertCircle(cc);
-//                    db.databaseDAO().insertRendezvous(new RendezVous("cc", 1000,1000, 45));
 
                 }
             });

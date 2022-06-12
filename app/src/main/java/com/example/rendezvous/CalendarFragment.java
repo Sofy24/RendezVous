@@ -91,11 +91,17 @@ public class CalendarFragment extends Fragment {
                 for (ConfirmedRendezvous confirmedRendezvous :
                 confirmedRendezvousList) {
                     System.out.println("confirmedRendezvous = " + confirmedRendezvous);
-                    try {
-                        calendar.setDate(Calendar.getInstance().getTime());
-                    } catch (OutOfDateRangeException e) {
-                        e.printStackTrace();
-                    }
+                    getActivity().runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            try {
+                                calendar.setDate(Calendar.getInstance().getTime());
+                            } catch (OutOfDateRangeException e) {
+                                e.printStackTrace();
+                            }
+
+                        }
+                    });
                     try {
                         Calendar eventDay = Calendar.getInstance();
                         eventDay.setTime(Converters.fromTimestamp(confirmedRendezvous.getC_date()));

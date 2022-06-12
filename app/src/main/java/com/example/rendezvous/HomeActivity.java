@@ -19,6 +19,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.NotificationCompat;
 import androidx.core.app.NotificationManagerCompat;
+import androidx.fragment.app.Fragment;
 
 import com.example.rendezvous.DB.Circle;
 import com.example.rendezvous.DB.ConfirmedRendezvous;
@@ -38,6 +39,15 @@ public class HomeActivity extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
 
+    }
+
+    @Override
+    public void onBackPressed() {
+//        super.onBackPressed();
+        Fragment cal =getSupportFragmentManager().findFragmentById(R.id.calendar_frame_layout);
+        if(cal != null && cal.isVisible()){
+            System.exit(0);
+        }
     }
 
     @Override

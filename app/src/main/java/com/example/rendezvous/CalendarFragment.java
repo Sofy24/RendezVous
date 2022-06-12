@@ -50,7 +50,6 @@ public class CalendarFragment extends Fragment {
     Long date;
     HashSet<EventDay> takeOuts = new HashSet<>();
 
-
     @Override
     public void onResume() {
         super.onResume();

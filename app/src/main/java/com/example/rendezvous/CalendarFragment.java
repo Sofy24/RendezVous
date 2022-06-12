@@ -106,7 +106,7 @@ public class CalendarFragment extends Fragment {
                         Calendar eventDay = Calendar.getInstance();
                         eventDay.setTime(Converters.fromTimestamp(confirmedRendezvous.getC_date()));
                         System.out.println("eventDay = " + eventDay.toString());
-                        takeOuts.add(new EventDay(eventDay ,R.drawable.take_out_icon));
+                        takeOuts.add(new EventDay(eventDay ,R.drawable.take_out_event));
                         calendar.setEvents(new ArrayList<>(takeOuts));
                     } catch (Exception e){
                         e.printStackTrace();

@@ -90,10 +90,9 @@ public class EditTakeOut extends AppCompatActivity {
 //                System.out.println(" fisrtDate = " + Converters.fromTimestamp(rendezVous.getR_DataI()));
 //                System.out.println("endDate = " + endDate);
                 while(!cal.getTime().equals(endDate)){
-                    cal.add(Calendar.DATE, 1);
 
                     CheckBox box = new CheckBox(EditTakeOut.this.getBaseContext());
-                    box.setText(cal.get(Calendar.YEAR) + "-" + cal.get(Calendar.MONTH) + "-" + cal.get(Calendar.DAY_OF_MONTH));
+                    box.setText(cal.get(Calendar.YEAR) + "-" + (cal.get(Calendar.MONTH) + 1) + "-" + cal.get(Calendar.DAY_OF_MONTH));
                     box.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT));
                     box.setPadding(20, 20, 20, 20);
                     box.setButtonDrawable(R.drawable.checkbox_design_user_page);
@@ -124,7 +123,7 @@ public class EditTakeOut extends AppCompatActivity {
                             scrollView.addView(box);
                         }
                     });
-
+                    cal.add(Calendar.DATE, 1);
                     cal.setTime(cal.getTime());
                 }
                 CheckBox box = new CheckBox(EditTakeOut.this.getBaseContext());
@@ -240,8 +239,8 @@ public class EditTakeOut extends AppCompatActivity {
                 Calendar cal2 = Calendar.getInstance();
                 cal2.setTime(Converters.fromTimestamp(rendezVous.getR_DataI()));
                 String pricelessDescription =  "You have been invited to partecipate to " + takeOutInfo.getTitle() + "." +
-                            "\nWe'll meet in a day beetween " + cal1.get(Calendar.YEAR) + "-" + cal1.get(Calendar.MONTH) + "-" + cal1.get(Calendar.DAY_OF_MONTH) +
-                            " and " + cal2.get(Calendar.YEAR) + "-" + cal2.get(Calendar.MONTH) + "-" + cal2.get(Calendar.DAY_OF_MONTH) +
+                            "\nWe'll meet in a day beetween " + cal1.get(Calendar.YEAR) + "-" + (cal1.get(Calendar.MONTH) + 1) + "-" + cal1.get(Calendar.DAY_OF_MONTH) +
+                            " and " + cal2.get(Calendar.YEAR) + "-" + (cal2.get(Calendar.MONTH) + 1 ) + "-" + cal2.get(Calendar.DAY_OF_MONTH) +
                             "\nLet me know when you are available!";
                 descr.setText(takeOutInfo.getDescription().isEmpty() ? pricelessDescription : pricelessDescription + "\n" + takeOutInfo.getDescription());
 

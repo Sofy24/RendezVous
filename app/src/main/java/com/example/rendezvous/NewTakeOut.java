@@ -327,69 +327,72 @@ public class NewTakeOut extends AppCompatActivity implements LocationListener {
                 //String[] days = String.valueOf(dateRangeText.getText()).split("- ");
                 Pair<Long, Long> days = materialDatePicker.getSelection();
                 final List<String> circleOfFriendsSelected = new ArrayList<>();
-
-                if (nameTakeOut.length() > 0 ){
-                    if (!selectedCircles.isEmpty()){
-                        // title is ok
-                        // groups are selected so i add data
-                        AsyncTask.execute(new Runnable() {
-                            @RequiresApi(api = Build.VERSION_CODES.N)
-                            @Override
-                            public void run() {
-                                //insert Info and relative RendezVous
-                                db.databaseDAO().insertInfo(new Info(nameTakeOut, descriptionTakeOut,
-                                        imageUri == null ? null : imageUri.toString(),
-                                        latLng == null ? 0.0 : latLng.getLatitude(),
-                                        latLng == null ? 0.0 : latLng.getLongitude()
-                                        ));
-                                Integer info_id = db.databaseDAO().getInfoID(nameTakeOut);
-                               for (Circle circle:
-                                        selectedCircles) {
-                                 db.databaseDAO().insertRendezvous(new RendezVous(circle.getC_name(), firstDay, endDay, info_id, activeUser.getUID()));
-                                    invitedUsers.addAll(db.databaseDAO().getUsersInCircle(circle.getC_name()));
-                               }
-                                // Populate invited table
-
-                                List<RendezVous> redezVousIDs = db.databaseDAO().getRendezVous(firstDay, endDay, info_id);
-                                for (RendezVous rendezVous:
-                                     redezVousIDs) {
-                                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-                                        invitedUsers.stream().distinct().forEach(user -> { //TODO non va il distinct maledetti stream.....
-                                                db.databaseDAO().insertInvited(new Invited(rendezVous.getR_ID(), user.getUID(), "Received"));
-                                        });
+                    if (nameTakeOut.length() > 0) {
+                        if(endDay != 0 || firstDay != 0) {
+                        if (!selectedCircles.isEmpty()) {
+                            // title is ok
+                            // groups are selected so i add data
+                            AsyncTask.execute(new Runnable() {
+                                @RequiresApi(api = Build.VERSION_CODES.N)
+                                @Override
+                                public void run() {
+                                    //insert Info and relative RendezVous
+                                    db.databaseDAO().insertInfo(new Info(nameTakeOut, descriptionTakeOut,
+                                            imageUri == null ? null : imageUri.toString(),
+                                            latLng == null ? 0.0 : latLng.getLatitude(),
+                                            latLng == null ? 0.0 : latLng.getLongitude()
+                                    ));
+                                    Integer info_id = db.databaseDAO().getInfoID(nameTakeOut);
+                                    for (Circle circle :
+                                            selectedCircles) {
+                                        db.databaseDAO().insertRendezvous(new RendezVous(circle.getC_name(), firstDay, endDay, info_id, activeUser.getUID()));
+                                        invitedUsers.addAll(db.databaseDAO().getUsersInCircle(circle.getC_name()));
                                     }
-                                }
+                                    // Populate invited table
+
+                                    List<RendezVous> redezVousIDs = db.databaseDAO().getRendezVous(firstDay, endDay, info_id);
+                                    for (RendezVous rendezVous :
+                                            redezVousIDs) {
+                                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+                                            invitedUsers.stream().distinct().forEach(user -> { //TODO non va il distinct maledetti stream.....
+                                                db.databaseDAO().insertInvited(new Invited(rendezVous.getR_ID(), user.getUID(), "Received"));
+                                            });
+                                        }
+                                    }
 //                                for (Pair<String, Integer> pair:
 //                                     rendezVousIDs) {
 //                                    System.out.println("pair = " + pair);
 //                                }
 
-                            }
-                        });
+                                }
+                            });
 
 //                        Intent backHome = new Intent(NewTakeOut.this, HomeActivity.class);
 //                        startActivity(backHome);
 
-                        LottieDialog dialog = new LottieDialog(NewTakeOut.this)
-                                .setAnimation(R.raw.message_sent_successfully_plane_blue)
-                                .setAnimationRepeatCount(1)
-                                .setAutoPlayAnimation(true)
-                                .setMessage("The invite to your friends has been sent")
-                                .setOnDismissListener(x -> {
-                                    NewTakeOut.this.finish();
-                                });
+                            LottieDialog dialog = new LottieDialog(NewTakeOut.this)
+                                    .setAnimation(R.raw.message_sent_successfully_plane_blue)
+                                    .setAnimationRepeatCount(1)
+                                    .setAutoPlayAnimation(true)
+                                    .setMessage("The invite to your friends has been sent")
+                                    .setOnDismissListener(x -> {
+                                        NewTakeOut.this.finish();
+                                    });
 
-                        dialog.show();
+                            dialog.show();
 
-                    } else{ //nome vuoto
-                        System.out.println("circleOfFriendsSelected = " + circleOfFriendsSelected);
-                        Toast.makeText(NewTakeOut.this, "Inserisci almeno un gruppo !", Toast.LENGTH_SHORT).show();
-                    }
-                } else{ //nome vuoto
-                    Toast.makeText(NewTakeOut.this, "Inserisci il nome dell'uscita", Toast.LENGTH_SHORT).show();
+                        } else { //nome vuoto
+                            System.out.println("circleOfFriendsSelected = " + circleOfFriendsSelected);
+                            Toast.makeText(NewTakeOut.this, "Inserisci almeno un gruppo !", Toast.LENGTH_SHORT).show();
+                        }
+
+                } else {
+                    Toast.makeText(NewTakeOut.this, "Non mi sembra che tu abbia selezionato le date", Toast.LENGTH_SHORT).show();
                 }
-
-                //Animations
+                    } else { //nome vuoto
+                        Toast.makeText(NewTakeOut.this, "Inserisci il nome dell'uscita", Toast.LENGTH_SHORT).show();
+                    }
+                    //Animations
 
             }
         });

@@ -14,7 +14,7 @@
         android:layout_height="67dp"
         android:layout_marginStart="72dp"
         android:layout_marginTop="180dp"
-        android:text="Such an empty.... \nWinners always make the first move!"
+        android:text="@string/such_an_empty_nwinners_always_make_the_first_move"
         android:textAlignment="center"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/empty_animation" />
@@ -27,7 +27,7 @@
         app:layout_constraintTop_toTopOf="parent"
         app:lottie_autoPlay="true"
         app:lottie_loop="true"
-        app:lottie_rawRes="@raw/empty" />
+        app:lottie_rawRes="@raw/empty_blue" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerView"

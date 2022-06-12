@@ -59,7 +59,5 @@
                 <action android:name="android.intent.action.OPEN_DOCUMENT" />
             </intent-filter>
        </activity>
-
 </application>
-
 </manifest>

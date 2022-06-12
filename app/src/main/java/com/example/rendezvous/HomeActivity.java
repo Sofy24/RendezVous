@@ -4,7 +4,10 @@ import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Color;
+import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
@@ -20,6 +23,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.NotificationCompat;
 import androidx.core.app.NotificationManagerCompat;
 import androidx.fragment.app.Fragment;
+import androidx.core.content.ContextCompat;
 
 import com.example.rendezvous.DB.Circle;
 import com.example.rendezvous.DB.ConfirmedRendezvous;
@@ -29,6 +33,7 @@ import com.example.rendezvous.DB.RendezVousDB;
 import com.example.rendezvous.DB.User;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
+import java.io.InputStream;
 import java.util.Date;
 import java.util.List;
 
@@ -70,14 +75,19 @@ public class HomeActivity extends AppCompatActivity {
             startActivity(openNewTakeOut);
         });
 
+        Bitmap largeIcon = BitmapFactory.decodeResource(getResources(), R.drawable.logo_rv);
+
+
         createNotificationChannel();
 
         NotificationCompat.Builder builder = new NotificationCompat.Builder(this, CHANNEL_ID)
-                .setSmallIcon(R.drawable.brand)
-                .setContentTitle("My notification")
-                .setContentText("Much longer text that cannot fit one line...")
+                .setSmallIcon(R.drawable.logo_alpha)
+                .setColor(ContextCompat.getColor(HomeActivity.this, colorPrimary))
+                .setLargeIcon(largeIcon)
+                .setContentTitle("Welcome")
+                .setContentText("Your login has been successful")
                 .setStyle(new NotificationCompat.BigTextStyle()
-                        .bigText("Much longer text that cannot fit one line..."))
+                        .bigText("Your login has been successful"))
                 .setPriority(NotificationCompat.PRIORITY_DEFAULT);
 
         NotificationManagerCompat notificationManager = NotificationManagerCompat.from(this);

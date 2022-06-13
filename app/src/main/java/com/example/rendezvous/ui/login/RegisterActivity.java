@@ -24,14 +24,9 @@ public class RegisterActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_login);
-       /*TODO se nella registrazione bisogna inserire il gruppo di amici o altro il layout va rifatto. In caso tell me it*/
-        TextView registerLabel = findViewById(R.id.login_register);
-        registerLabel.setText(R.string.register);
-        Button loginButton = findViewById(R.id.login__register);
-        loginButton.setText(R.string.sign_in);
+        setContentView(R.layout.activity_register);
 
-        ImageButton confirmedButton = findViewById(R.id.login);
+        ImageButton confirmedButton = findViewById(R.id.confirmed);
         AppCompatActivity activity = this;
 
         confirmedButton.setOnClickListener(view -> {

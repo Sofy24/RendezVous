@@ -53,20 +53,6 @@ public class LoginActivity extends AppCompatActivity {
         loginViewModel = new ViewModelProvider(this, new LoginViewModelFactory())
                 .get(LoginViewModel.class);
 
-//
-//        MaterialToolbar materialToolbar = (MaterialToolbar) findViewById(R.id.toolbar);
-//        setSupportActionBar(materialToolbar);
-//
-//        materialToolbar.setNavigationOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                dLayout.openDrawer(Gravity.LEFT);
-//            }
-//        });
-//
-//        setNavigationDrawer();
-        /*RendezVousDB db = RendezVousDB.getInstance(this);
-        db.databaseDAO().insertUser(123123, "cacca", "popo");*/
 
         final EditText usernameEditText = binding.username;
         final EditText passwordEditText = binding.password;

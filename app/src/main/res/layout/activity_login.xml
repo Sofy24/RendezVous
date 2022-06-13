@@ -8,7 +8,7 @@
     android:orientation="vertical"
     android:background="@drawable/login_background"
     android:paddingTop="@dimen/activity_vertical_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingEnd="@dimen/activity_horizontal_margin"
     android:paddingBottom="@dimen/activity_vertical_margin"
     tools:context=".ui.login.LoginActivity">
 
@@ -18,6 +18,13 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         app:layout_constraintGuide_percent="0.5" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline_80o"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.8" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline_60o"
@@ -53,7 +60,7 @@
         android:layout_height="wrap_content"
         android:descendantFocusability="blocksDescendants"
         android:focusableInTouchMode="false"
-        android:text="@string/action_sign_in"
+        android:text="@string/sign_in"
         android:textSize="30sp"
         android:textStyle="bold"
         android:textColor="@color/black"
@@ -62,7 +69,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/guideline_37o"/>
 
-    <!--android:background="@drawable/border_radius_shifter"-->
 
 
     <EditText
@@ -115,6 +121,19 @@
         app:layout_constraintEnd_toStartOf="@id/guideline_80v"
         app:layout_constraintBottom_toTopOf="@+id/guideline_60o"
         app:layout_constraintVertical_bias="0.2" /> <!-- android:enabled="false"-->
+
+    <Button
+        android:id="@+id/login__register"
+        android:layout_width="wrap_content"
+        android:layout_height="60dp"
+        android:layout_margin="8dp"
+        app:elevation="55dp"
+        android:text="@string/register"
+        android:textColor="@color/colorSecondaryVariant"
+        app:backgroundTint="@null"
+        android:background="@drawable/corner_radius"
+        app:layout_constraintBottom_toBottomOf="@id/guideline_80o"
+        app:layout_constraintEnd_toEndOf="parent" />
 
     <ProgressBar
         android:id="@+id/loading"

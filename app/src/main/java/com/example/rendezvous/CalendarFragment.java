@@ -79,6 +79,8 @@ public class CalendarFragment extends Fragment {
                         }
                     });
 
+                } else{
+                    txt.setText("");
                 }
             }
         });
@@ -107,7 +109,14 @@ public class CalendarFragment extends Fragment {
                         eventDay.setTime(Converters.fromTimestamp(confirmedRendezvous.getC_date()));
                         System.out.println("eventDay = " + eventDay.toString());
                         takeOuts.add(new EventDay(eventDay ,R.drawable.take_out_event));
-                        calendar.setEvents(new ArrayList<>(takeOuts));
+                        getActivity().runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+
+                                calendar.setEvents(new ArrayList<>(takeOuts));
+
+                            }
+                        });
                     } catch (Exception e){
                         e.printStackTrace();
                     }

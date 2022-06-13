@@ -60,4 +60,6 @@
     <string name="logo">logo</string>
     <string name="address_not_correct">The address is not correct</string>
     <string name="such_an_empty_nwinners_always_make_the_first_move">Such an empty.... \nWinners always make the first move!</string>
+    <string name="register">Register</string>
+    <string name="sign_in">Sign in</string>
 </resources>

@@ -20,6 +20,13 @@
         android:orientation="horizontal"
         app:layout_constraintGuide_percent="0.4" />
 
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline_80v"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.8" />
+
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline_32o"
@@ -27,6 +34,13 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         app:layout_constraintGuide_percent="0.32" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline_56o"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.6" />
 
 
     <TextView
@@ -51,7 +65,6 @@
             android:layout_height="48dp"
             android:layout_marginStart="15dp"
             android:layout_marginTop="8dp"
-            android:layout_marginEnd="10dp"
             android:autofillHints=""
             android:background="@drawable/corner_radius"
             android:hint="@string/prompt_email"
@@ -62,7 +75,7 @@
             android:textColor="@color/black"
             android:elevation="5dp"
             android:textColorHint="#757575"
-            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintEnd_toEndOf="@id/guideline_80v"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="@+id/guideline_40o" />
@@ -73,7 +86,6 @@
         android:layout_height="48dp"
         android:layout_marginStart="15dp"
         android:layout_marginTop="8dp"
-        android:layout_marginEnd="10dp"
         android:autofillHints=""
         android:background="@drawable/corner_radius"
         android:hint="@string/prompt_password"
@@ -87,7 +99,7 @@
         android:imeOptions="actionDone"
         android:elevation="5dp"
         app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintEnd_toEndOf="@id/guideline_80v"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/username_r" />
 
@@ -97,7 +109,6 @@
         android:layout_height="48dp"
         android:layout_marginStart="15dp"
         android:layout_marginTop="8dp"
-        android:layout_marginEnd="10dp"
         android:autofillHints=""
         android:background="@drawable/corner_radius"
         android:hint="@string/name"
@@ -107,7 +118,7 @@
         android:textAlignment="center"
         android:textColor="@color/black"
         android:textColorHint="#757575"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintEnd_toEndOf="@id/guideline_80v"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/password_r" />
@@ -118,7 +129,6 @@
         android:layout_height="48dp"
         android:layout_marginStart="15dp"
         android:layout_marginTop="8dp"
-        android:layout_marginEnd="10dp"
         android:autofillHints=""
         android:elevation="5dp"
         android:background="@drawable/corner_radius"
@@ -128,32 +138,11 @@
         android:textAlignment="center"
         android:textColor="@color/black"
         android:textColorHint="#757575"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintEnd_toEndOf="@id/guideline_80v"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/name_r" />
 
-    <ScrollView
-        android:id="@+id/circle_checkbox_r"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="15dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="10dp"
-        android:padding="10dp"
-        android:elevation="5dp"
-        android:background="@drawable/corner_radius"
-        android:contentDescription="@string/container_for_group_circles"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.806"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/surname_r">
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical" />
-    </ScrollView>
 
     <ImageButton
         android:id="@+id/confirmed"
@@ -166,21 +155,20 @@
         android:elevation="20dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/circle_checkbox_r"
+        app:layout_constraintBottom_toBottomOf="@+id/guideline_56o"
         app:srcCompat="@drawable/ic_baseline_arrow_forward_24" />
 
     <Button
         android:id="@+id/login__register"
         android:layout_width="wrap_content"
         android:layout_height="60dp"
-
-        android:layout_marginBottom="20dp"
+        android:layout_marginTop="20dp"
         android:background="@drawable/corner_radius"
         android:text="@string/sign_in"
         android:textColor="@color/colorSecondaryVariant"
         app:backgroundTint="@null"
         app:elevation="55dp"
-        app:layout_constraintBottom_toTopOf="@id/username_r"
+        app:layout_constraintTop_toBottomOf="@id/surname_r"
         app:layout_constraintEnd_toEndOf="parent" />
 
 

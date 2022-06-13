@@ -5,6 +5,8 @@ import static com.example.rendezvous.Utilities.REQUEST_IMAGE_CAPTURE;
 import android.Manifest;
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
 import android.content.ContentResolver;
 import android.content.ContentValues;
 import android.content.Context;
@@ -49,6 +51,9 @@ import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
+import androidx.core.app.NotificationCompat;
+import androidx.core.app.NotificationManagerCompat;
+import androidx.core.content.ContextCompat;
 import androidx.core.util.Pair;
 
 import com.airbnb.lottie.LottieDrawable;
@@ -119,6 +124,7 @@ public class NewTakeOut extends AppCompatActivity implements LocationListener {
     private Button closeBtn;
     private Button negativeBtn;
     private TextView dialogTextView;
+    final static String CHANNEL_ID = "2";
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -370,6 +376,27 @@ public class NewTakeOut extends AppCompatActivity implements LocationListener {
 //                        Intent backHome = new Intent(NewTakeOut.this, HomeActivity.class);
 //                        startActivity(backHome);
 
+                            Bitmap largeIcon = BitmapFactory.decodeResource(getResources(), R.drawable.logo_rv);
+
+
+                            createNotificationChannel();
+
+                            NotificationCompat.Builder builder = new NotificationCompat.Builder(NewTakeOut.this, CHANNEL_ID)
+                                    .setSmallIcon(R.drawable.logo_alpha)
+                                    .setColor(ContextCompat.getColor(NewTakeOut.this, R.color.colorPrimary))
+                                    .setLargeIcon(largeIcon)
+                                    .setContentTitle("New RendezVous")
+                                    .setContentText("Go check your CardList!")
+                                    .setStyle(new NotificationCompat.BigTextStyle()
+                                            .bigText("Go check your CardList!"))
+                                    .setPriority(NotificationCompat.PRIORITY_DEFAULT);
+
+                            NotificationManagerCompat notificationManager = NotificationManagerCompat.from(NewTakeOut.this);
+
+// notificationId is a unique int for each notification that you must define
+                            notificationManager.notify(69, builder.build());
+
+
                             LottieDialog dialog = new LottieDialog(NewTakeOut.this)
                                     .setAnimation(R.raw.message_sent_successfully_plane_blue)
                                     .setAnimationRepeatCount(1)
@@ -442,6 +469,24 @@ public class NewTakeOut extends AppCompatActivity implements LocationListener {
         });
 
 
+    }
+
+    private void createNotificationChannel() {
+        // Create the NotificationChannel, but only on API 26+ because
+        // the NotificationChannel class is new and not in the support library
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+//            CharSequence name = getString(R.string.channel_name);
+            CharSequence name = "nome canale";
+            String description = "descrizione canale";
+//            String description = getString(R.string.channel_description);
+            int importance = NotificationManager.IMPORTANCE_DEFAULT;
+            NotificationChannel channel = new NotificationChannel(CHANNEL_ID, name, importance);
+            channel.setDescription(description);
+            // Register the channel with the system; you can't change the importance
+            // or other notification behaviors after this
+            NotificationManager notificationManager = getSystemService(NotificationManager.class);
+            notificationManager.createNotificationChannel(channel);
+        }
     }
 
     private void initializeLocation(Activity activity) {

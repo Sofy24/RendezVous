@@ -159,7 +159,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginStart="20dp"
                         android:layout_marginTop="20dp"
-                        android:text="@string/distanza_tra_me_e_il_luogo_dell_incontro"
+                        android:text="@string/distance_between_me_and_the_place_of_the_take_out"
                         android:textColor="@color/colorPrimaryVariant"
                         android:textSize="20sp" />
 
@@ -170,15 +170,6 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:orientation="horizontal">
-
-                    <!--<ImageView
-                            android:layout_width="50dp"
-                            android:layout_height="50dp"
-                            android:layout_marginStart="20dp"
-                            android:layout_marginTop="10dp"
-                            android:layout_marginEnd="10dp"
-                            android:layout_marginBottom="10dp"
-                            android:src="@drawable/ic_baseline_edit_24" />-->
 
 
                     <TextView
@@ -214,7 +205,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginStart="20dp"
                         android:layout_marginTop="20dp"
-                        android:text="@string/apri_la_cartina"
+                        android:text="@string/open_the_map"
                         android:textColor="@color/colorPrimaryVariant"
                         android:textSize="20sp" />
                 </LinearLayout>

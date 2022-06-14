@@ -34,17 +34,14 @@
     <string name="compiled_user_page">Compiled User Page</string>
     <string name="container_for_group_circles">Container for group circles</string>
     <string name="click_to_change_avatar_image">Click to change avatar image</string>
-    <string name="selected_circle">Seleziona uno o più gruppi che sono coinvolti in questa uscita</string>
+    <string name="selected_circle">Select one or more circles of friends</string>
     <string name="confirm_the_address">confirm the address</string>
     <string name="swipe_to_select_a_day_or_delete">Swipe to select a day or delete</string>
     <string name="more_info">More info</string>
-    <string name="distanza_tra_me_e_il_luogo_dell_incontro">Distanza tra me e il luogo dell\'incontro</string>
     <string name="add_the_place_of_the_take_out">Add the place of the take out</string>
     <string name="check_the_distance">Check the distance</string>
     <string name="loading">loading... waiting</string>
-    <string name="apri_la_cartina">Apri la cartina</string>
     <string name="click_the_gps_button_to_get_your_location">Click the gps to get your location</string>
-    <string name="accedi_o_registrati">Accedi o Registrati</string>
     <string name="click_the_gps">Please, click the gps button</string>
     <string name="close">Close</string>
     <string name="permission_denied">Permission denied, but needed for gps functionality.</string>
@@ -60,4 +57,8 @@
     <string name="logo">logo</string>
     <string name="address_not_correct">The address is not correct</string>
     <string name="such_an_empty_nwinners_always_make_the_first_move">Such an empty.... \nWinners always make the first move!</string>
+    <string name="register">Register</string>
+    <string name="sign_in">Sign in</string>
+    <string name="distance_between_me_and_the_place_of_the_take_out">Distance between me and the place of the Take Out</string>
+    <string name="open_the_map">Open the map</string>
 </resources>

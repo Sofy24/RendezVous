@@ -41,12 +41,14 @@ public class LoginActivity extends AppCompatActivity {
 
     private LoginViewModel loginViewModel;
     private ActivityLoginBinding binding;
+    private Activity login;
 
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        login = this;
         binding = ActivityLoginBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
@@ -127,6 +129,13 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
 
+        Button register = (Button) findViewById(R.id.login__register);
+        register.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(login, RegisterActivity.class));
+            }
+        });
 
         loginButton.setOnClickListener(new View.OnClickListener() {
             @Override

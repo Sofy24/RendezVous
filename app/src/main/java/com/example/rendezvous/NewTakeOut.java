@@ -81,6 +81,7 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
@@ -332,7 +333,9 @@ public class NewTakeOut extends AppCompatActivity implements LocationListener {
                 Pair<Long, Long> days = materialDatePicker.getSelection();
                 final List<String> circleOfFriendsSelected = new ArrayList<>();
                     if (nameTakeOut.length() > 0) {
-                        if(endDay != 0 || firstDay != 0) {
+                        if((endDay != 0 || firstDay != 0) && firstDay > Calendar.getInstance().getTime().getTime()) {
+                            System.out.println("firstDay = " + firstDay);
+                            System.out.println("Calendar.getInstance().getTime().getTime() = " + Calendar.getInstance().getTime().getTime());
                         if (!selectedCircles.isEmpty()) {
                             // title is ok
                             // groups are selected so i add data
@@ -412,7 +415,7 @@ public class NewTakeOut extends AppCompatActivity implements LocationListener {
                         }
 
                 } else {
-                    Toast.makeText(NewTakeOut.this, "Non mi sembra che tu abbia selezionato le date", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(NewTakeOut.this, "Non mi sembra che tu abbia selezionato le date correttamente", Toast.LENGTH_SHORT).show();
                 }
                     } else { //nome vuoto
                         Toast.makeText(NewTakeOut.this, "Inserisci il nome dell'uscita", Toast.LENGTH_SHORT).show();

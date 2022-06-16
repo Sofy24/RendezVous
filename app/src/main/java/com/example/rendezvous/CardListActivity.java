@@ -61,9 +61,6 @@ public class CardListActivity extends AppCompatActivity implements LocationListe
     private RecyclerviewAdapter recyclerviewAdapter;
     private RecyclerTouchListener touchListener;
     private List<Info> infos;
-    ImageButton arrow;
-    LinearLayout hiddenView;
-    CardView cardView;
     //private String providerId = LocationManager.GPS_PROVIDER;
     private FusedLocationProviderClient fusedLocationProviderClient;
     private LocationCallback locationCallback;

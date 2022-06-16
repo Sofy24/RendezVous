@@ -98,20 +98,6 @@
                     app:layout_constraintTop_toBottomOf="@+id/rendezvous_title_card"
                     app:layout_constraintVertical_bias="0.7" />
 
-                <TextView
-                    android:id="@+id/textView2"
-                    android:layout_width="89dp"
-                    android:layout_height="35dp"
-                    android:layout_marginStart="2dp"
-                    android:layout_marginTop="96dp"
-                    android:layout_marginEnd="8dp"
-                    android:textColor="@color/colorPrimaryVariant"
-                    android:text="@string/swipe_to_select_a_day_or_delete"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="1.0"
-                    app:layout_constraintStart_toEndOf="@+id/rendezvous_title_card"
-                    app:layout_constraintTop_toTopOf="@+id/fixed_layout" />
-
             </androidx.constraintlayout.widget.ConstraintLayout>
 
             <LinearLayout

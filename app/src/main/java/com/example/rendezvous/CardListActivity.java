@@ -139,6 +139,8 @@ public class CardListActivity extends AppCompatActivity implements LocationListe
                     public void onRowClicked(int position) {
 //                        Intent openCardDetails = new Intent(CardListActivity.this, RendeVousCard.class);
 //                        startActivity(openCardDetails);
+                        Toast.makeText(CardListActivity.this, "Swipe to the left to edit or delete", Toast.LENGTH_SHORT).show();
+
                     }
 
                     @Override

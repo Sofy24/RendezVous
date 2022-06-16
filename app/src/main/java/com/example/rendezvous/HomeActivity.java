@@ -6,16 +6,11 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.graphics.Color;
-import android.net.Uri;
-import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.AttributeSet;
 import android.view.Menu;
 import android.view.View;
-import android.widget.CalendarView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -25,17 +20,7 @@ import androidx.core.app.NotificationManagerCompat;
 import androidx.fragment.app.Fragment;
 import androidx.core.content.ContextCompat;
 
-import com.example.rendezvous.DB.Circle;
-import com.example.rendezvous.DB.ConfirmedRendezvous;
-import com.example.rendezvous.DB.Converters;
-import com.example.rendezvous.DB.RendezVous;
-import com.example.rendezvous.DB.RendezVousDB;
-import com.example.rendezvous.DB.User;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
-
-import java.io.InputStream;
-import java.util.Date;
-import java.util.List;
 
 public class HomeActivity extends AppCompatActivity {
     final static String CHANNEL_ID = "1";

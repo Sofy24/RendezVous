@@ -139,7 +139,6 @@ public class CardListActivity extends AppCompatActivity implements LocationListe
                 .setClickable(new RecyclerTouchListener.OnRowClickListener() {
                     @Override
                     public void onRowClicked(int position) {
-                        Toast.makeText(getApplicationContext(),rendezVousCards.get(position).getTitle(), Toast.LENGTH_SHORT).show();
 //                        Intent openCardDetails = new Intent(CardListActivity.this, RendeVousCard.class);
 //                        startActivity(openCardDetails);
                     }

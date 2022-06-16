@@ -148,6 +148,21 @@ public class CalendarFragment extends Fragment {
             throw e;
         }
 
+        com.applandeo.materialcalendarview.CalendarView calendar = (com.applandeo.materialcalendarview.CalendarView) root.findViewById(R.id.calendarView2);
+
+        getActivity().runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    calendar.setDate(Calendar.getInstance().getTime());
+                } catch (OutOfDateRangeException e) {
+                    e.printStackTrace();
+                }
+
+            }
+        });
+
+
 //        calendar.setOnDateChangeListener(new CalendarView.OnDateChangeListener() {
 //            @RequiresApi(api = Build.VERSION_CODES.O)
 //            @Override

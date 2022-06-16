@@ -63,9 +63,9 @@ public class HomeActivity extends AppCompatActivity {
         Bitmap largeIcon = BitmapFactory.decodeResource(getResources(), R.drawable.logo_rv);
 
 
-        createNotificationChannel();
+//        createNotificationChannel();
 
-        NotificationCompat.Builder builder = new NotificationCompat.Builder(this, CHANNEL_ID)
+        NotificationCompat.Builder builder = new NotificationCompat.Builder(this, "channel01")
                 .setSmallIcon(R.drawable.logo_alpha)
                 .setColor(ContextCompat.getColor(HomeActivity.this, R.color.colorPrimary))
                 .setLargeIcon(largeIcon)
@@ -73,13 +73,21 @@ public class HomeActivity extends AppCompatActivity {
                 .setContentText("Your login has been successful")
                 .setStyle(new NotificationCompat.BigTextStyle()
                         .bigText("Your login has been successful"))
-                .setPriority(NotificationCompat.PRIORITY_DEFAULT);
 
-        NotificationManagerCompat notificationManager = NotificationManagerCompat.from(this);
+                .setDefaults(NotificationCompat.DEFAULT_ALL)
+                .setPriority(NotificationCompat.PRIORITY_HIGH);
 
-// notificationId is a unique int for each notification that you must define
-        notificationManager.notify(69, builder.build());
-
+        NotificationChannel channel = null;   // for heads-up notifications
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
+            channel = new NotificationChannel("channel01", "RendezVous",
+                    NotificationManager.IMPORTANCE_HIGH);
+             channel.setDescription("description");
+            NotificationManagerCompat notificationManager = NotificationManagerCompat.from(this);
+            notificationManager.notify(0, builder.build());
+        }
+//        NotificationManagerCompat notificationManager = NotificationManagerCompat.from(this);
+        // notificationId is a unique int for each notification that you must define
+//        notificationManager.notify(69, builder.build());
 
     }
 
@@ -92,7 +100,7 @@ public class HomeActivity extends AppCompatActivity {
             CharSequence name = "nome canale";
             String description = "descrizione canale";
 //            String description = getString(R.string.channel_description);
-            int importance = NotificationManager.IMPORTANCE_DEFAULT;
+            int importance = NotificationManager.IMPORTANCE_HIGH    ;
             NotificationChannel channel = new NotificationChannel(CHANNEL_ID, name, importance);
             channel.setDescription(description);
             // Register the channel with the system; you can't change the importance

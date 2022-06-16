@@ -410,8 +410,12 @@ public class NewTakeOut extends AppCompatActivity implements LocationListener {
                                 channel.setDescription("description");
 
                                 System.out.println("gonna notify");
-                                 NotificationManagerCompat notificationManager = NotificationManagerCompat.from(this_activity);
-                                 notificationManager.notify(0, builder.build());
+                                NotificationManager notificationManager = getSystemService(NotificationManager.class);
+                                notificationManager.createNotificationChannel(channel);
+
+
+                                NotificationManagerCompat notificationManagera = NotificationManagerCompat.from(this_activity);
+                                 notificationManagera.notify(0, builder.build());
                                 System.out.println("Done");
                             }
 // notificationId is a unique int for each notification that you must define

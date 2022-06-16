@@ -1,5 +1,6 @@
 package com.example.rendezvous;
 
+import android.app.Notification;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.content.Context;
@@ -65,7 +66,7 @@ public class HomeActivity extends AppCompatActivity {
 
 //        createNotificationChannel();
 
-        NotificationCompat.Builder builder = new NotificationCompat.Builder(this, "channel01")
+        Notification notification = new NotificationCompat.Builder(this, "channel01")
                 .setSmallIcon(R.drawable.logo_alpha)
                 .setColor(ContextCompat.getColor(HomeActivity.this, R.color.colorPrimary))
                 .setLargeIcon(largeIcon)
@@ -75,15 +76,20 @@ public class HomeActivity extends AppCompatActivity {
                         .bigText("Your login has been successful"))
 
                 .setDefaults(NotificationCompat.DEFAULT_ALL)
-                .setPriority(NotificationCompat.PRIORITY_HIGH);
+                .setPriority(NotificationCompat.PRIORITY_HIGH)
+                .build();
 
         NotificationChannel channel = null;   // for heads-up notifications
         if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
             channel = new NotificationChannel("channel01", "RendezVous",
                     NotificationManager.IMPORTANCE_HIGH);
              channel.setDescription("description");
-            NotificationManagerCompat notificationManager = NotificationManagerCompat.from(this);
-            notificationManager.notify(0, builder.build());
+
+            NotificationManager notificationManager = getSystemService(NotificationManager.class);
+            notificationManager.createNotificationChannel(channel);
+
+            NotificationManagerCompat notificationManagers = NotificationManagerCompat.from(this);
+            notificationManagers.notify(0, notification);
         }
 //        NotificationManagerCompat notificationManager = NotificationManagerCompat.from(this);
         // notificationId is a unique int for each notification that you must define

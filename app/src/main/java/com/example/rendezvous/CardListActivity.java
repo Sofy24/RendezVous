@@ -107,6 +107,7 @@ public class CardListActivity extends AppCompatActivity implements LocationListe
             @Override
             public void run() {
                 infos = db.databaseDAO().getListCardsForActiveUser();
+                System.out.println("infos = " + infos);
                 ConstraintLayout back = (ConstraintLayout) findViewById(R.id.task_item);
                 if(!infos.isEmpty()) {
                     TextView emptyText = (TextView) findViewById(R.id.empty_text);

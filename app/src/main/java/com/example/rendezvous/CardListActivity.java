@@ -158,7 +158,7 @@ public class CardListActivity extends AppCompatActivity implements LocationListe
                                 AsyncTask.execute(new Runnable() {
                                     @Override
                                     public void run() {
-                                        db.databaseDAO().setBusy();
+                                        db.databaseDAO().setBusy(infos.get(position).getI_ID());
                                     }
                                 });
                                 rendezVousCards.remove(position);

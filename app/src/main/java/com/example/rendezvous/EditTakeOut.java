@@ -156,9 +156,9 @@ public class EditTakeOut extends AppCompatActivity {
                     @Override
                     public void run() {
                         if (busy) {
-                                    db.databaseDAO().setBusy();
+                                    db.databaseDAO().setBusy(I_ID);
                         } else if (preferencies.size() == 1) {
-                                    db.databaseDAO().updateInvited(Converters.dateToTimestamp(preferencies.get(0)));
+                                    db.databaseDAO().updateInvited(Converters.dateToTimestamp(preferencies.get(0)), I_ID);
                         } else {
                             EditTakeOut.this.runOnUiThread(
                                     new Runnable() {
@@ -170,7 +170,7 @@ public class EditTakeOut extends AppCompatActivity {
                             );
                         }
                         if (busy || preferencies.size() == 1) {
-                            db.databaseDAO().updateInvited(Converters.dateToTimestamp(preferencies.get(0)));
+                            db.databaseDAO().updateInvited(Converters.dateToTimestamp(preferencies.get(0)), I_ID);
 
                             Integer totalInvited = db.databaseDAO().getTotalNumOfPartecipants(I_ID);
                             Integer actualResponse = db.databaseDAO().getNumOfPartecipants(I_ID);

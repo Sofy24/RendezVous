@@ -101,11 +101,11 @@ public interface DatabaseDAO {
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     void insertInvited(Invited ...inviteds);
 
-    @Query("UPDATE invited SET I_date = :dateToTimestamp, I_state = \"partecipa\" where IU_ID = (select UID from User where isActive = 1)")
-    void updateInvited(Long dateToTimestamp);
+    @Query("UPDATE invited SET I_date = :dateToTimestamp, I_state = \"partecipa\" where IU_ID = (select UID from User where isActive = 1) and IR_ID = (select R_ID from RendezVous where R_infoID = :I_ID)")
+    void updateInvited(Long dateToTimestamp, Integer I_ID);
 
-    @Query("UPDATE invited SET I_state = \"Busy\" where IU_ID = (select UID from User where isActive = 1)")
-    void setBusy();
+    @Query("UPDATE invited SET I_state = \"Busy\" where IU_ID = (select UID from User where isActive = 1) and IR_ID = (select R_ID from RendezVous where R_infoID = :I_ID)")
+    void setBusy(Integer I_ID);
 
     @Query("SELECT I_state from invited where IU_ID = (select UID from User where isActive = 1) and IR_ID = :IR_ID")
     String getInvitedState(Integer IR_ID);

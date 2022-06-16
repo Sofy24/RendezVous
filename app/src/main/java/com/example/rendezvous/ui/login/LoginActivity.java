@@ -28,6 +28,7 @@ import android.widget.Toast;
 import com.example.rendezvous.DB.Circle;
 import com.example.rendezvous.DB.Converters;
 import com.example.rendezvous.DB.Info;
+import com.example.rendezvous.DB.Invited;
 import com.example.rendezvous.DB.RendezVous;
 import com.example.rendezvous.DB.RendezVousDB;
 import com.example.rendezvous.DB.User;
@@ -188,6 +189,25 @@ public class LoginActivity extends AppCompatActivity {
                     db.databaseDAO().insertCircleOfFriends(gym.getC_name(), db.databaseDAO().getUID(klevis.getUserName()));
                     db.databaseDAO().insertCircleOfFriends(gym.getC_name(), db.databaseDAO().getUID(fede.getUserName()));
                     db.databaseDAO().insertCircleOfFriends(gym.getC_name(), db.databaseDAO().getUID(joe.getUserName()));
+
+
+                    //OK l'ide e' di fare un uscita con i miei amici di palestra e la sofia
+
+                    //al momento c'e' una foto di michi
+                    db.databaseDAO().insertInfo(new Info("Bowling night", "After a pizza to alfredo's we ll challenge in Bowling", "content://com.android.providers.media.documents/document/image%3A25702", 0.0, 0.0));
+                    db.databaseDAO().insertRendezvous(new RendezVous(gym.getC_name(), 1657152000000L, 1657411200000L, 1, 1));
+                    // fino a qui va :^ )
+                    db.databaseDAO().insertRendezvous(new RendezVous(progetto.getC_name(), 1657152000000L, 1657411200000L, 1, 1));
+                    db.databaseDAO().insertInvited(new Invited(1, 1, "Received"));
+                    db.databaseDAO().insertInvited(new Invited(1, 2, "Received"));
+                    db.databaseDAO().insertInvited(new Invited(1, 5, "Received"));
+                    db.databaseDAO().insertInvited(new Invited(1, 6, "Received"));
+                    db.databaseDAO().insertInvited(new Invited(1, 7, "Received"));
+
+                    db.databaseDAO().updateInvitedUser(1657152000000L, 1, 2);
+                    db.databaseDAO().updateInvitedUser(1657152000000L, 1, 5);
+                    db.databaseDAO().updateInvitedUser(1657152000000L, 1, 6);
+                    db.databaseDAO().updateInvitedUser(1657152000000L, 1, 7);
 
 
                 }

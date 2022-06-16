@@ -31,6 +31,7 @@ public class RegisterActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
 
+        Button signInButton = findViewById(R.id.login__register);
         ImageButton confirmedButton = findViewById(R.id.confirmed);
         AppCompatActivity activity = this;
 
@@ -56,10 +57,17 @@ public class RegisterActivity extends AppCompatActivity {
                 @Override
                 public void run() {
                     db.databaseDAO().insertUser(newbie);
+                    db.databaseDAO().setUserActive(db.databaseDAO().getUID(newbie.getUserName()));
                 }
             });
-
+            Intent openHome = new Intent(RegisterActivity.this, HomeActivity.class);
+            startActivity(openHome);
             finish();
+        });
+
+        signInButton.setOnClickListener(view -> {
+            Intent openSignIn = new Intent(RegisterActivity.this, LoginActivity.class);
+            startActivity(openSignIn);
         });
 
 

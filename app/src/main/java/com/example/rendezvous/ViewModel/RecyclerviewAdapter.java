@@ -51,6 +51,7 @@ public class RecyclerviewAdapter extends RecyclerView.Adapter<RecyclerviewAdapte
     private Button closeBtn;
     private Button negativeBtn;
     private TextView dialogTextView;
+    private RecyclerviewAdapter.MyViewHolder holder2 = null;
 
 
     public RecyclerviewAdapter(Context context){
@@ -63,6 +64,7 @@ public class RecyclerviewAdapter extends RecyclerView.Adapter<RecyclerviewAdapte
     @Override
     public void onBindViewHolder(@NonNull RecyclerviewAdapter.MyViewHolder holder, int position) {
         RendezVousCard task = taskList.get(position);
+        this.holder2 = holder;
         holder.tvCardTitle.setText(task.getTitle());
         holder.description.setText(task.getDescription());
         final InputStream imageStream;
@@ -86,6 +88,7 @@ public class RecyclerviewAdapter extends RecyclerView.Adapter<RecyclerviewAdapte
         }
 
     }
+
 
     public Activity getActivity(Context context)
     {
@@ -188,7 +191,6 @@ public class RecyclerviewAdapter extends RecyclerView.Adapter<RecyclerviewAdapte
         closeBtn.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 alertD.cancel();
-
             }
         });
 
@@ -215,6 +217,7 @@ public class RecyclerviewAdapter extends RecyclerView.Adapter<RecyclerviewAdapte
             card_image = itemView.findViewById(R.id.rendezvous_image_card);
             description = itemView.findViewById(R.id.card_description);
         }
+
 
 
 

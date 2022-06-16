@@ -7,6 +7,7 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.content.ContentResolver;
 import android.content.ContentValues;
 import android.content.Context;
@@ -285,31 +286,32 @@ public class NewTakeOut extends AppCompatActivity implements LocationListener {
                           //scrollView.setBackground(R.drawable.checkbox_design);
 
                           for (Circle c : circleList) {
-                              CheckBox box = new CheckBox(NewTakeOut.this.getBaseContext());
-                              box.setButtonDrawable(R.drawable.checkbox_design);
-                              box.setText(c.getC_name());
-                              box.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT));
-                              box.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-                                  @Override
-                                  public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
-                                      System.out.println("pressed check now b= " + b);
-                                      if(b) {
-                                          selectedCircles.add(c);
-                                      }else {
-                                          selectedCircles.remove(c);
+                              if(alreadyMember.contains(c.getC_name())) {
+                                  CheckBox box = new CheckBox(NewTakeOut.this.getBaseContext());
+                                  box.setButtonDrawable(R.drawable.checkbox_design);
+                                  box.setText(c.getC_name());
+                                  box.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT));
+                                  box.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+                                      @Override
+                                      public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+                                          System.out.println("pressed check now b= " + b);
+                                          if (b) {
+                                              selectedCircles.add(c);
+                                          } else {
+                                              selectedCircles.remove(c);
+                                          }
                                       }
-                                  }
-                              });
-                              runOnUiThread(new Runnable() {
+                                  });
+                                  runOnUiThread(new Runnable() {
 
-                                  @Override
-                                  public void run() {
-                                      layout.addView(box);
-                                      checkBoxList.add(box);
+                                      @Override
+                                      public void run() {
+                                          layout.addView(box);
+                                          checkBoxList.add(box);
 
-                                  }
-                              });
-
+                                      }
+                                  });
+                              }
                           }
                       }
                   });
@@ -382,6 +384,10 @@ public class NewTakeOut extends AppCompatActivity implements LocationListener {
 
                             createNotificationChannel();
 
+                            Intent intent = new Intent(NewTakeOut.this, CardListActivity.class);
+                            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                            PendingIntent pendingIntent = PendingIntent.getActivity(NewTakeOut.this, 0, intent, PendingIntent.FLAG_IMMUTABLE);
+
                             NotificationCompat.Builder builder = new NotificationCompat.Builder(NewTakeOut.this, CHANNEL_ID)
                                     .setSmallIcon(R.drawable.logo_alpha)
                                     .setColor(ContextCompat.getColor(NewTakeOut.this, R.color.colorPrimary))
@@ -390,12 +396,15 @@ public class NewTakeOut extends AppCompatActivity implements LocationListener {
                                     .setContentText("Go check your CardList!")
                                     .setStyle(new NotificationCompat.BigTextStyle()
                                             .bigText("Go check your CardList!"))
-                                    .setPriority(NotificationCompat.PRIORITY_DEFAULT);
+                                    .setPriority(NotificationCompat.PRIORITY_DEFAULT)
+                                    .setContentIntent(pendingIntent)
+                                    .setAutoCancel(true)
+                                    ;
 
                             NotificationManagerCompat notificationManager = NotificationManagerCompat.from(NewTakeOut.this);
 
 // notificationId is a unique int for each notification that you must define
-                            notificationManager.notify(69, builder.build());
+                            notificationManager.notify(70, builder.build());
 
 
                             LottieDialog dialog = new LottieDialog(NewTakeOut.this)

@@ -62,6 +62,7 @@ public interface DatabaseDAO {
     @Query("SELECT * from circle")
     List<Circle> getCircles();
 
+
     @Query("SELECT C_name from circle join circleoffriends on (C_name = COF_C_name) where COF_UID = :id")
     List<String> getUserCircles(Integer id);
 

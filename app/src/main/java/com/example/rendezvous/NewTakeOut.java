@@ -495,7 +495,7 @@ public class NewTakeOut extends AppCompatActivity implements LocationListener {
 
     }
 
-    private void createNotificationChannel() {
+    /*private void createNotificationChannel() {
         // Create the NotificationChannel, but only on API 26+ because
         // the NotificationChannel class is new and not in the support library
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
@@ -511,7 +511,7 @@ public class NewTakeOut extends AppCompatActivity implements LocationListener {
             NotificationManager notificationManager = getSystemService(NotificationManager.class);
             notificationManager.createNotificationChannel(channel);
         }
-    }
+    }*/
 
     private void initializeLocation(Activity activity) {
         this.fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(activity);

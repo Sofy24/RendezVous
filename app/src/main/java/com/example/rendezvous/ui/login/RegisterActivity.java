@@ -9,6 +9,8 @@ import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
+import android.view.KeyEvent;
+import android.view.inputmethod.EditorInfo;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
@@ -46,63 +48,75 @@ public class RegisterActivity extends AppCompatActivity {
         EditText register_name = (EditText) findViewById(R.id.name_r);
         EditText register_surname = (EditText) findViewById(R.id.surname_r);
 
+
+
+
+
+
+
+
         RendezVousDB db = RendezVousDB.getInstance(this.getBaseContext());
 
         confirmedButton.setOnClickListener(view -> {
+            if(register_password.getText().length() >= 6) {
+
+
 //            Intent openHome = new Intent(RegisterActivity.this, HomeActivity.class);
 //            startActivity(openHome);
-            User newbie = new User(
-                    register_name.getText().toString(),
-                    register_surname.getText().toString(),
-                    register_mail.getText().toString(),
-                    register_password.getText().toString(),
-                    null
-            );
+                User newbie = new User(
+                        register_name.getText().toString(),
+                        register_surname.getText().toString(),
+                        register_mail.getText().toString(),
+                        register_password.getText().toString(),
+                        null
+                );
 
-            AsyncTask.execute(new Runnable() {
-                @Override
-                public void run() {
-                    db.databaseDAO().insertUser(newbie);
-                    db.databaseDAO().setUserActive(db.databaseDAO().getUID(newbie.getUserName()));
-                }
-            });
+                AsyncTask.execute(new Runnable() {
+                    @Override
+                    public void run() {
+                        db.databaseDAO().insertUser(newbie);
+                        db.databaseDAO().setUserActive(db.databaseDAO().getUID(newbie.getUserName()));
+                    }
+                });
 
-            Bitmap largeIcon = BitmapFactory.decodeResource(getResources(), R.drawable.logo_rv);
+                Bitmap largeIcon = BitmapFactory.decodeResource(getResources(), R.drawable.logo_rv);
 
 
 //        createNotificationChannel();
 
-            Notification notification = new NotificationCompat.Builder(RegisterActivity.this, "channel01")
-                    .setSmallIcon(R.drawable.logo_alpha)
-                    .setColor(ContextCompat.getColor(RegisterActivity.this, R.color.colorPrimary))
-                    .setLargeIcon(largeIcon)
-                    .setContentTitle("Welcome")
-                    .setContentText("Your registration has been successful")
-                    .setStyle(new NotificationCompat.BigTextStyle()
-                            .bigText("Your registration has been successful"))
+                Notification notification = new NotificationCompat.Builder(RegisterActivity.this, "channel01")
+                        .setSmallIcon(R.drawable.logo_alpha)
+                        .setColor(ContextCompat.getColor(RegisterActivity.this, R.color.colorPrimary))
+                        .setLargeIcon(largeIcon)
+                        .setContentTitle("Welcome")
+                        .setContentText("Your registration has been successful")
+                        .setStyle(new NotificationCompat.BigTextStyle()
+                                .bigText("Your registration has been successful"))
 
-                    .setDefaults(NotificationCompat.DEFAULT_ALL)
-                    .setPriority(NotificationCompat.PRIORITY_HIGH)
-                    .build();
+                        .setDefaults(NotificationCompat.DEFAULT_ALL)
+                        .setPriority(NotificationCompat.PRIORITY_HIGH)
+                        .build();
 
-            NotificationChannel channel = null;   // for heads-up notifications
-            if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
-                channel = new NotificationChannel("channel01", "RendezVous",
-                        NotificationManager.IMPORTANCE_HIGH);
-                channel.setDescription("description");
+                NotificationChannel channel = null;   // for heads-up notifications
+                if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
+                    channel = new NotificationChannel("channel01", "RendezVous",
+                            NotificationManager.IMPORTANCE_HIGH);
+                    channel.setDescription("description");
 
-                NotificationManager notificationManager = getSystemService(NotificationManager.class);
-                notificationManager.createNotificationChannel(channel);
+                    NotificationManager notificationManager = getSystemService(NotificationManager.class);
+                    notificationManager.createNotificationChannel(channel);
 
-                NotificationManagerCompat notificationManagers = NotificationManagerCompat.from(RegisterActivity.this);
-                notificationManagers.notify(0, notification);
+                    NotificationManagerCompat notificationManagers = NotificationManagerCompat.from(RegisterActivity.this);
+                    notificationManagers.notify(0, notification);
+                }
+
+
+                Intent openHome = new Intent(RegisterActivity.this, HomeActivity.class);
+                startActivity(openHome);
+                finish();
+            } else {
+                register_password.setError("Password must be >5 characters");
             }
-
-
-
-            Intent openHome = new Intent(RegisterActivity.this, HomeActivity.class);
-            startActivity(openHome);
-            finish();
         });
 
         signInButton.setOnClickListener(view -> {

@@ -7,6 +7,7 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.content.ContentResolver;
 import android.content.ContentValues;
 import android.content.Context;
@@ -124,12 +125,15 @@ public class NewTakeOut extends AppCompatActivity implements LocationListener {
     private Button negativeBtn;
     private TextView dialogTextView;
     final static String CHANNEL_ID = "2";
+    private Activity this_activity;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.add_take_out);
         this.imageView = (ImageView)findViewById(R.id.picture_displayed_imageview);
+        this_activity = this;
+
         if (NewTakeOut.this != null) {
             requestPermissionLauncher = registerForActivityResult(
                     new ActivityResultContracts.RequestPermission(),
@@ -285,31 +289,32 @@ public class NewTakeOut extends AppCompatActivity implements LocationListener {
                           //scrollView.setBackground(R.drawable.checkbox_design);
 
                           for (Circle c : circleList) {
-                              CheckBox box = new CheckBox(NewTakeOut.this.getBaseContext());
-                              box.setButtonDrawable(R.drawable.checkbox_design);
-                              box.setText(c.getC_name());
-                              box.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT));
-                              box.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-                                  @Override
-                                  public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
-                                      System.out.println("pressed check now b= " + b);
-                                      if(b) {
-                                          selectedCircles.add(c);
-                                      }else {
-                                          selectedCircles.remove(c);
+                              if(alreadyMember.contains(c.getC_name())) {
+                                  CheckBox box = new CheckBox(NewTakeOut.this.getBaseContext());
+                                  box.setButtonDrawable(R.drawable.checkbox_design);
+                                  box.setText(c.getC_name());
+                                  box.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT));
+                                  box.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+                                      @Override
+                                      public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+                                          System.out.println("pressed check now b= " + b);
+                                          if (b) {
+                                              selectedCircles.add(c);
+                                          } else {
+                                              selectedCircles.remove(c);
+                                          }
                                       }
-                                  }
-                              });
-                              runOnUiThread(new Runnable() {
+                                  });
+                                  runOnUiThread(new Runnable() {
 
-                                  @Override
-                                  public void run() {
-                                      layout.addView(box);
-                                      checkBoxList.add(box);
+                                      @Override
+                                      public void run() {
+                                          layout.addView(box);
+                                          checkBoxList.add(box);
 
-                                  }
-                              });
-
+                                      }
+                                  });
+                              }
                           }
                       }
                   });
@@ -380,22 +385,40 @@ public class NewTakeOut extends AppCompatActivity implements LocationListener {
                             Bitmap largeIcon = BitmapFactory.decodeResource(getResources(), R.drawable.logo_rv);
 
 
-                            createNotificationChannel();
+//                            createNotificationChannel();
 
-                            NotificationCompat.Builder builder = new NotificationCompat.Builder(NewTakeOut.this, CHANNEL_ID)
+                            Intent intent = new Intent(NewTakeOut.this, CardListActivity.class);
+                            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                            PendingIntent pendingIntent = PendingIntent.getActivity(NewTakeOut.this, 0, intent, PendingIntent.FLAG_IMMUTABLE);
+
+                            NotificationCompat.Builder builder = new NotificationCompat.Builder(this_activity, "channel01")
                                     .setSmallIcon(R.drawable.logo_alpha)
                                     .setColor(ContextCompat.getColor(NewTakeOut.this, R.color.colorPrimary))
                                     .setLargeIcon(largeIcon)
                                     .setContentTitle("New RendezVous")
                                     .setContentText("Go check your CardList!")
-                                    .setStyle(new NotificationCompat.BigTextStyle()
-                                            .bigText("Go check your CardList!"))
-                                    .setPriority(NotificationCompat.PRIORITY_DEFAULT);
+                                    .setStyle(new NotificationCompat.BigTextStyle().bigText("Go check your CardList!"))
+                                    .setDefaults(NotificationCompat.DEFAULT_ALL)
+                                    .setPriority(NotificationCompat.PRIORITY_HIGH)
+                                    .setContentIntent(pendingIntent)
+                                    .setAutoCancel(true);
 
-                            NotificationManagerCompat notificationManager = NotificationManagerCompat.from(NewTakeOut.this);
+                            NotificationChannel channel = null;   // for heads-up notifications
+                            if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
+                                channel = new NotificationChannel("channel01", "RendezVous",
+                                        NotificationManager.IMPORTANCE_HIGH);
+                                channel.setDescription("description");
 
+                                System.out.println("gonna notify");
+                                NotificationManager notificationManager = getSystemService(NotificationManager.class);
+                                notificationManager.createNotificationChannel(channel);
+
+
+                                NotificationManagerCompat notificationManagera = NotificationManagerCompat.from(this_activity);
+                                 notificationManagera.notify(0, builder.build());
+                                System.out.println("Done");
+                            }
 // notificationId is a unique int for each notification that you must define
-                            notificationManager.notify(69, builder.build());
 
 
                             LottieDialog dialog = new LottieDialog(NewTakeOut.this)
@@ -472,7 +495,7 @@ public class NewTakeOut extends AppCompatActivity implements LocationListener {
 
     }
 
-    private void createNotificationChannel() {
+    /*private void createNotificationChannel() {
         // Create the NotificationChannel, but only on API 26+ because
         // the NotificationChannel class is new and not in the support library
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
@@ -488,7 +511,7 @@ public class NewTakeOut extends AppCompatActivity implements LocationListener {
             NotificationManager notificationManager = getSystemService(NotificationManager.class);
             notificationManager.createNotificationChannel(channel);
         }
-    }
+    }*/
 
     private void initializeLocation(Activity activity) {
         this.fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(activity);

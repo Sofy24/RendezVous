@@ -388,10 +388,6 @@ public class CalendarFragment extends Fragment {
                     });
                 }
 
-// display a toast message with menu item's title
-                Toast.makeText(activity.getApplicationContext(), menuItem.getTitle(), Toast.LENGTH_SHORT).show();
-
-
                 if (frag != null) {
 //                    Utilities.insertFragment((AppCompatActivity) activity, frag, frag.getClass().getSimpleName());
 

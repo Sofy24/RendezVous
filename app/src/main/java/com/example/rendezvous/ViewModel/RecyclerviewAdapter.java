@@ -87,6 +87,7 @@ public class RecyclerviewAdapter extends RecyclerView.Adapter<RecyclerviewAdapte
 
     }
 
+
     public Activity getActivity(Context context)
     {
         if (context == null)
@@ -188,7 +189,6 @@ public class RecyclerviewAdapter extends RecyclerView.Adapter<RecyclerviewAdapte
         closeBtn.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 alertD.cancel();
-
             }
         });
 
@@ -215,6 +215,7 @@ public class RecyclerviewAdapter extends RecyclerView.Adapter<RecyclerviewAdapte
             card_image = itemView.findViewById(R.id.rendezvous_image_card);
             description = itemView.findViewById(R.id.card_description);
         }
+
 
 
 

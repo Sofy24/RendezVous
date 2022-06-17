@@ -62,6 +62,7 @@ public interface DatabaseDAO {
     @Query("SELECT * from circle")
     List<Circle> getCircles();
 
+
     @Query("SELECT C_name from circle join circleoffriends on (C_name = COF_C_name) where COF_UID = :id")
     List<String> getUserCircles(Integer id);
 
@@ -103,6 +104,9 @@ public interface DatabaseDAO {
 
     @Query("UPDATE invited SET I_date = :dateToTimestamp, I_state = \"partecipa\" where IU_ID = (select UID from User where isActive = 1) and IR_ID = (select R_ID from RendezVous where R_infoID = :I_ID)")
     void updateInvited(Long dateToTimestamp, Integer I_ID);
+
+    @Query("UPDATE invited SET I_date = :dateToTimestamp, I_state = \"partecipa\" where IU_ID = (select UID from User where UID = :uid) and IR_ID = (select R_ID from RendezVous where R_infoID = :I_ID)")
+    void updateInvitedUser(Long dateToTimestamp, Integer I_ID, Integer uid);
 
     @Query("UPDATE invited SET I_state = \"Busy\" where IU_ID = (select UID from User where isActive = 1) and IR_ID = (select R_ID from RendezVous where R_infoID = :I_ID)")
     void setBusy(Integer I_ID);

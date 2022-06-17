@@ -2,11 +2,20 @@ package com.example.rendezvous.ui.login;
 
 import android.app.Activity;
 
+import androidx.core.app.NotificationCompat;
+import androidx.core.app.NotificationManagerCompat;
+import androidx.core.content.ContextCompat;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
+import android.app.Notification;
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
+import android.os.Build;
 import android.os.Bundle;
 
 import androidx.annotation.Nullable;
@@ -28,6 +37,7 @@ import android.widget.Toast;
 import com.example.rendezvous.DB.Circle;
 import com.example.rendezvous.DB.Converters;
 import com.example.rendezvous.DB.Info;
+import com.example.rendezvous.DB.Invited;
 import com.example.rendezvous.DB.RendezVous;
 import com.example.rendezvous.DB.RendezVousDB;
 import com.example.rendezvous.DB.User;
@@ -42,6 +52,7 @@ public class LoginActivity extends AppCompatActivity {
     private LoginViewModel loginViewModel;
     private ActivityLoginBinding binding;
     private Activity login;
+    final static String CHANNEL_ID = "1";
 
 
     @Override
@@ -143,11 +154,62 @@ public class LoginActivity extends AppCompatActivity {
                 loadingProgressBar.setVisibility(View.VISIBLE);
                 loginViewModel.login(usernameEditText.getText().toString(),
                         passwordEditText.getText().toString());
+
+                Bitmap largeIcon = BitmapFactory.decodeResource(getResources(), R.drawable.logo_rv);
+
+
+//        createNotificationChannel();
+
+                Notification notification = new NotificationCompat.Builder(LoginActivity.this, "channel01")
+                        .setSmallIcon(R.drawable.logo_alpha)
+                        .setColor(ContextCompat.getColor(LoginActivity.this, R.color.colorPrimary))
+                        .setLargeIcon(largeIcon)
+                        .setContentTitle("Welcome")
+                        .setContentText("Your login has been successful")
+                        .setStyle(new NotificationCompat.BigTextStyle()
+                                .bigText("Your login has been successful"))
+
+                        .setDefaults(NotificationCompat.DEFAULT_ALL)
+                        .setPriority(NotificationCompat.PRIORITY_HIGH)
+                        .build();
+
+                NotificationChannel channel = null;   // for heads-up notifications
+                if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
+                    channel = new NotificationChannel("channel01", "RendezVous",
+                            NotificationManager.IMPORTANCE_HIGH);
+                    channel.setDescription("description");
+
+                    NotificationManager notificationManager = getSystemService(NotificationManager.class);
+                    notificationManager.createNotificationChannel(channel);
+
+                    NotificationManagerCompat notificationManagers = NotificationManagerCompat.from(LoginActivity.this);
+                    notificationManagers.notify(0, notification);
+                }
+
+
                 // Here the intent is passed on and next activity is homecalendar
                 Intent openHome = new Intent(LoginActivity.this, HomeActivity.class);
                 startActivity(openHome);
             }
         });
+    }
+
+    private void createNotificationChannel() {
+        // Create the NotificationChannel, but only on API 26+ because
+        // the NotificationChannel class is new and not in the support library
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+//            CharSequence name = getString(R.string.channel_name);
+            CharSequence name = "nome canale";
+            String description = "descrizione canale";
+//            String description = getString(R.string.channel_description);
+            int importance = NotificationManager.IMPORTANCE_HIGH    ;
+            NotificationChannel channel = new NotificationChannel(CHANNEL_ID, name, importance);
+            channel.setDescription(description);
+            // Register the channel with the system; you can't change the importance
+            // or other notification behaviors after this
+            NotificationManager notificationManager = getSystemService(NotificationManager.class);
+            notificationManager.createNotificationChannel(channel);
+        }
     }
 
     private void updateUiWithUser(LoggedInUserView model) {
@@ -167,19 +229,17 @@ public class LoginActivity extends AppCompatActivity {
                     User klevis = new User("Klevis", "Duka", "Duca", "Veloce_come_uno_squalo", null);
                     User fede = new User("Federico", "Cobianchi", "F3d3", "passw0rd", null);
 
-                    User joe = new User("Mama", "Joe", "joeMama", "IdOnTKnOw", null);
-
-                    db.databaseDAO().insertUser(mega, sofy, luis, michi, klevis, joe, fede);
+                    db.databaseDAO().insertUser(mega, sofy, luis, michi, klevis, fede);
                     Circle progetto = new Circle("Gruppo progetto", "#eb4255");
                     Circle gym = new Circle("Gym", "#000000");
                     Circle uni = new Circle("University", "#3d85c6");
-                    db.databaseDAO().insertCircle(progetto, gym, uni);
+                    Circle esame = new Circle("Esame", "#1970fc");
+                    db.databaseDAO().insertCircle(progetto, gym, uni, esame);
 
                     db.databaseDAO().insertCircleOfFriends(uni.getC_name(), db.databaseDAO().getUID(mega.getUserName()));
                     db.databaseDAO().insertCircleOfFriends(uni.getC_name(), db.databaseDAO().getUID(sofy.getUserName()));
                     db.databaseDAO().insertCircleOfFriends(uni.getC_name(), db.databaseDAO().getUID(luis.getUserName()));
                     db.databaseDAO().insertCircleOfFriends(uni.getC_name(), db.databaseDAO().getUID(michi.getUserName()));
-                    db.databaseDAO().insertCircleOfFriends(uni.getC_name(), db.databaseDAO().getUID(joe.getUserName()));
 
                     db.databaseDAO().insertCircleOfFriends(progetto.getC_name(), db.databaseDAO().getUID(sofy.getUserName()));
                     db.databaseDAO().insertCircleOfFriends(progetto.getC_name(), db.databaseDAO().getUID(mega.getUserName()));
@@ -187,7 +247,26 @@ public class LoginActivity extends AppCompatActivity {
                     db.databaseDAO().insertCircleOfFriends(gym.getC_name(), db.databaseDAO().getUID(mega.getUserName()));
                     db.databaseDAO().insertCircleOfFriends(gym.getC_name(), db.databaseDAO().getUID(klevis.getUserName()));
                     db.databaseDAO().insertCircleOfFriends(gym.getC_name(), db.databaseDAO().getUID(fede.getUserName()));
-                    db.databaseDAO().insertCircleOfFriends(gym.getC_name(), db.databaseDAO().getUID(joe.getUserName()));
+
+                    db.databaseDAO().insertCircleOfFriends(esame.getC_name(), db.databaseDAO().getUID(mega.getUserName()));
+
+
+
+                    //OK l'ide e' di fare un' uscita con i miei amici di palestra e la sofia
+
+                    //al momento c'e' una foto di michi
+                    db.databaseDAO().insertInfo(new Info("Bowling night", "After a pizza to alfredo's we ll challenge in Bowling", "null", 0.0, 0.0));
+                    db.databaseDAO().insertRendezvous(new RendezVous(gym.getC_name(), 1657152000000L, 1657411200000L, 1, 1));
+                    // fino a qui va :^ )
+                    db.databaseDAO().insertRendezvous(new RendezVous(progetto.getC_name(), 1657152000000L, 1657411200000L, 1, 1));
+                    db.databaseDAO().insertInvited(new Invited(1, 1, "Received"));
+                    db.databaseDAO().insertInvited(new Invited(1, 2, "Received"));
+                    db.databaseDAO().insertInvited(new Invited(1, 5, "Received"));
+                    db.databaseDAO().insertInvited(new Invited(1, 6, "Received"));
+
+                    db.databaseDAO().updateInvitedUser(1657152000000L, 1, 2);
+                    db.databaseDAO().updateInvitedUser(1657152000000L, 1, 5);
+                    db.databaseDAO().updateInvitedUser(1657152000000L, 1, 6);
 
 
                 }

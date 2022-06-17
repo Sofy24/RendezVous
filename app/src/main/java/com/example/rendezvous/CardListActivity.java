@@ -61,9 +61,6 @@ public class CardListActivity extends AppCompatActivity implements LocationListe
     private RecyclerviewAdapter recyclerviewAdapter;
     private RecyclerTouchListener touchListener;
     private List<Info> infos;
-    ImageButton arrow;
-    LinearLayout hiddenView;
-    CardView cardView;
     //private String providerId = LocationManager.GPS_PROVIDER;
     private FusedLocationProviderClient fusedLocationProviderClient;
     private LocationCallback locationCallback;
@@ -110,6 +107,7 @@ public class CardListActivity extends AppCompatActivity implements LocationListe
             @Override
             public void run() {
                 infos = db.databaseDAO().getListCardsForActiveUser();
+                System.out.println("infos = " + infos);
                 ConstraintLayout back = (ConstraintLayout) findViewById(R.id.task_item);
                 if(!infos.isEmpty()) {
                     TextView emptyText = (TextView) findViewById(R.id.empty_text);
@@ -139,9 +137,10 @@ public class CardListActivity extends AppCompatActivity implements LocationListe
                 .setClickable(new RecyclerTouchListener.OnRowClickListener() {
                     @Override
                     public void onRowClicked(int position) {
-                        Toast.makeText(getApplicationContext(),rendezVousCards.get(position).getTitle(), Toast.LENGTH_SHORT).show();
 //                        Intent openCardDetails = new Intent(CardListActivity.this, RendeVousCard.class);
 //                        startActivity(openCardDetails);
+                        Toast.makeText(CardListActivity.this, "Swipe to the left to edit or delete", Toast.LENGTH_SHORT).show();
+
                     }
 
                     @Override

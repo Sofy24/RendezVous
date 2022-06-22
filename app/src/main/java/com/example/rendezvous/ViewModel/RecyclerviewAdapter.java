@@ -7,6 +7,7 @@ import android.content.ContextWrapper;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.drawable.Drawable;
 import android.location.Location;
 import android.net.Uri;
 import android.os.AsyncTask;
@@ -71,7 +72,9 @@ public class RecyclerviewAdapter extends RecyclerView.Adapter<RecyclerviewAdapte
                 imageStream = getActivity(mContext).getContentResolver().openInputStream(Uri.parse(task.getImageUri()));
                 final Bitmap selectedImage = BitmapFactory.decodeStream(imageStream);
                 holder.card_image.setImageBitmap(selectedImage);
-
+            } else {
+                Drawable placeHolder = getActivity(mContext).getResources().getDrawable(R.drawable.bowling);
+                holder.card_image.setImageDrawable(placeHolder);
             }
         } catch (FileNotFoundException e) {
             e.printStackTrace();

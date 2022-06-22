@@ -255,7 +255,7 @@ public class LoginActivity extends AppCompatActivity {
                     //OK l'ide e' di fare un' uscita con i miei amici di palestra e la sofia
 
                     //al momento c'e' una foto di michi
-                    db.databaseDAO().insertInfo(new Info("Bowling night", "After a pizza to alfredo's we ll challenge in Bowling", "null", 0.0, 0.0));
+                    db.databaseDAO().insertInfo(new Info("Bowling night", "After a pizza to alfredo's we ll challenge in Bowling", null, 0.0, 0.0));
                     db.databaseDAO().insertRendezvous(new RendezVous(gym.getC_name(), 1657152000000L, 1657411200000L, 1, 1));
                     // fino a qui va :^ )
                     db.databaseDAO().insertRendezvous(new RendezVous(progetto.getC_name(), 1657152000000L, 1657411200000L, 1, 1));

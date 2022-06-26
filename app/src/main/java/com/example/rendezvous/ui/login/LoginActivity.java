@@ -5,6 +5,7 @@ import android.app.Activity;
 import androidx.core.app.NotificationCompat;
 import androidx.core.app.NotificationManagerCompat;
 import androidx.core.content.ContextCompat;
+import androidx.core.content.res.ResourcesCompat;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
@@ -14,6 +15,9 @@ import android.app.NotificationManager;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
+import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
@@ -22,6 +26,7 @@ import androidx.annotation.Nullable;
 import androidx.annotation.StringRes;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.provider.MediaStore;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.KeyEvent;
@@ -186,7 +191,40 @@ public class LoginActivity extends AppCompatActivity {
                     notificationManagers.notify(0, notification);
                 }
 
+                //Whatsapp message
+                /*Intent intentsapp = new Intent(Intent.ACTION_SEND);
+                intentsapp.setType("text/plain");
+                intentsapp.setPackage("com.whatsapp");
+                intentsapp.putExtra(Intent.EXTRA_TEXT, "Ammira berserk");
+                startActivity(intentsapp);*/
 
+                //img + text
+                /*Drawable mDrawable = ResourcesCompat.getDrawable(getResources(), R.drawable.bowling, null);
+                Bitmap mBitmap = ((BitmapDrawable)mDrawable).getBitmap();
+                String path = MediaStore.Images.Media.insertImage(getContentResolver(), mBitmap, "Emoticon", null);
+                Uri fileUri = Uri.parse(path);
+
+
+                Intent intent = new Intent(Intent.ACTION_SEND);
+                intent.putExtra(Intent.EXTRA_STREAM, fileUri);
+                intent.setType("image/*");
+                intent.setPackage("com.whatsapp");
+                intent.putExtra(Intent.EXTRA_TEXT, "New Rendevous: Go check your CardList!");
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                startActivity(intent);*/
+
+                //immagine
+                /*Drawable mDrawable = ResourcesCompat.getDrawable(getResources(), R.drawable.brand, null);
+                Bitmap mBitmap = ((BitmapDrawable)mDrawable).getBitmap();
+                String path = MediaStore.Images.Media.insertImage(getContentResolver(), mBitmap, "Emoticon", null);
+                Uri fileUri = Uri.parse(path);
+
+                Intent picMessageIntent = new Intent(Intent.ACTION_SEND);
+                picMessageIntent.setPackage("com.whatsapp");
+                picMessageIntent.putExtra(Intent.EXTRA_STREAM, fileUri);
+                picMessageIntent.setType("image/jpg");
+                picMessageIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                startActivity(picMessageIntent);*/
                 // Here the intent is passed on and next activity is homecalendar
                 Intent openHome = new Intent(LoginActivity.this, HomeActivity.class);
                 startActivity(openHome);

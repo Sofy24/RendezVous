@@ -126,6 +126,9 @@ public class RecyclerviewAdapter extends RecyclerView.Adapter<RecyclerviewAdapte
         LinearLayout hiddenView = view.findViewById(R.id.hidden_view);
         ImageButton arrow = (ImageButton)  view.findViewById(R.id.arrow_button);
         ImageView map = view.findViewById(R.id.map);
+        ImageView whatsapp = view.findViewById(R.id.message);
+        TextView titleCard = view.findViewById(R.id.rendezvous_title_card);
+
 
         arrow.setOnClickListener(view1 -> {
             if(location == null){
@@ -161,6 +164,14 @@ public class RecyclerviewAdapter extends RecyclerView.Adapter<RecyclerviewAdapte
             intent_map.setData(Uri.parse("geo:47.4925,19.0513"));
             Intent chooser = Intent.createChooser(intent_map, "Launch maps");
             getActivity(mContext).startActivity(chooser);
+        });
+
+        whatsapp.setOnClickListener(view1 -> {
+            Intent intentsapp = new Intent(Intent.ACTION_SEND);
+            intentsapp.setType("text/plain");
+            intentsapp.setPackage("com.whatsapp");
+            intentsapp.putExtra(Intent.EXTRA_TEXT, "Remember to vote the day for " + titleCard.getText());
+            getActivity(mContext).startActivity(intentsapp);
         });
         return new MyViewHolder(view);
     }

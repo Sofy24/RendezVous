@@ -392,6 +392,7 @@ public class NewTakeOut extends AppCompatActivity implements LocationListener {
                             intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                             PendingIntent pendingIntent = PendingIntent.getActivity(NewTakeOut.this, 0, intent, PendingIntent.FLAG_IMMUTABLE);
 
+
                             NotificationCompat.Builder builder = new NotificationCompat.Builder(this_activity, "channel01")
                                     .setSmallIcon(R.drawable.logo_alpha)
                                     .setColor(ContextCompat.getColor(NewTakeOut.this, R.color.colorPrimary))
@@ -418,6 +419,7 @@ public class NewTakeOut extends AppCompatActivity implements LocationListener {
                                 NotificationManagerCompat notificationManagera = NotificationManagerCompat.from(this_activity);
                                  notificationManagera.notify(0, builder.build());
                                 System.out.println("Done");
+
                             }
 // notificationId is a unique int for each notification that you must define
 

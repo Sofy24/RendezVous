@@ -62,4 +62,5 @@
     <string name="distance_between_me_and_the_place_of_the_take_out">Distance between me and the place of the Take Out</string>
     <string name="open_the_map">Open the map</string>
     <string name="username">Username</string>
+    <string name="reminder_whatsapp">Send an invitation reminder on whatsapp</string>
 </resources>

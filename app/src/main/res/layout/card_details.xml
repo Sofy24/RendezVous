@@ -190,6 +190,34 @@
                         android:textColor="@color/colorPrimaryVariant"
                         android:textSize="20sp" />
                 </LinearLayout>
+
+                <!--Child LinearLayout 4-->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:id="@+id/message"
+                        android:layout_width="50dp"
+                        android:layout_height="50dp"
+                        android:layout_marginStart="20dp"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginEnd="10dp"
+                        android:paddingBottom="10dp"
+                        android:src="@drawable/ic_baseline_whatsapp_24" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="20dp"
+                        android:layout_marginTop="10dp"
+                        android:paddingBottom="10dp"
+                        android:text="@string/reminder_whatsapp"
+                        android:textColor="@color/colorPrimaryVariant"
+                        android:textSize="20sp" />
+
+                </LinearLayout>
             </LinearLayout>
 
         </androidx.constraintlayout.widget.ConstraintLayout>

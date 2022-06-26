@@ -111,8 +111,8 @@ public interface DatabaseDAO {
     @Query("UPDATE invited SET I_state = \"Busy\" where IU_ID = (select UID from User where isActive = 1) and IR_ID = (select R_ID from RendezVous where R_infoID = :I_ID)")
     void setBusy(Integer I_ID);
 
-    @Query("SELECT I_state from invited where IU_ID = (select UID from User where isActive = 1) and IR_ID = :IR_ID")
-    String getInvitedState(Integer IR_ID);
+    @Query("SELECT I_state from invited join RendezVous on (IR_ID = R_ID) join Info on (I_ID = R_infoID) where IU_ID = (select UID from User where isActive = 1) and title = :title ")
+    String getInvitedState(String title);
 
 
     @Query("SELECT * from invited join User on (IU_ID = UID) WHERE IR_ID in (SELECT R_ID FROM rendezVous where R_infoID = :infoID)")

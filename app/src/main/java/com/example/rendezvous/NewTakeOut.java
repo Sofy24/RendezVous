@@ -366,6 +366,7 @@ public class NewTakeOut extends AppCompatActivity implements LocationListener {
                                     for (RendezVous rendezVous :
                                             redezVousIDs) {
                                         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+                                            System.out.println("redezVousIDs = " + redezVousIDs);
                                             invitedUsers.stream().distinct().forEach(user -> { //TODO non va il distinct maledetti stream.....
                                                 db.databaseDAO().insertInvited(new Invited(rendezVous.getR_ID(), user.getUID(), "Received"));
                                             });

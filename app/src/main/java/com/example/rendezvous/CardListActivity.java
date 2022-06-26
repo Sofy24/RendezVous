@@ -172,7 +172,8 @@ public class CardListActivity extends AppCompatActivity implements LocationListe
                                         {
                                             Looper.prepare();
                                         }
-                                        String state = db.databaseDAO().getInvitedState(rendezVousCards.get(position).getI_ID());
+                                        String state = db.databaseDAO().getInvitedState(rendezVousCards.get(position).getTitle());
+                                        System.out.println("info id = " + rendezVousCards.get(position).getTitle());
                                         System.out.println("state " + state);
                                         if(state.equals("Received")){
                                             Intent openEditTakeOut = new Intent(CardListActivity.this, EditTakeOut.class);

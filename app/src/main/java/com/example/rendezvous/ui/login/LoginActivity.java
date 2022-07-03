@@ -56,7 +56,7 @@ public class LoginActivity extends AppCompatActivity {
 
     private LoginViewModel loginViewModel;
     private ActivityLoginBinding binding;
-    private Activity login;
+    public static Activity login;
     final static String CHANNEL_ID = "1";
 
 

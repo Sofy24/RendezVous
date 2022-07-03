@@ -32,6 +32,8 @@ import com.example.rendezvous.DB.ConfirmedRendezvous;
 import com.example.rendezvous.DB.Converters;
 import com.example.rendezvous.DB.Info;
 import com.example.rendezvous.DB.RendezVousDB;
+import com.example.rendezvous.ui.login.LoginActivity;
+import com.example.rendezvous.ui.login.RegisterActivity;
 import com.google.android.material.appbar.MaterialToolbar;
 import com.google.android.material.navigation.NavigationView;
 
@@ -386,7 +388,9 @@ public class CalendarFragment extends Fragment {
                         @Override
                         public void run() {
                             db.databaseDAO().setUserLoggedOut();
+                            LoginActivity.login.finish();
                             System.exit(0);
+
                         }
                     });
                 }

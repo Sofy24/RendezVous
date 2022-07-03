@@ -1,5 +1,6 @@
 package com.example.rendezvous.ui.login;
 
+import android.app.Activity;
 import android.app.Notification;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
@@ -34,6 +35,7 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 public class RegisterActivity extends AppCompatActivity {
     final static String CHANNEL_ID = "1";
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -41,7 +43,6 @@ public class RegisterActivity extends AppCompatActivity {
 
         Button signInButton = findViewById(R.id.login__register);
         ImageButton confirmedButton = findViewById(R.id.confirmed);
-        AppCompatActivity activity = this;
 
         EditText register_mail = (EditText) findViewById(R.id.username_r);
         EditText register_password = (EditText) findViewById(R.id.password_r);

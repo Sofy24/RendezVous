@@ -37,6 +37,7 @@ import com.google.android.material.navigation.NavigationView;
 
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Objects;
@@ -49,6 +50,7 @@ public class CalendarFragment extends Fragment {
     View root;
     Long date;
     HashSet<EventDay> takeOuts = new HashSet<>();
+    HashMap<EventDay, Long> key_value = new HashMap<>();
 
     @Override
     public void onResume() {
@@ -65,14 +67,13 @@ public class CalendarFragment extends Fragment {
                     AsyncTask.execute(new Runnable() {
                         @Override
                         public void run() {
-                            Info i = db.databaseDAO().getConfirmedInfo(Converters.dateToTimestamp(eventDay.getCalendar().getTime()));
+                            Info i = db.databaseDAO().getConfirmedInfo(key_value.get(eventDay));
                             System.out.println("i = " + i.toString());
                             getActivity().runOnUiThread(new Runnable() {
 
                                 @Override
                                 public void run() {
                                     txt.setText(i.getTitle());
-
                                 }
                             });
 
@@ -106,9 +107,11 @@ public class CalendarFragment extends Fragment {
                     });
                     try {
                         Calendar eventDay = Calendar.getInstance();
-                        eventDay.setTime(Converters.fromTimestamp(confirmedRendezvous.getC_date()));
-                        System.out.println("eventDay = " + eventDay.toString());
-                        takeOuts.add(new EventDay(eventDay ,R.drawable.take_out_event));
+                        Long date_long = confirmedRendezvous.getC_date();
+                        eventDay.setTime(Converters.fromTimestamp(date_long));
+                        EventDay eventDay1 = new EventDay(eventDay ,R.drawable.take_out_event);
+                        key_value.put(eventDay1, date_long);
+                        takeOuts.add(eventDay1);
                         getActivity().runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
